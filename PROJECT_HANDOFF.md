@@ -1,6 +1,6 @@
 # Project handoff for future chats
 
-Last updated: 2026-10-01. Start here, then read the repository README and `unity/WEBGL.md`.
+Last updated: 2026-10-01 22:23 (UTC+03:00). Start here, then read the repository README and `unity/WEBGL.md`.
 
 ## October 1 unified diagnostic Calculation - current delivery
 
@@ -19,6 +19,18 @@ Verification: 67 diagnostic assertions; existing 120 CT math and 121 CT data ass
 - Usage and explicit implementation boundaries: [Calculation guide](LinacRoomStudio/README.md#ct-point-of-interest-energy-and-materials).
 
 This entry supersedes earlier descriptions below of the current CT-only UI/builds; those entries remain historical.
+
+## October 1 22:23 Request 5-7 checklist audit
+
+Audited the three request trackers against the current source/build records and the latest diagnostic Windows/WebGL build logs and package receipt. The final builds each passed the complete editor gate, including the Request 5 precision/authoring/extraction/connection/regeneration checks, Request 6 CT math/data/source-setup checks, Request 7 equipment-scale/door/angle/shortcut/reset checks, and 67 diagnostic assertions. The reference-engine and workspace checks passed; the WebGL deployment copy matches all 29 build payloads.
+
+| Request | Verified complete in the checked record | Still open | Overall status |
+| --- | --- | --- | --- |
+| **5 — wall generation and fractional editing** | Supported implementation checklist and local packaging; the latest shared Windows/WebGL builds also pass the full relevant editor checks. | Final-build browser reload/IndexedDB persistence and file reimport; comprehensive end-user focus/history/Apply/cancellation and visual/touch acceptance; maximum-size responsiveness/cancellation and broader noisy-image quality. Request-specific runtime/package evidence at revision `82c62f8040ea4defbe67f58a17ebfa09` predates the current unified Calculation build. | **In progress** |
+| **6 — historical CT points/scenarios** | Historical R6.0-R6.9 CT implementation checks and their recorded platform evidence; current shared builds pass 120 CT math assertions, 121 CT data assertions, CT source-setup checks and 67 new diagnostic assertions. | R6.10/R6.11 browser persistence, file exchange and comprehensive control/visual/touch acceptance. The former CT-only UI/runtime evidence at revision `82c62f8040ea4defbe67f58a17ebfa09` is not acceptance evidence for the current redesigned diagnostic UI. The version-2 diagnostic scope also still lacks supplied calibrated clinical profiles and several required providers. | **In progress** |
+| **7 — proportional scaling, direct placement, wall editing and reset** | R7.1-R7.7 implementation/local-delivery checklist; the latest shared Windows/WebGL builds repeat the editor scale, placement-data, door, angle, shortcut, reset, precision and clipboard checks. | Actual pointer/key/touch interaction, current-build browser persistence/file exchange, and end-user cancellation/history/visual acceptance. The R7-specific interaction gate remains unchecked; no player/browser smoke test or screenshot was performed for this audit. | **In progress** |
+
+The exact current binary hashes, revision, build logs and 29-file package receipt are in the unified diagnostic delivery entry above. Earlier Request 5/6/7 binaries and interaction receipts remain valid for their own recorded builds, but must not be relabelled as acceptance of the newer unified Calculation UI. No request is marked wholly **Complete**: implementation and local build verification pass, while each request's explicitly tracked platform-acceptance gate remains open. No screenshots, player/browser interaction, smoke tests, public deployment or clinical/facility review were performed in this audit.
 
 ## October 1 CT source / energy setup correction - current delivery
 
@@ -393,7 +405,7 @@ The first floor-plan release is a visual tracing guide. It must never be silentl
 
 ## Request 5: automatic color-coded walls, connected edges and fractional editing
 
-Added: 2026-09-24. Status: `In progress` - supported straight-stroke implementation, editor checks and recorded Windows/compiled WebGL runtime checks are complete; full final-build platform acceptance remains open (2026-10-01). Fractional editing, independent snapping, calibration/rules, automatic extraction, physical joins, editable previews, native provenance and guarded batch regeneration are implemented. Final acceptance builds and the 29-file local delivery comparison pass at revision `82c62f8040ea4defbe67f58a17ebfa09`. Remaining gates are complete browser reload/download/reimport, comprehensive control/visual/touch acceptance, maximum-size responsiveness/cancellation and broader noisy-image quality. This reconciliation runs no new checks. See [PRECISION_EDITING.md](PRECISION_EDITING.md), [PLAN_AUTHORING.md](PLAN_AUTHORING.md) and the current evidence at the top.
+Added: 2026-09-24. Status: `In progress` - supported straight-stroke implementation, editor checks and recorded Windows/compiled WebGL runtime checks are complete; full final-build platform acceptance remains open (2026-10-01). Fractional editing, independent snapping, calibration/rules, automatic extraction, physical joins, editable previews, native provenance and guarded batch regeneration are implemented. The R5-specific acceptance build and 29-file package check at revision `82c62f8040ea4defbe67f58a17ebfa09` are historical. The newer shared diagnostic builds also pass the full editor gate and 29-file package comparison, but do not repeat R5 interactive acceptance. Remaining gates are complete browser reload/download/reimport, comprehensive control/visual/touch acceptance, maximum-size responsiveness/cancellation and broader noisy-image quality. See [PRECISION_EDITING.md](PRECISION_EDITING.md), [PLAN_AUTHORING.md](PLAN_AUTHORING.md) and the current evidence at the top.
 
 Reference: the supplied **Unity Floor Plan to 3D Wall Generator - Interactive Implementation Plan and Prompt for Luna**. This request adapts that reference to the existing Room Studio, rather than starting a new Unity project. Its greenfield folder-creation and Phase 1 delivery instructions are not instructions to replace the current application. Implementation was authorized on September 25 with “now start implementing req5”.
 
@@ -603,7 +615,7 @@ Acceptance condition: in both Windows and WebGL, a user can turn a clean calibra
 
 ## Request 6: CT scatter points, ROI shielding scenarios and saved comparisons
 
-Added: 2026-10-01. Status: `In progress` - R6.0-R6.9 supported implementation, final Windows/WebGL builds, recorded CT runtime checks and local delivery verification are complete. R6.10/R6.11 remain open for complete final-build browser persistence/file exchange and comprehensive control/visual/touch acceptance. CT-scanner-only scope is confirmed; clinical source/material/facility review remains external. This status reconciliation is documentation-only and performs no new live checks.
+Added: 2026-10-01. Status: `In progress` - R6.0-R6.9 supported implementation, final Windows/WebGL builds, recorded CT runtime checks and local delivery verification are complete. R6.10/R6.11 remain open for complete final-build browser persistence/file exchange and comprehensive control/visual/touch acceptance. CT-scanner-only scope is confirmed; clinical source/material/facility review remains external. The R6-specific interactive evidence is from its recorded earlier build, not the newer unified Calculation UI; see the audit above. This status reconciliation is documentation-only and performs no new live checks.
 
 ### Scope, supplied inputs and terminology
 
@@ -718,7 +730,7 @@ Checked entries below record completed supported implementation and existing edi
 - [x] **R6.8 - Saved comparison implementation:** immutable hashed snapshots, input provenance, matched comparisons, stale indicators and native/result JSON import/export are implemented; incomplete results and undefined ratios are guarded. Actual browser file acceptance remains R6.10.
 - [x] **R6.9 - Distance overlay implementation:** selectable scatter-to-ROI lines and full 3D double-precision cm labels update with transforms/history/load. The active pair is highlighted, only its label is shown, and projected distances with elevation differences are identified as 3D. Pure phone/tablet/desktop layout and exact distance tests pass; actual visual/touch acceptance remains R6.11.
 - [ ] **R6.10 - In progress: interactive persistence acceptance:** native compatibility, file helpers, acknowledged filesystem sync, pre-read CT limits and eight bridge units pass; final Windows/WebGL CT runtime records also pass internal native/results-file and guard/history checks. Complete final-build browser reload/IndexedDB/download/reimport and end-user guard/cancellation acceptance remain unclosed. Existing result files alone do not prove these browser workflows.
-- [ ] **R6.11 - In progress: remaining platform acceptance:** final Windows/WebGL builds, editor/reference checks, compiled CT runtime checks, browser-worker checks and the 29-file local delivery receipt are recorded. Comprehensive desktop/mobile visual, actual-touch and file/control interaction acceptance remains unfinished. The latest recorded revision is `82c62f8040ea4defbe67f58a17ebfa09`; no facility-design approval is claimed and this documentation update runs no new verification.
+- [ ] **R6.11 - In progress: remaining platform acceptance:** final Windows/WebGL builds, editor/reference checks, compiled CT runtime checks, browser-worker checks and the 29-file local delivery receipt are recorded for the R6-specific checkpoint. The newer shared build and local package are recorded in the unified diagnostic entry above but do not repeat CT UI interaction. Comprehensive desktop/mobile visual, actual-touch and file/control interaction acceptance remains unfinished; no facility-design approval is claimed.
 
 ### Required verification scenarios
 
@@ -761,7 +773,7 @@ Acceptance condition: after device scope is confirmed, Windows and WebGL users c
 
 ## Request 7: proportional scaling, direct placement, wall editing and room reset
 
-Added: 2026-10-01. Status: `In progress` for platform acceptance; supported R7.1-R7.6 implementation and local delivery are `Complete`. The dated record below tracks each implementation/check increment. No screenshots were captured/shared and no player/browser smoke workflows ran. Permitted numerical/editor, compilation/build and file-integrity checks establish only their stated coverage; interactive acceptance remains separate. Request 5/6 acceptance and clinical-review boundaries are unchanged.
+Added: 2026-10-01. Status: `In progress` for platform acceptance; supported R7.1-R7.6 implementation and local delivery are `Complete`. The dated record below tracks each implementation/check increment. The newer shared diagnostic build/package identity is recorded in the audit above; R7-specific live interaction acceptance was not repeated. No screenshots were captured/shared and no player/browser smoke workflows ran. Permitted numerical/editor, compilation/build and file-integrity checks establish only their stated coverage; interactive acceptance remains separate. Request 5/6 acceptance and clinical-review boundaries are unchanged.
 
 - [x] **R7.1 - Equipment scaling handle implementation:** a selectable corner bubble uses one uniform scale, preserves position/angle, rejects protected equipment and calculation markers, and commits/cancels through existing history. Editor numerical checks pass; visual/interactive acceptance remains unverified.
 - [x] **R7.2 - Default click-to-place implementation:** clicking a saved preset arms room-click placement directly, with the explicit Place button retained. Independent identity/exact-position/preset-nonmutation editor checks pass; actual click/touch acceptance remains unverified.
