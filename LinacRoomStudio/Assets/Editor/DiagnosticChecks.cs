@@ -15,9 +15,9 @@ public static class DiagnosticChecks {
     samples=new System.Collections.Generic.List<DiagnosticSample>{new DiagnosticSample{origin=DiagnosticPointRole.Scatter,weight=1}},
     fits=new System.Collections.Generic.List<DiagnosticFit>{new DiagnosticFit{id="CT_PB_120",material="Lead",spectrumId="CT_SECONDARY_120",alpha=2.246,beta=5.73,gamma=.547,provenance="NCRP147 appendix A retained fixture"}}}}};
  }
- static Design Fixture(out DiagnosticMachine machine,out DiagnosticProfile profile){
+ static Design Fixture(out DiagnosticMachine machine,out DiagnosticProfile profile,DiagnosticMachineType family=DiagnosticMachineType.ConventionalCt){
   var d=new Design();d.floor.shieldingEnabled=d.ceiling.shieldingEnabled=false;
-  var item=EquipmentPalette.Create("CT",Vector3.zero);d.items.Add(item);machine=DiagnosticData.Configure(d,item);
+  var item=EquipmentPalette.Create("CT",Vector3.zero);item.machineType=family;d.items.Add(item);machine=DiagnosticData.Configure(d,item);
   d.diagnosticCalculation.activeMachineId=item.id;machine.tubeVoltageKvp.Set(120);
   DiagnosticData.Place(d,DiagnosticPointRole.Target,item.id,new CtVector(-1,1,0));
   DiagnosticData.Place(d,DiagnosticPointRole.Scatter,item.id,new CtVector(0,1,0));
@@ -37,23 +37,47 @@ public static class DiagnosticChecks {
   visual.machineType=DiagnosticMachineType.Fluoroscopy;Need(DiagnosticData.Family(visual)==DiagnosticMachineType.Fluoroscopy,"typed family takes precedence over visual identity");
   foreach(var invalid in new[]{"","NaN","Infinity","1e999","1,2","-","1e+"})Need(!new DiagnosticNumber{text=invalid}.TryGet(out _),"invalid/missing number "+invalid);
   Need(new DiagnosticNumber{text="0"}.TryGet(out double zero)&&zero==0,"zero is present");
-  Need(CtCoefficientLibrary.SupportedTubeVoltages("CT_SECONDARY").SequenceEqual(new[]{120,140}),"CT dropdown has only exact supplied spectra");
+  Need(CtCoefficientLibrary.SupportedTubeVoltages("CT_SECONDARY").SequenceEqual(new[]{120,140}),"CT reference has only exact supplied spectra");
   Need(CtCoefficientLibrary.SupportedTubeVoltages("PRIMARY_MAMMOGRAPHIC").SequenceEqual(new[]{25,30,35}),"molybdenum mammography reference choices");
   Need(CtCoefficientLibrary.SupportedTubeVoltages("PRIMARY_RADIOGRAPHIC").SequenceEqual(Enumerable.Range(0,23).Select(index=>40+5*index)),"exact provided tungsten reference energies without interpolation");
   Reject(()=>CtCoefficientLibrary.SupportedTubeVoltages("OPG"),"unknown acquisition is not a primary reference alias");
-  Need(DiagnosticProfiles.SupportedTubeVoltages(DiagnosticMachineType.ConventionalCt).SequenceEqual(new[]{120.0,140.0}),"CT energy choices come from its reference, not palette neighbours");
-  Need(DiagnosticProfiles.SupportedTubeVoltages(DiagnosticMachineType.Mammography).SequenceEqual(new[]{25.0,30.0,35.0}),"mammography does not receive tungsten/CT choices");
-  Need(DiagnosticProfiles.SupportedTubeVoltages(DiagnosticMachineType.GeneralRadiography).SequenceEqual(Enumerable.Range(0,23).Select(index=>40.0+5*index)),"radiographic dropdown excludes missing/interpolated energies");
+  Need(DiagnosticProfiles.SupportedTubeVoltages(DiagnosticMachineType.ConventionalCt).SequenceEqual(new[]{120.0,140.0}),"CT applicability reference stays separate");
+  Need(DiagnosticProfiles.SupportedTubeVoltages(DiagnosticMachineType.Mammography).SequenceEqual(new[]{25.0,30.0,35.0}),"mammographic attenuation reference is not changed by the shared UI");
+  Need(DiagnosticProfiles.SupportedTubeVoltages(DiagnosticMachineType.GeneralRadiography).SequenceEqual(Enumerable.Range(0,23).Select(index=>40.0+5*index)),"primary radiographic attenuation reference remains unchanged");
   foreach(var type in new[]{DiagnosticMachineType.DentalIntraoral,DiagnosticMachineType.DentalPanoramic,DiagnosticMachineType.DentalCephalometric,DiagnosticMachineType.DentalCbct,DiagnosticMachineType.Fluoroscopy,DiagnosticMachineType.Mri,DiagnosticMachineType.Treatment})
    Need(DiagnosticProfiles.SupportedTubeVoltages(type).Length==0,"no unsupported spectrum fallback for "+type);
+  var sharedChoices=DiagnosticProfiles.SelectableTubeVoltages(DiagnosticMachineType.ConventionalCt);
+  Need(sharedChoices.SequenceEqual(new[]{120.0,140.0}),"shared dropdown uses the current CT reference values");
+  foreach(DiagnosticMachineType type in Enum.GetValues(typeof(DiagnosticMachineType))){
+   var choices=DiagnosticProfiles.SelectableTubeVoltages(type);
+   Need(DiagnosticData.IsXray(type)?choices.SequenceEqual(sharedChoices):choices.Length==0,"equal diagnostic choices without leaking kVp into non-X-ray/treatment modes: "+type);
+  }
   var opgDesign=new Design();var opgItem=EquipmentPalette.Create("PlanmecaViso",Vector3.zero);opgDesign.items.Add(opgItem);
   var opgMachine=DiagnosticData.Configure(opgDesign,opgItem);opgDesign.diagnosticCalculation.activeMachineId=opgItem.id;opgMachine.tubeVoltageKvp.Set(85);
   DiagnosticData.Place(opgDesign,DiagnosticPointRole.Target,opgItem.id,new CtVector(0,1,0));
   DiagnosticData.Place(opgDesign,DiagnosticPointRole.Scatter,opgItem.id,new CtVector(1,1,0));
   DiagnosticData.Place(opgDesign,DiagnosticPointRole.ROI,opgItem.id,new CtVector(3,1,0));
   Need(DiagnosticCalculation.Readiness(opgDesign,null).NextAction.code=="UnsupportedSpectrum"&&!DiagnosticCalculation.Readiness(opgDesign,null).canCalculatePhysical,"OPG 85 kVp does not become supported through a primary archive row");
-  Reject(()=>DiagnosticProfiles.SelectTubeVoltage(opgDesign,opgMachine,85),"OPG cannot select an energy without a matching acquisition model");
+  Reject(()=>DiagnosticProfiles.SelectTubeVoltage(opgDesign,opgMachine,85),"unlisted OPG energy is not silently rounded to the shared choices");
   Need(opgMachine.tubeVoltageKvp.text=="85","unsupported legacy input remains historical data, never silently replaced");
+  string opgFingerprint=DiagnosticCalculation.Fingerprint(opgDesign);
+  Need(DiagnosticProfiles.SelectTubeVoltage(opgDesign,opgMachine,120)&&opgMachine.tubeVoltageKvp.text=="120","OPG can select the same 120 kVp choice as CT");
+  Need(DiagnosticProfiles.SelectTubeVoltage(opgDesign,opgMachine,140)&&opgMachine.tubeVoltageKvp.text=="140","OPG can select the same 140 kVp choice as CT");
+  Need(opgMachine.machineType==DiagnosticMachineType.DentalPanoramic&&DiagnosticData.Family(opgItem)==DiagnosticMachineType.DentalPanoramic,"shared voltage selection never reclassifies OPG as CT");
+  var opgReady=DiagnosticCalculation.Readiness(opgDesign,null);
+  Need(opgReady.NextAction.code=="NoApplicableMachineProfile"&&!opgReady.canCalculatePhysical,"selected OPG voltage has a model-specific readiness message, not an empty-energy message");
+  Need(opgFingerprint!=DiagnosticCalculation.Fingerprint(opgDesign),"OPG voltage selection invalidates physical fingerprints");
+  var opgCopy=JsonUtility.FromJson<Design>(JsonUtility.ToJson(opgDesign));Design.Validate(opgCopy);
+  Need(DiagnosticData.Machine(opgCopy,opgMachine.machineId).tubeVoltageKvp.text=="140","OPG shared-voltage choice persists");
+  var cbctDesign=Fixture(out var cbctMachine,out var ctOnlyProfile,DiagnosticMachineType.DentalCbct);
+  Need(DiagnosticProfiles.SelectTubeVoltage(cbctDesign,cbctMachine,140)&&cbctMachine.tubeVoltageKvp.text=="140","CBCT can select the CT-reference 140 kVp choice");
+  Need(cbctMachine.machineType==DiagnosticMachineType.DentalCbct,"CBCT retains its typed acquisition");
+  var cbctReady=DiagnosticCalculation.Readiness(cbctDesign,null);
+  Need(cbctReady.NextAction.code=="NoApplicableMachineProfile"&&!cbctReady.canCalculatePhysical,"CBCT shared choices do not create calibrated output");
+  DiagnosticProfiles.SelectTubeVoltage(cbctDesign,cbctMachine,120);
+  Need(!DiagnosticCalculation.Readiness(cbctDesign,ctOnlyProfile).canCalculatePhysical,"matching CT kVp does not authorize a CT source model for CBCT");
+  Reject(()=>DiagnosticCalculation.Calculate(cbctDesign,ctOnlyProfile),"CT source cannot calculate CBCT merely through the common dropdown");
+  Need(opgMachine.tubeVoltageKvp.text=="140"&&cbctMachine.tubeVoltageKvp.text=="120","machines share choices, not stored selections or exposure inputs");
   var d=Fixture(out var machine,out var profile);DiagnosticProfiles.Validate(profile);Design.Validate(d);
   string beforeEnergy=JsonUtility.ToJson(d);
   Need(!DiagnosticProfiles.SelectTubeVoltage(d,machine,120)&&beforeEnergy==JsonUtility.ToJson(d),"selecting current energy is a nonmutating no-op");
