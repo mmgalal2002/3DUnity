@@ -91,6 +91,32 @@ public static class DiagnosticProfiles {
   Load();
   return installed.Values.Select(JsonUtility.FromJson<DiagnosticProfile>).Where(p=>p.machineType==machine.machineType&&machine.tubeVoltageKvp.TryGet(out double kvp)&&p.tubeVoltageKvp==kvp).ToArray();
  }
+ public static string ReferenceFamily(DiagnosticMachineType type){
+  switch(type){
+   case DiagnosticMachineType.GeneralRadiography:return "PRIMARY_RADIOGRAPHIC";
+   case DiagnosticMachineType.Mammography:return "PRIMARY_MAMMOGRAPHIC";
+   case DiagnosticMachineType.ConventionalCt:return "CT_SECONDARY";
+   default:return "";
+  }
+ }
+ public static double[] SupportedTubeVoltages(DiagnosticMachineType type){
+  Load();
+  if(!DiagnosticData.IsXray(type))return new double[0];
+  string family=ReferenceFamily(type);
+  var reference=string.IsNullOrEmpty(family)?Enumerable.Empty<double>():CtCoefficientLibrary.SupportedTubeVoltages(family).Select(kvp=>(double)kvp);
+  var profiles=installed.Values.Select(JsonUtility.FromJson<DiagnosticProfile>).Where(p=>p.machineType==type).Select(p=>p.tubeVoltageKvp);
+  return reference.Concat(profiles).Distinct().OrderBy(kvp=>kvp).ToArray();
+ }
+ public static bool SelectTubeVoltage(Design design,DiagnosticMachine machine,double kvp){
+  if(design?.diagnosticCalculation?.machines==null||machine==null||!design.diagnosticCalculation.machines.Contains(machine))throw new Exception("Choose a configured diagnostic machine.");
+  if(design.items.Find(i=>i.id==machine.machineId)?.locked!=false)throw new Exception("Unlock the machine before changing its tube voltage.");
+  if(!SupportedTubeVoltages(machine.machineType).Contains(kvp))throw new Exception("UnsupportedSpectrum: choose a supported tube voltage from this machine's dropdown.");
+  if(machine.tubeVoltageKvp.TryGet(out double previous)&&previous==kvp)return false;
+  machine.tubeVoltageKvp.Set(kvp);
+  var profile=Resolve(machine);
+  if(profile!=null&&profile.tubeVoltageKvp!=kvp){machine.profileId="";machine.profileVersion="";machine.profileHash="";}
+  return true;
+ }
  public static void Attach(Design design,DiagnosticMachine machine,DiagnosticProfile profile){
   if(design.items.Find(i=>i.id==machine.machineId)?.locked!=false)throw new Exception("Unlock the machine before changing its profile.");
   if(machine.machineType!=profile.machineType)throw new Exception("Profile family does not match the selected machine.");
