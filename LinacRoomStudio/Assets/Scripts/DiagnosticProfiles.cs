@@ -107,10 +107,17 @@ public static class DiagnosticProfiles {
   var profiles=installed.Values.Select(JsonUtility.FromJson<DiagnosticProfile>).Where(p=>p.machineType==type).Select(p=>p.tubeVoltageKvp);
   return reference.Concat(profiles).Distinct().OrderBy(kvp=>kvp).ToArray();
  }
+ public static double[] SelectableTubeVoltages(DiagnosticMachineType type){
+  Load();
+  if(!DiagnosticData.IsXray(type))return new double[0];
+  var reference=CtCoefficientLibrary.SupportedTubeVoltages("CT_SECONDARY").Select(kvp=>(double)kvp);
+  var profiles=installed.Values.Select(JsonUtility.FromJson<DiagnosticProfile>).Select(p=>p.tubeVoltageKvp);
+  return reference.Concat(profiles).Distinct().OrderBy(kvp=>kvp).ToArray();
+ }
  public static bool SelectTubeVoltage(Design design,DiagnosticMachine machine,double kvp){
   if(design?.diagnosticCalculation?.machines==null||machine==null||!design.diagnosticCalculation.machines.Contains(machine))throw new Exception("Choose a configured diagnostic machine.");
   if(design.items.Find(i=>i.id==machine.machineId)?.locked!=false)throw new Exception("Unlock the machine before changing its tube voltage.");
-  if(!SupportedTubeVoltages(machine.machineType).Contains(kvp))throw new Exception("UnsupportedSpectrum: choose a supported tube voltage from this machine's dropdown.");
+  if(!SelectableTubeVoltages(machine.machineType).Contains(kvp))throw new Exception("Choose a tube voltage listed in the shared diagnostic dropdown.");
   if(machine.tubeVoltageKvp.TryGet(out double previous)&&previous==kvp)return false;
   machine.tubeVoltageKvp.Set(kvp);
   var profile=Resolve(machine);
@@ -120,7 +127,7 @@ public static class DiagnosticProfiles {
  public static void Attach(Design design,DiagnosticMachine machine,DiagnosticProfile profile){
   if(design.items.Find(i=>i.id==machine.machineId)?.locked!=false)throw new Exception("Unlock the machine before changing its profile.");
   if(machine.machineType!=profile.machineType)throw new Exception("Profile family does not match the selected machine.");
-  if(!machine.tubeVoltageKvp.TryGet(out double kvp)||kvp!=profile.tubeVoltageKvp)throw new Exception("Profile requires "+profile.tubeVoltageKvp+" kVp. Enter that voltage explicitly if it describes this acquisition.");
+  if(!machine.tubeVoltageKvp.TryGet(out double kvp)||kvp!=profile.tubeVoltageKvp)throw new Exception("Profile requires "+profile.tubeVoltageKvp+" kVp. Select that voltage from the dropdown if it describes this acquisition.");
   machine.profileId=profile.id;machine.profileVersion=profile.revision;machine.profileHash=InstalledHash(profile);
   // Input meanings can change between protocols, even when units look alike.
   machine.exposureInputs=profile.inputs.Select(input=>new DiagnosticInput{key=input.key}).ToList();
