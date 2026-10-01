@@ -47,7 +47,7 @@ The CT, CyberKnife, and MRI palette entries use the latest supplied patient-free
 
 ## CT point-of-interest energy and materials
 
-The version-2 [diagnostic specification](../CT_Point_of_Interest_Shielding_Unity_Specification.md) is now implemented as a separate, versioned diagnostic workflow in source. The right panel has **Room | Object | Calculation**, including compact layouts. The retained treatment branch uses its own engine and MV inputs.
+The core workflow from the version-2 [diagnostic specification](../CT_Point_of_Interest_Shielding_Unity_Specification.md) is implemented as a separate, versioned diagnostic workflow in source and the rebuilt Windows/WebGL players. The right panel has **Room | Object | Calculation**, including compact layouts. The retained treatment branch uses its own engine and MV inputs. Remaining specification coverage is listed below.
 
 1. Place/select a machine and open **Calculation**. Typed family metadata distinguishes CathLab/fluoroscopy, dental modes, mammography, CT and treatment equipment independently of palette groups.
 2. Place **Target** at the physical device source reference, **Scatter (patient)** at the patient and **ROI** at the measurement location. Enter an explicit height for 2D placement, or choose a 3D surface. Escape cancels without changing existing points.
@@ -71,4 +71,6 @@ Spatial-field interpolation, dedicated external DLP providers, non-isotropic dir
 
 Legacy CT source records, review flags, Patient evaluation points and scenario snapshots remain unchanged. An atomic, idempotent adapter copies only unambiguous known Scatter/ROI positions into the new block; it does not manufacture Target, trust a legacy review flag, or reinterpret Patient as Scatter. Ambiguous/protected cases require explicit new placement/association.
 
-[DiagnosticChecks.cs](Assets/Editor/DiagnosticChecks.cs) adds focused editor assertions for roles, numeric results, underflow, input invalidation, profiles, native precision/integrity, copying, protection and migration. `BuildStudio.RunChecks` includes these alongside the existing regressions. Compilation/numerical checks are not clinical validation. Interactive Windows/WebGL acceptance and the remaining provider coverage in specification section 15.4 remain **In progress**; this implementation is not a claim of full specification acceptance.
+[DiagnosticChecks.cs](Assets/Editor/DiagnosticChecks.cs) passes 67 focused editor assertions for roles, numeric results, underflow, input invalidation, profiles, native precision/integrity, copying, protection and migration. Both final Windows/WebGL builds pass `BuildStudio.RunChecks`, including existing 120 CT math and 121 CT data assertions. Reference-engine and workspace checks pass; all 29 WebGL package payloads match by SHA-256. [Current build identities and evidence](../PROJECT_HANDOFF.md#october-1-unified-diagnostic-calculation---current-delivery) distinguish this delivery from older ZIP archives.
+
+Compilation/numerical checks are not clinical validation. Interactive Windows/WebGL acceptance and the remaining provider coverage in specification section 15.4 remain **In progress**; this implementation is not a claim of full specification acceptance.

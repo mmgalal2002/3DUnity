@@ -2,6 +2,24 @@
 
 Last updated: 2026-10-01. Start here, then read the repository README and `unity/WEBGL.md`.
 
+## October 1 unified diagnostic Calculation - current delivery
+
+The current source and rebuilt Windows/WebGL players replace the normal Beam/CT routes with **Room | Object | Calculation**. The diagnostic branch has typed equipment families, distinct Target/Scatter/ROI placement, explicit 2D height, one numeric kVp/exposure case, live readiness/actions, current Gy/basis output, component/path details and optional weekly/limit comparison. The separate treatment branch retains its MV engine and restricts calculation to the explicitly selected treatment source rather than summing layout copies.
+
+Target uses double-precision physical device-local coordinates; Scatter and ROI remain independent world points. Native version-2 designs contain an independently versioned diagnostic block, preserve incomplete numeric drafts and retain hashed input/profile/result snapshots. Copying remaps owned Target IDs without duplicating active exposures. Atomic migration retains legacy CT source metadata, Patient evaluation roles and historical scenarios; only established Scatter/ROI positions are copied, and no arbitrary Target or approved calibration is invented.
+
+**No calibrated clinical source profiles are bundled.** The independently pinned catalogue is empty. The implemented provider supports validated isotropic reference-point kerma with weighted physical source samples, matched material fits and declared normalization/domains. Missing/untrusted profiles, unsupported spectra/materials, mixed or separated barriers and unsupported opening/joined/custom geometry block the physical result explicitly. Spatial-field/DLP providers, further directional/acquisition models and the optional required-thickness UI remain **In progress**. Full version-2 specification acceptance is not claimed.
+
+Verification: 67 diagnostic assertions; existing 120 CT math and 121 CT data assertions; the full editor regression gate; reference-engine boundary and workspace-import checks; fresh Windows and WebGL builds. Both final builds reran the editor gate. No screenshots, interactive player/browser acceptance, clinical validation or public deployment were performed.
+
+- Windows assembly SHA-256: `08ff1dcdea20b9e4341dd50ff6888f34971749a1c9ec95b6226b11c1806f948a`.
+- WebGL revision: `ca63aad9802a44368c655e0038ec3179`; Wasm SHA-256: `6eb6dfdf9db7a19e8be445fa6fb5f5b6e123b0f7a34e6e4d57a65cf3611e5c4c`.
+- All 29 WebGL launcher/build/worker payloads match `web/` by SHA-256. Earlier ZIP archives were not refreshed by this delivery.
+- Evidence: [Windows build](LinacRoomStudio/Logs/diagnostic-windows-build.log), [WebGL build](LinacRoomStudio/Logs/diagnostic-webgl-build.log), [package receipt](LinacRoomStudio/Logs/diagnostic-web-package.json).
+- Usage and explicit implementation boundaries: [Calculation guide](LinacRoomStudio/README.md#ct-point-of-interest-energy-and-materials).
+
+This entry supersedes earlier descriptions below of the current CT-only UI/builds; those entries remain historical.
+
 ## October 1 CT source / energy setup correction - current delivery
 
 The reported ROI/patient result was `MissingRequiredInput: No CT source model configured`. Before this correction, point placement could leave the source list empty while energy controls only appeared for an existing source. Point properties did not expose scanner setup, and the results dialog had no configuration recovery action. Earlier compilation/numerical completion evidence did not establish this first-run workflow.
