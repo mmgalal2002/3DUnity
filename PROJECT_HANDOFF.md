@@ -2,7 +2,24 @@
 
 Last updated: 2026-10-01. Start here, then read the repository README and `unity/WEBGL.md`.
 
-## October 1 supported-energy dropdown - current delivery
+## October 1 shared CT-reference kVp dropdown - current delivery
+
+User-directed temporary change: **all diagnostic X-ray machine families now share the same voltage dropdown as CT**, including Dental OPG and CBCT. The currently bundled choices are **120 / 140 kVp**; energies from installed approved models extend the same common list for every diagnostic family. There is no numeric kVp input, no automatic voltage default and no **No supported energy available** placeholder for OPG/CBCT.
+
+This explicitly replaces the preceding family-specific dropdown policy. The UI labels the change **Shared CT-reference kVp choices (temporary)**. The same option resolver supplies the dropdown, selection validation and missing-energy recovery. Each machine retains its own selected value, profile references and exposure inputs. Selection respects protection, survives native save/load and invalidates dependent physical fingerprints; the existing menu/focus/Escape safeguards remain.
+
+**Shared voltage choices do not share calculation physics.** OPG and CBCT remain their original typed families. Matching kVp does not authorize CT source calibration, scatter, acquisition or attenuation models for them. A selected voltage with no matching source/acquisition model now produces a specific missing-model explanation, not an empty-energy message. The CT/primary attenuation datasets and treatment MV branch remain separate. No clinical profile, output strength or complete Gy result was invented.
+
+Verification: **118 diagnostic assertions** pass, including exact equality of dropdown options for every diagnostic X-ray family, no diagnostic kVp options for treatment/MRI/ultrasound/radionuclide modes, OPG 120/140-kVp selection and native persistence, CBCT selection, independent machine values, unchanged typed families and explicit rejection of a CT calculation profile for CBCT. Both fresh Windows/WebGL builds pass the complete editor gate, including the existing 120 CT math/121 CT data assertions and Request 5/6/7 regressions. All **29** WebGL launcher/build/worker payloads match `web/` by SHA-256.
+
+- Windows assembly SHA-256: `b1164893e3c2ed2bee889b45f6aee1d23c5e0f916dce32a1a6cfa520c25af09a`.
+- WebGL revision: `02d607e5b81f4a2d866648e580bf2c6e`; Wasm SHA-256: `40b48224c14f1a521013d212d7c57188dbff3cca7255ebadd5dc56e569d47b72`.
+- Evidence: [focused checks](LinacRoomStudio/Logs/shared-kvp-focused-2026-10-01.log), [Windows build](LinacRoomStudio/Logs/shared-kvp-windows-2026-10-01.log), [WebGL build](LinacRoomStudio/Logs/shared-kvp-webgl-2026-10-01.log), [29-file package receipt](LinacRoomStudio/Logs/shared-kvp-package-2026-10-01.json).
+- Changed owners: [profile/energy resolver](LinacRoomStudio/Assets/Scripts/DiagnosticProfiles.cs), [readiness](LinacRoomStudio/Assets/Scripts/DiagnosticCalculation.cs), [Calculation UI](LinacRoomStudio/Assets/Scripts/StudioDiagnostic.cs), [help](LinacRoomStudio/Assets/Scripts/StudioShortcuts.cs), [diagnostic checks](LinacRoomStudio/Assets/Editor/DiagnosticChecks.cs), [usage guide](LinacRoomStudio/README.md#ct-point-of-interest-energy-and-materials).
+
+No screenshots, interactive player/browser acceptance, smoke workflows, public deployment, ZIP refresh or clinical/facility review were performed. The separate Request 5/6/7 platform-acceptance gates and diagnostic provider/calibration gaps remain **In progress**. This entry is the current dropdown/build identity; the family-specific energy policy and binaries below are historical.
+
+## October 1 supported-energy dropdown - earlier delivery checkpoint
 
 User-directed correction: remove free numeric diagnostic energy entry and offer only supported values in one **Tube voltage (kVp)** dropdown. Missing-energy guidance opens this selector, not a numeric field. Selecting the same value does not mutate the design; supported selections respect protection and invalidate dependent results. Escape closes the menu without changing its value, and scene shortcuts/camera walking are guarded while it is open. Unsupported previous numeric inputs remain preserved as historical/native data but are never added to the dropdown, rounded or silently replaced.
 
