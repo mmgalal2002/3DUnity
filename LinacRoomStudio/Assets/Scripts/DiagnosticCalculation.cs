@@ -99,12 +99,14 @@ public static class DiagnosticCalculation {
     return Block(ready,"MissingInput","InvalidNumericInput","Complete the finite coordinates of "+point.name+" in Object. Its previous position is not used for a new calculation.","SelectPoint",point.id);
    if(point.diagnosticPoint.machineId!=machine.machineId)return Block(ready,"MissingMachine","AmbiguousAssociation",point.name+" is not associated with "+item.name+". Choose its machine explicitly.","AssociatePoint",point.id);
   }
-  var supportedVoltages=DiagnosticProfiles.SupportedTubeVoltages(machine.machineType);
-  string supportedLabel=string.Join(", ",supportedVoltages.Select(Number));
-  if(supportedVoltages.Length==0)return Block(ready,"UnsupportedModel","UnsupportedSpectrum","No supported tube voltages are available for "+item.name+". This acquisition needs a matching machine model; the primary reference in section 16 is not an OPG, CBCT or directional-scatter substitute. Your points are retained.","LoadProfile",input:"kvp",observed:machine.tubeVoltageKvp.text);
-  if(!machine.tubeVoltageKvp.TryGet(out double kvp)||kvp<=0)return Block(ready,"MissingInput","InvalidNumericInput","Choose a supported tube voltage for "+item.name+" from the dropdown: "+supportedLabel+" kVp. No voltage is selected automatically.","SelectEnergy","kvp","kvp",supportedLabel+" kVp",machine.tubeVoltageKvp.text);
-  if(!supportedVoltages.Contains(kvp))return Block(ready,"UnsupportedModel","UnsupportedSpectrum",Number(kvp)+" kVp is not supported for "+item.name+". Choose from "+supportedLabel+" kVp; no rounding or replacement has been applied.","SelectEnergy","kvp","kvp",supportedLabel+" kVp",Number(kvp));
-  if(profile==null)return Block(ready,"UnsupportedModel","NoApplicableMachineProfile","The shielding reference for "+Number(kvp)+" kVp is already bundled; no reference JSON needs to be loaded. "+item.name+" still needs calibrated source output to determine Gy. The reference tables provide transmission coefficients, not that output.","LoadProfile");
+  var selectableVoltages=DiagnosticProfiles.SelectableTubeVoltages(machine.machineType);
+  string selectableLabel=string.Join(", ",selectableVoltages.Select(Number));
+  if(!machine.tubeVoltageKvp.TryGet(out double kvp)||kvp<=0)return Block(ready,"MissingInput","InvalidNumericInput","Choose a tube voltage for "+item.name+" from the shared dropdown: "+selectableLabel+" kVp. No voltage is selected automatically.","SelectEnergy","kvp","kvp",selectableLabel+" kVp",machine.tubeVoltageKvp.text);
+  if(!selectableVoltages.Contains(kvp))return Block(ready,"UnsupportedModel","UnsupportedSpectrum",Number(kvp)+" kVp is not in the shared dropdown. Choose from "+selectableLabel+" kVp; no rounding or replacement has been applied.","SelectEnergy","kvp","kvp",selectableLabel+" kVp",Number(kvp));
+  if(profile==null){
+   string reference=DiagnosticProfiles.SupportedTubeVoltages(machine.machineType).Contains(kvp)?"The applicable attenuation reference is bundled.":"This voltage is shared from the CT reference; it does not supply this machine's acquisition or attenuation model.";
+   return Block(ready,"UnsupportedModel","NoApplicableMachineProfile",Number(kvp)+" kVp is selected for "+item.name+". "+reference+" A matching calibrated machine model is still required to calculate Gy. Your points and selected voltage are retained.","LoadProfile");
+  }
   DiagnosticProfiles.Validate(profile);
   if(profile.machineType!=machine.machineType||profile.id!=machine.profileId||profile.revision!=machine.profileVersion)return Block(ready,"UnsupportedModel","NoApplicableMachineProfile","The selected profile does not match this machine and acquisition.","LoadProfile");
   if(profile.tubeVoltageKvp!=kvp)return Block(ready,"UnsupportedModel","UnsupportedSpectrum","This profile supports "+Number(profile.tubeVoltageKvp)+" kVp, not "+Number(kvp)+" kVp. No rounding or substitute coefficients have been applied.","SelectEnergy","kvp","kvp",Number(profile.tubeVoltageKvp)+" kVp",Number(kvp));
