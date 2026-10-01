@@ -12,11 +12,14 @@ public partial class StudioApp {
  Task<string> diagnosticImportTask;
  DiagnosticReadiness diagnosticReadinessView;
  bool diagnosticCalculating;
+ string diagnosticEnergyMenuMachine="";
+ Vector2 diagnosticEnergyScroll;
  readonly System.Collections.Generic.List<Tuple<string,string,LineRenderer>> diagnosticRays=new System.Collections.Generic.List<Tuple<string,string,LineRenderer>>();
  bool TreatmentCalculation=>DiagnosticData.Family(design.items.Find(i=>i.id==design.diagnosticCalculation?.activeMachineId))==DiagnosticMachineType.Treatment;
  void OpenCalculation(Item item=null){
   if(dirty)Commit();
   if(item!=null)DiagnosticData.Select(design,item);
+  diagnosticEnergyMenuMachine="";
   tab="Calculation";rightScroll=Vector2.zero;showQa=false;ctResultsPopup=false;
   if(Layout.compact)compactPanel="Properties";
   RebuildDiagnosticRays();
@@ -28,6 +31,35 @@ public partial class StudioApp {
   if(next!=number.text){number.text=next;GUI.changed=true;}
   if(!string.IsNullOrEmpty(number.text)&&(!number.TryGet(out double value)||value<minimum||value>maximum))
    GUILayout.Label("Enter a finite value from "+CtValue(minimum)+" to "+CtValue(maximum)+".",small);
+ }
+ void DiagnosticEnergyUI(DiagnosticMachine machine){
+  bool changed=GUI.changed,enabled=GUI.enabled;
+  var values=DiagnosticProfiles.SupportedTubeVoltages(machine.machineType);
+  bool selected=machine.tubeVoltageKvp.TryGet(out double kvp)&&values.Contains(kvp);
+  GUILayout.Label("Tube voltage (kVp)",small);
+  GUI.enabled=enabled&&values.Length>0;
+  string label=values.Length==0?"No supported energy available":selected?CtValue(kvp)+" kVp  v":"Select supported energy  v";
+  GUI.SetNextControlName("select:diagnostic:"+machine.machineId+":kvp");
+  if(Btn(label)){
+   diagnosticEnergyMenuMachine=diagnosticEnergyMenuMachine==machine.machineId?"":machine.machineId;
+   diagnosticEnergyScroll=Vector2.zero;
+  }
+  CaptureCtControl("Tube voltage (kVp)","dropdown");
+  GUI.enabled=enabled;
+  GUI.changed=changed;
+  if(diagnosticEnergyMenuMachine==machine.machineId&&values.Length>0){
+   GUILayout.BeginVertical(GUI.skin.box);
+   diagnosticEnergyScroll=GUILayout.BeginScrollView(diagnosticEnergyScroll,GUILayout.MaxHeight(180));
+   foreach(double value in values)if(Btn(CtValue(value)+" kVp",selected&&kvp==value)){
+    bool edited=false;DiagnosticAct(()=>edited=DiagnosticProfiles.SelectTubeVoltage(design,machine,value));
+    diagnosticEnergyMenuMachine="";GUI.changed=changed||edited;
+   }
+   GUILayout.EndScrollView();GUILayout.EndVertical();
+  }
+  if(!selected&&!string.IsNullOrEmpty(machine.tubeVoltageKvp.text))
+   GUILayout.Label("The previously stored energy is unsupported. Choose a listed value; it has not been rounded or replaced.",small);
+  string family=DiagnosticProfiles.ReferenceFamily(machine.machineType);
+  if(!string.IsNullOrEmpty(family))GUILayout.Label(family=="CT_SECONDARY"?"Energy choices use the bundled section 6 CT reference and matching installed profiles.":"Energy choices use the bundled section 16 primary reference and matching installed profiles. Material/spectrum and source calibration are checked separately.",small);
  }
  void DiagnosticAct(Action action){
   try{action();diagnosticError="";}
@@ -79,6 +111,7 @@ public partial class StudioApp {
    case "PlaceScatter":ArmDiagnosticPoint(DiagnosticPointRole.Scatter);break;
    case "PlaceROI":ArmDiagnosticPoint(DiagnosticPointRole.ROI);break;
    case "Input":GUI.FocusControl("edit:diagnostic:"+design.diagnosticCalculation.activeMachineId+":"+issue.inputKey);break;
+   case "SelectEnergy":diagnosticEnergyMenuMachine=design.diagnosticCalculation.activeMachineId;diagnosticEnergyScroll=Vector2.zero;break;
    case "LoadProfile":BeginDiagnosticProfileImport();break;
    case "AssociatePoint":DiagnosticAct(()=>{DiagnosticData.Associate(design,design.items.Find(i=>i.id==issue.actionTarget),DiagnosticData.Machine(design,design.diagnosticCalculation.activeMachineId));Commit();});break;
    case "UnlockObject":case "SelectPoint":case "SelectBarrier":Choose(issue.actionTarget);if(Layout.compact)compactPanel="Properties";break;
@@ -92,7 +125,8 @@ public partial class StudioApp {
    case "PlaceTarget":return "Place Target";
    case "PlaceScatter":return "Place Scatter (patient)";
    case "PlaceROI":return "Place ROI";
-   case "LoadProfile":return "Load matching machine profile";
+   case "LoadProfile":return "Load calibrated machine model";
+   case "SelectEnergy":return "Choose supported energy";
    case "Input":return "Enter "+(issue.inputKey=="kvp"?"kVp":issue.inputKey);
    case "AssociatePoint":return "Associate this point with active machine";
    case "SelectBarrier":return "Edit affected barrier";
@@ -140,7 +174,7 @@ public partial class StudioApp {
   if(machine!=null&&DiagnosticData.IsXray(machine.machineType)){
    bool enabled=GUI.enabled;GUI.enabled=enabled&&!item.locked;
    Section("Inputs");
-   DiagnosticNumeric(machine.machineId+":kvp","Tube voltage (kVp)",machine.tubeVoltageKvp,double.Epsilon,double.MaxValue);
+   DiagnosticEnergyUI(machine);
    if(profile!=null){
     GUILayout.Label(profile.machineIdentity+" / "+profile.acquisition+"\n"+profile.exposureDefinition,small);
     foreach(var requirement in profile.inputs){
@@ -268,6 +302,7 @@ public partial class StudioApp {
   });
  }
  void DiagnosticUpdate(){
+  if(tab!="Calculation"||diagnosticEnergyMenuMachine!=design.diagnosticCalculation?.activeMachineId)diagnosticEnergyMenuMachine="";
   DiagnosticData.Synchronize(design);
   foreach(var point in design.items.Where(DiagnosticData.IsPoint))if(objects.TryGetValue(point.id,out var root))root.transform.position=DiagnosticData.Position(design,point).UnityVector;
   foreach(var ray in diagnosticRays){
