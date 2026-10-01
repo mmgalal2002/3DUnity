@@ -34,11 +34,11 @@ public partial class StudioApp {
  }
  void DiagnosticEnergyUI(DiagnosticMachine machine){
   bool changed=GUI.changed,enabled=GUI.enabled;
-  var values=DiagnosticProfiles.SupportedTubeVoltages(machine.machineType);
+  var values=DiagnosticProfiles.SelectableTubeVoltages(machine.machineType);
   bool selected=machine.tubeVoltageKvp.TryGet(out double kvp)&&values.Contains(kvp);
   GUILayout.Label("Tube voltage (kVp)",small);
   GUI.enabled=enabled&&values.Length>0;
-  string label=values.Length==0?"No supported energy available":selected?CtValue(kvp)+" kVp  v":"Select supported energy  v";
+  string label=values.Length==0?"No reference energies available":selected?CtValue(kvp)+" kVp  v":"Select energy  v";
   GUI.SetNextControlName("select:diagnostic:"+machine.machineId+":kvp");
   if(Btn(label)){
    diagnosticEnergyMenuMachine=diagnosticEnergyMenuMachine==machine.machineId?"":machine.machineId;
@@ -57,9 +57,8 @@ public partial class StudioApp {
    GUILayout.EndScrollView();GUILayout.EndVertical();
   }
   if(!selected&&!string.IsNullOrEmpty(machine.tubeVoltageKvp.text))
-   GUILayout.Label("The previously stored energy is unsupported. Choose a listed value; it has not been rounded or replaced.",small);
-  string family=DiagnosticProfiles.ReferenceFamily(machine.machineType);
-  if(!string.IsNullOrEmpty(family))GUILayout.Label(family=="CT_SECONDARY"?"Energy choices use the bundled section 6 CT reference and matching installed profiles.":"Energy choices use the bundled section 16 primary reference and matching installed profiles. Material/spectrum and source calibration are checked separately.",small);
+   GUILayout.Label("The previously stored energy is not in the shared list. Choose a listed value; it has not been rounded or replaced.",small);
+  GUILayout.Label("Shared CT-reference kVp choices (temporary). Calculation models remain machine-specific.",small);
  }
  void DiagnosticAct(Action action){
   try{action();diagnosticError="";}
@@ -126,7 +125,7 @@ public partial class StudioApp {
    case "PlaceScatter":return "Place Scatter (patient)";
    case "PlaceROI":return "Place ROI";
    case "LoadProfile":return "Load calibrated machine model";
-   case "SelectEnergy":return "Choose supported energy";
+   case "SelectEnergy":return "Choose energy";
    case "Input":return "Enter "+(issue.inputKey=="kvp"?"kVp":issue.inputKey);
    case "AssociatePoint":return "Associate this point with active machine";
    case "SelectBarrier":return "Edit affected barrier";
