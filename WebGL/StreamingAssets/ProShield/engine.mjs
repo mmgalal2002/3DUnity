@@ -32,7 +32,11 @@ function editorRoom(d) {
  return room;
 }
 export function run(input){
- if(input.items&&input.ct?.version===1&&input.ct.sources?.length)throw Error('CT source records are evaluated by the dedicated CT ROI engine, not LINAC reference QA. Source IDs: '+input.ct.sources.map(source=>source.id).join(', ')+'.');
+ const activeId=input.diagnosticCalculation?.version===1?input.diagnosticCalculation.activeMachineId:null;
+ const active=activeId?input.items?.find(item=>item.id===activeId):null;
+ const treatment=active&&(active.kind==='LINAC'||active.machineType===12);
+ if(active&&!treatment)throw Error('The active machine requires the diagnostic Calculation provider; kVp must never enter the treatment engine.');
+ if(input.items&&input.ct?.version===1&&input.ct.sources?.length&&!treatment)throw Error('CT source records are evaluated by the dedicated CT ROI engine, not LINAC reference QA. Source IDs: '+input.ct.sources.map(source=>source.id).join(', ')+'.');
  const room=input.room??(input.items?fromDesign(input):input);
  if(!room||!Array.isArray(room.walls)||!Array.isArray(room.equipment)||!Array.isArray(room.workstations)||!Array.isArray(room.occupiedRegions))throw Error('Expected a ProShield room, {room} workspace, or Room Studio design.');
  if(room.walls.length>250||room.equipment.length>100||room.occupiedRegions.length>100)throw Error('Input exceeds desktop calculation limits.');
@@ -49,6 +53,7 @@ export function run(input){
 export function execute(input,mode='qa'){
  if(mode==='import')return importWorkspace(input);
  if(mode==='export'){
+  if(input.diagnosticCalculation?.version===1||input.items?.some(item=>item.diagnosticPoint?.version===1))throw Error('Diagnostic calculation records are not represented by canonical ProShield JSON. Save native project JSON; no records were discarded.');
     const ctPoints=(input.items??[]).filter(item=>item.model==='Dot'&&item.ctPoint?.version===1).map(item=>item.id);
     if(ctPoints.length||input.ct?.version===1&&(input.ct.sources?.length||input.ct.results?.length))throw Error('CT points, source scenarios and saved results are not represented by canonical ProShield JSON. Point IDs: '+ctPoints.join(', ')+'. Use native project JSON or CT results JSON; no records were discarded.');
   if(generationMetadata(input)&&isEmptyFloorPlan(input.floorPlan))throw Error('Generated-wall provenance has no active floor-plan metadata boundary for canonical export. Save a native design to retain batches, paths and deleted overrides.');
