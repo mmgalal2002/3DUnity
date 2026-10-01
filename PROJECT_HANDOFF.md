@@ -1,8 +1,32 @@
 # Project handoff for future chats
 
-Last updated: 2026-10-01 22:23 (UTC+03:00). Start here, then read the repository README and `unity/WEBGL.md`.
+Last updated: 2026-10-01. Start here, then read the repository README and `unity/WEBGL.md`.
 
-## October 1 unified diagnostic Calculation - current delivery
+## October 1 supported-energy dropdown - current delivery
+
+User-directed correction: remove free numeric diagnostic energy entry and offer only supported values in one **Tube voltage (kVp)** dropdown. Missing-energy guidance opens this selector, not a numeric field. Selecting the same value does not mutate the design; supported selections respect protection and invalidate dependent results. Escape closes the menu without changing its value, and scene shortcuts/camera walking are guarded while it is open. Unsupported previous numeric inputs remain preserved as historical/native data but are never added to the dropdown, rounded or silently replaced.
+
+The attenuation reference is automatically bundled from [CT_Point_of_Interest_Shielding_Unity_Specification.md](CT_Point_of_Interest_Shielding_Unity_Specification.md), not requested through a reference-file picker. [Import-CtReference.ps1](LinacRoomStudio/Tools/Import-CtReference.ps1) regenerated the structured resources from this exact Markdown source: SHA-256 `c0589634afbae3351a43f0a4d5e68ca9c8fa288010a6cf65e727c42eed242e8e`, four CT fits, 156 primary grid rows, 146 provided rows and eight negative-beta wood rows.
+
+| Machine/reference coverage | Dropdown values | Limit |
+| --- | --- | --- |
+| Conventional CT, section 6 | 120 / 140 kVp | CT secondary data only; not a primary or CBCT substitution. |
+| General radiography, section 16 tungsten primary reference | 40-150 kVp in supplied 5-kVp steps | The 40/45-kVp rows exist only for concrete; other material/spectrum and machine-output applicability still require validation. |
+| Mammography, section 16 molybdenum primary reference | 25 / 30 / 35 kVp | Does not establish support for another anode/filter/acquisition. |
+| Dental/OPG/CBCT, fluoroscopy and other acquisition-specific models | Only values from installed matching approved models | None are currently bundled. **No supported energy available** replaces arbitrary numeric entry; the 85-kVp primary archive row does not validate Dental OPG. |
+
+No calibrated clinical source profile was invented. The new guidance separates the already available attenuation reference from missing calibrated machine output. Source-profile/provider files are a separate data responsibility; transmission coefficients alone still cannot supply absolute Gy.
+
+Verification: 92 diagnostic assertions, existing 120 CT math/121 CT data assertions and the complete editor regression gate pass in both fresh builds. Focused checks include exact sorted energy lists, family separation, unsupported/locked selection nonmutation, selected-value persistence and the OPG 85-kVp nonfallback case. All 29 WebGL launcher/build/worker payloads match `web/` by SHA-256.
+
+- Windows assembly SHA-256: `1f82febf22f4694f5b085e3a71716abc7f7c73be1e8b1807fd74ee9fbac98923`.
+- WebGL revision: `0c316fddb0d04767baca1967680f5fe1`; Wasm SHA-256: `dd070becbfbf96f2a5b662c9c15745d4a58bef2cbe4003dec71844323b2263fd`.
+- Evidence: [focused checks](LinacRoomStudio/Logs/energy-dropdown-focused-2026-10-01.log), [final Windows build](LinacRoomStudio/Logs/energy-dropdown-windows-2026-10-01.log), [final WebGL build](LinacRoomStudio/Logs/energy-dropdown-webgl-2026-10-01.log), [29-file package receipt](LinacRoomStudio/Logs/energy-dropdown-package-2026-10-01.json).
+- Changed owners: [coefficient library](LinacRoomStudio/Assets/Scripts/CtCoefficientLibrary.cs), [profile/energy resolver](LinacRoomStudio/Assets/Scripts/DiagnosticProfiles.cs), [readiness](LinacRoomStudio/Assets/Scripts/DiagnosticCalculation.cs), [Calculation UI](LinacRoomStudio/Assets/Scripts/StudioDiagnostic.cs), [keyboard/help](LinacRoomStudio/Assets/Scripts/StudioShortcuts.cs), [diagnostic checks](LinacRoomStudio/Assets/Editor/DiagnosticChecks.cs), bundled reference resources and [usage guide](LinacRoomStudio/README.md#ct-point-of-interest-energy-and-materials).
+
+No screenshots, interactive player/browser acceptance, smoke tests, public deployment, archive refresh or clinical/facility review were performed. Request 5/6/7 implementation/editor checks remain passing and their separately recorded interaction/persistence acceptance gates remain **In progress**. The full diagnostic-specification/provider gaps recorded below remain open. This entry supersedes the previous current-build identity; older delivery records remain historical.
+
+## October 1 unified diagnostic Calculation - earlier delivery checkpoint
 
 The current source and rebuilt Windows/WebGL players replace the normal Beam/CT routes with **Room | Object | Calculation**. The diagnostic branch has typed equipment families, distinct Target/Scatter/ROI placement, explicit 2D height, one numeric kVp/exposure case, live readiness/actions, current Gy/basis output, component/path details and optional weekly/limit comparison. The separate treatment branch retains its MV engine and restricts calculation to the explicitly selected treatment source rather than summing layout copies.
 
