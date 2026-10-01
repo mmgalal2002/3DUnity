@@ -1,0 +1,9 @@
+{
+  "sourceCommit": "c33e41d",
+  "hashes": {
+    "radiation-types": "dc02be1bbc151437c50ef2821cc065da0f2d5d69182eb217e9b0662120d0f926",
+    "radiation-calculations": "274d467200f3a620d74a350125cabfa463c5577590b7086cf73260e63c933864"
+  },
+  "engine": "Unmodified TypeScript formulas; types removed by Node.js",
+  "clinicalValidation": false
+}
