@@ -1,0 +1,3 @@
+- heading "Browser engine verification" [level=1]
+- button "Run worker checks"
+- generic: "Running real browser workers... PASS: Browser QA matches desktop golden rows PASS: Recalculation returns the same results PASS: Changed workload changes results PASS: Browser import/export preserves source fixture exactly PASS: Imported workspace calculates in browser PASS: Protection/group/opacity metadata preserves exact canonical export PASS: Protection metadata preserves imported QA PASS: All seven visual palette additions preserve imported source roles and canonical export PASS: Invalid input returns an error PASS: Calculation recovers after an error ALL BROWSER WORKER CHECKS PASSED"

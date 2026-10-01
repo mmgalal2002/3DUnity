@@ -1,0 +1,50 @@
+[
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_SELECTION_RUNTIME_PASSED\n",
+    "timestamp": "2026-09-20T21:32:54.749Z",
+    "url": "http://127.0.0.1:8080/WebGL/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_SHORTCUT_RUNTIME_PASSED: undo, redo, delete, protection, persistence, text focus and help lifecycle\n",
+    "timestamp": "2026-09-20T21:32:54.821Z",
+    "url": "http://127.0.0.1:8080/WebGL/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PALETTE_RUNTIME_PASSED: all 8 palette entries, original IDs/roles, placement, renderers, selection and native persistence; 9 supplied models including Desk\n",
+    "timestamp": "2026-09-20T21:32:55.104Z",
+    "url": "http://127.0.0.1:8080/WebGL/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_WEB_FEATURE_CHECKS_PASSED\n",
+    "timestamp": "2026-09-20T21:32:55.106Z",
+    "url": "http://127.0.0.1:8080/WebGL/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_SELECTION_RUNTIME_PASSED\n",
+    "timestamp": "2026-09-20T21:35:32.732Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_SHORTCUT_RUNTIME_PASSED: undo, redo, delete, protection, persistence, text focus and help lifecycle\n",
+    "timestamp": "2026-09-20T21:35:32.774Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PALETTE_RUNTIME_PASSED: all 8 palette entries, original IDs/roles, placement, renderers, selection and native persistence; 9 supplied models including Desk\n",
+    "timestamp": "2026-09-20T21:35:33.063Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_WEB_FEATURE_CHECKS_PASSED\n",
+    "timestamp": "2026-09-20T21:35:33.064Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=9645e88cd0aa4f6faf7c1be02b3199e0"
+  }
+]
