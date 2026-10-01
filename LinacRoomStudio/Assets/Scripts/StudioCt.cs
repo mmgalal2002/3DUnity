@@ -20,10 +20,10 @@ public partial class StudioApp {
  readonly List<CtMeasurement> ctMeasurements=new List<CtMeasurement>();
  readonly Dictionary<string,bool> ctInputDrafts=new Dictionary<string,bool>();
  Material ctAnnotationMaterial;
- bool CtDiagnosticsEnabled=>Application.absoluteURL.Contains("ct-tests=1")||Application.absoluteURL.Contains("ct-demo=1");
+ bool CtDiagnosticsEnabled=>Application.absoluteURL.Contains("ct-tests=1")||Application.absoluteURL.Contains("ct-demo=1")||Application.absoluteURL.Contains("diagnostic-tests=1");
  [Serializable] sealed class CtControlBounds {public string label,kind;public float x,y,width,height;public bool enabled;}
  [Serializable] sealed class CtPointDiagnostic {public string id,role;public CtVector position;}
- [Serializable] sealed class CtBrowserState {public string status,tab,tool,fileName;public int savedResults,sourceCount;public bool modal;public List<CtControlBounds> controls;public List<CtPointDiagnostic> points;public List<CtRoiResult> latestRows;}
+ [Serializable] sealed class CtBrowserState {public string status,tab,tool,fileName;public int savedResults,sourceCount;public bool modal;public List<CtControlBounds> controls;public List<CtPointDiagnostic> points;public List<CtRoiResult> latestRows;public DiagnosticProject diagnostic;public DiagnosticReadiness diagnosticReadiness;}
  readonly List<CtControlBounds> ctControlBounds=new List<CtControlBounds>();
  float ctDiagnosticsNext;
  void CaptureCtControl(string label,string kind){
@@ -34,7 +34,7 @@ public partial class StudioApp {
  void PublishCtDiagnostics(){
   if(!CtDiagnosticsEnabled||Event.current.type!=EventType.Repaint||Time.unscaledTime<ctDiagnosticsNext)return;ctDiagnosticsNext=Time.unscaledTime+.25f;
   BrowserBridge.CtDiagnostics(JsonUtility.ToJson(new CtBrowserState{status=status,tab=tab,tool=tool,fileName=fileName,savedResults=design.ct?.results?.Count??0,sourceCount=design.ct?.sources?.Count??0,modal=showQa,
-   controls=ctControlBounds,points=design.items.Where(CtShieldingData.IsPoint).Select(item=>new CtPointDiagnostic{id=item.id,role=item.ctPoint.role,position=CtShieldingData.Position(design,item)}).ToList(),latestRows=ctLatest?.rows}));
+   controls=ctControlBounds,points=design.items.Where(item=>CtShieldingData.IsPoint(item)||DiagnosticData.IsPoint(item)).Select(item=>new CtPointDiagnostic{id=item.id,role=DiagnosticData.IsPoint(item)?item.diagnosticPoint.role.ToString():item.ctPoint.role,position=CtShieldingData.Position(design,item)}).ToList(),latestRows=ctLatest?.rows,diagnostic=design.diagnosticCalculation,diagnosticReadiness=tab=="Calculation"?diagnosticReadinessView:null}));
  }
  CtSourceData CtSelectedSource=>design.ct?.sources?.FirstOrDefault(source=>source.id==design.ct.selectedSourceId)??design.ct?.sources?.FirstOrDefault();
  Item CtSelectedRoi=>design.items.Find(item=>CtShieldingData.IsRoi(item)&&item.id==design.ct?.selectedRoiId);
@@ -105,9 +105,10 @@ public partial class StudioApp {
    }else data.selectedSourceId=data.sources.FirstOrDefault(source=>source.scatterPointId==point.id)?.id??"";
   }
   if(point!=null&&Current?.id!=point.id)Choose(point.id);else Rebuild();
-  tab="CT";showQa=ctResultsPopup=false;rightScroll=Vector2.zero;numberBuffers.Clear();tool="Select";wallStart=null;
+  tab="Calculation";showQa=ctResultsPopup=false;rightScroll=Vector2.zero;numberBuffers.Clear();tool="Select";wallStart=null;
   if(Layout.compact)compactPanel="Properties";
-  status="Configure CT tube potential, validated source strength and evaluation-point inputs.";
+  status="Legacy data is retained. Use Calculation to place Target, Scatter and ROI and choose a matching calibrated profile.";
+  OpenCalculation(point);
  }
  bool AddCtSource(Item scanner){
   try{

@@ -22,8 +22,7 @@ internal readonly struct StudioViewportLayout {
  internal Rect LeftPanel=>new Rect(12,76,compact?width-24:318,Mathf.Max(1,height-120));
  internal Rect RightPanel=>compact?LeftPanel:new Rect(width-346,76,334,Mathf.Max(1,height-120));
  internal Rect LeftContent=>new Rect(LeftPanel.x+16,88,LeftPanel.width-32,Mathf.Max(1,height-144));
- internal Rect RightContent=>new Rect(RightPanel.x+16,88,RightPanel.width-32,Mathf.Max(1,height-(compact?144:330)));
- internal Rect Calculation=>new Rect(width-330,height-225,302,177);
+ internal Rect RightContent=>new Rect(RightPanel.x+16,88,RightPanel.width-32,Mathf.Max(1,height-144));
  internal static Rect DistanceLabel(Rect scene,Vector2 position){
   float labelWidth=Mathf.Min(150,scene.width-12),maximumY=scene.yMax-30;
   return new Rect(Mathf.Clamp(position.x-labelWidth/2,scene.x+6,scene.xMax-labelWidth-6),Mathf.Clamp(position.y-30,Mathf.Min(scene.y+86,maximumY),maximumY),labelWidth,24);
@@ -135,6 +134,7 @@ public partial class StudioApp : MonoBehaviour {
  LineRenderer Line(string name,Color color,float width,Transform parent){var g=new GameObject(name);g.transform.SetParent(parent,false);var l=g.AddComponent<LineRenderer>();l.sharedMaterial=lineMat;l.startColor=l.endColor=color;l.startWidth=l.endWidth=width;l.positionCount=2;return l;}
  void Rebuild(){
   CtShieldingData.SynchronizeAnchors(design);
+  DiagnosticData.Synchronize(design);
   StopGantryTween();gantryPivot=null;linacModelRoot=null;beamWindow=null;beam=null;linePreview=null;
   selection.RemoveWhere(id=>!design.items.Any(i=>i.id==id));
   foreach(var material in appearanceMaterials)Destroy(material);appearanceMaterials.Clear();
@@ -151,8 +151,8 @@ public partial class StudioApp : MonoBehaviour {
    else if(i.kind=="Component")BuildComponent(i,root);
    else {
     var prefab=Resources.Load<GameObject>(i.kind=="LINAC"?"Linac":i.kind=="Desk"?"Desk":i.model);GameObject model;if(prefab==null){model=Cube("Missing model placeholder",Vector3.up*.5f,Vector3.one,accentMat,root.transform);status="Model missing: run Room Studio > Prepare scene in Unity.";}else model=Instantiate(prefab,root.transform);model.transform.localScale=Vector3.one*i.scale;
-    var renderers=model.GetComponentsInChildren<Renderer>();var b=renderers[0].bounds;foreach(var r in renderers)b.Encapsulate(r.bounds);if(!CtShieldingData.IsPoint(i))model.transform.position+=Vector3.up*(root.transform.position.y-b.min.y);
-    if(CtShieldingData.IsPoint(i))foreach(var renderer in renderers){var material=new Material(Resources.Load<Shader>("CT/CTMarker"));material.color=i.ctPoint.role=="Scatter"?new Color(1,.6f,.15f):i.ctPoint.role=="Patient"?new Color(.95f,.4f,.5f):new Color(.15f,.85f,.8f);renderer.sharedMaterial=material;appearanceMaterials.Add(material);}
+    var renderers=model.GetComponentsInChildren<Renderer>();var b=renderers[0].bounds;foreach(var r in renderers)b.Encapsulate(r.bounds);if(!CtShieldingData.IsPoint(i)&&!DiagnosticData.IsPoint(i))model.transform.position+=Vector3.up*(root.transform.position.y-b.min.y);
+    if(CtShieldingData.IsPoint(i)||DiagnosticData.IsPoint(i))foreach(var renderer in renderers){var material=new Material(Resources.Load<Shader>("CT/CTMarker"));string role=DiagnosticData.IsPoint(i)?i.diagnosticPoint.role.ToString():i.ctPoint.role;material.color=role=="Target"?new Color(.4f,.6f,1):role=="Scatter"?new Color(1,.6f,.15f):role=="Patient"?new Color(.95f,.4f,.5f):new Color(.15f,.85f,.8f);renderer.sharedMaterial=material;appearanceMaterials.Add(material);}
     if(i.kind=="LINAC"&&!linacRigConfigured){linacRigConfigured=true;ConfigureGantryRig(model.transform);if(beamWindow==null)status="Linac HD Beam_Window missing; beam illustration hidden. Reprepare the model in Unity.";}
     // A separate interaction volume keeps selection independent from model detail.
     var col=root.AddComponent<BoxCollider>();var localBounds=new Bounds(root.transform.InverseTransformPoint(renderers[0].bounds.center),Vector3.zero);foreach(var r in renderers){var rb=r.bounds;for(int c=0;c<8;c++)localBounds.Encapsulate(root.transform.InverseTransformPoint(rb.center+Vector3.Scale(rb.extents,new Vector3((c&1)==0?-1:1,(c&2)==0?-1:1,(c&4)==0?-1:1))));}col.center=localBounds.center;col.size=localBounds.size;
@@ -168,6 +168,7 @@ public partial class StudioApp : MonoBehaviour {
   GenerationAfterRebuild();
   WallConnectionAfterRebuild();
   CtAfterRebuild();
+  RebuildDiagnosticRays();
   beam=Line("Beam direction (illustration only)",new Color(1,.66f,.2f),.065f,world);linePreview=Line("Wall preview",new Color(.2f,1,.85f),.12f,world);linePreview.enabled=false;UpdateBeam();
  }
  void ApplyOpacity(GameObject root,float opacity){
@@ -195,6 +196,7 @@ public partial class StudioApp : MonoBehaviour {
   UpdateBrowserFileWrites();
   FloorPlanUpdate();
   CtUpdate();
+  DiagnosticUpdate();
   if(componentImportTask!=null&&componentImportTask.IsCompleted){try{ImportComponents(componentImportTask.GetAwaiter().GetResult());componentError="";}catch(Exception e){componentError=status="Component import failed: "+e.Message;}componentImportTask=null;}
   if(fileTask!=null&&fileTask.IsCompleted){
    try{string json=fileTask.GetAwaiter().GetResult();if(loadingSource)ImportSource(json);else LoadJson(json,"Imported-design");}
@@ -230,7 +232,7 @@ public partial class StudioApp : MonoBehaviour {
   bool remove=toggle&&members.All(selection.Contains);
   if(!toggle&&!(preserve&&selection.Contains(id)))selection.Clear();
   if(remove)selection.ExceptWith(members);else selection.UnionWith(members);
-  selected=selection.Contains(id)?id:selection.FirstOrDefault()??"";selectionRotation=0;numberBuffers.Clear();tab="Object";Rebuild();
+  selected=selection.Contains(id)?id:selection.FirstOrDefault()??"";selectionRotation=0;numberBuffers.Clear();DiagnosticData.Select(design,Current);tab="Object";Rebuild();
  }
  void SelectAll(){selection.UnionWith(design.items.Select(i=>i.id));selected=selection.FirstOrDefault()??"";selectionRotation=0;tab="Object";Rebuild();}
  Rect MarqueeRect=>Rect.MinMaxRect(Mathf.Min(marqueeStart.x,marqueeEnd.x),Mathf.Min(marqueeStart.y,marqueeEnd.y),Mathf.Max(marqueeStart.x,marqueeEnd.x),Mathf.Max(marqueeStart.y,marqueeEnd.y));
@@ -251,7 +253,7 @@ public partial class StudioApp : MonoBehaviour {
   if(unlock)SelectionEditing.Ungroup(design,selection);else SelectionEditing.Group(design,selection);
   Commit();Rebuild();status=unlock?"Group unlocked. Objects can be selected separately.":"Locked together. Selecting any member selects the whole group.";
  }catch(Exception e){status=e.Message;}}
- void Add(Item i){if(design.items.Count>=250){status="Maximum 250 objects per project.";return;}design.items.Add(i);ClearSelection();selected=i.id;selection.Add(i.id);Commit();Rebuild();}
+ void Add(Item i){if(design.items.Count>=250){status="Maximum 250 objects per project.";return;}design.items.Add(i);ClearSelection();selected=i.id;selection.Add(i.id);DiagnosticData.Select(design,i);Commit();Rebuild();}
  void Delete(){if(selection.Count==0)return;try{
   var next=JsonUtility.FromJson<Design>(JsonUtility.ToJson(design));
   WallConnections.Detach(next,selection);
@@ -260,7 +262,7 @@ public partial class StudioApp : MonoBehaviour {
   design=next;ClearSelection();Commit();Rebuild();
  }catch(Exception e){status=e.Message;}}
  void Remember(){var s=JsonUtility.ToJson(design);if(historyIndex>=0&&history[historyIndex]==s)return;InvalidatePlanWork();if(historyIndex<history.Count-1)history.RemoveRange(historyIndex+1,history.Count-historyIndex-1);history.Add(s);if(history.Count>80)history.RemoveAt(0);historyIndex=history.Count-1;}
- void Commit(){CtShieldingData.SynchronizeAnchors(design);WallGenerationData.MarkManualEdits(design);Remember();dirty=false;status="Design updated. Save to keep your changes.";}
+ void Commit(){CtShieldingData.SynchronizeAnchors(design);DiagnosticData.Synchronize(design);WallGenerationData.MarkManualEdits(design);Remember();dirty=false;status="Design updated. Save to keep your changes.";}
  void Undo(int direction){
   if(dirty)Commit();int n=historyIndex+direction;if(n<0||n>=history.Count)return;
   var preferences=Precision;var selectedIds=selection.ToArray();string primary=selected;historyIndex=n;
@@ -328,7 +330,17 @@ public partial class StudioApp : MonoBehaviour {
   GUI.changed=changedBefore||result!=value;return result;
  }
  int numberIndex;
- void ShieldUI(Barrier b){var names=CtCoefficientLibrary.MaterialIds;for(int row=0;row<3;row++){GUILayout.BeginHorizontal();for(int col=0;col<2;col++){var n=names[row*2+col];if(Btn(CtCoefficientLibrary.MaterialLabel(n),b.material==n)){b.material=n;b.ctApplicabilityReviewed=false;GUI.changed=true;}}GUILayout.EndHorizontal();}if(b.material=="Glass")GUILayout.Label("Lead glass (legacy): not plate glass",small);b.thickness=Number("Thickness",b.thickness,.01f,3000,"mm");b.density=Number("Density",b.density,100,25000,"kg/m3");if(CtShieldingData.Active(design.ct)){b.shieldingEnabled=GUILayout.Toggle(b.shieldingEnabled," Shielding enabled (CT)");b.ctApplicabilityReviewed=GUILayout.Toggle(b.ctApplicabilityReviewed," CT material applicability reviewed");}GUILayout.Label("Material and density are user inputs, not verified shielding data.",small);}
+ void ShieldUI(Barrier b){
+  var names=CtCoefficientLibrary.MaterialIds;
+  for(int row=0;row<3;row++){GUILayout.BeginHorizontal();for(int col=0;col<2;col++){var n=names[row*2+col];if(Btn(CtCoefficientLibrary.MaterialLabel(n),b.material==n)){b.material=n;b.ctApplicabilityReviewed=false;GUI.changed=true;}}GUILayout.EndHorizontal();}
+  if(b.material=="Glass")GUILayout.Label("Lead glass (legacy): not plate glass",small);
+  if(!b.diagnosticThicknessEdited)b.diagnosticThickness.Set(b.thickness);
+  string previous=b.diagnosticThickness.text;
+  DiagnosticNumeric("barrier:"+selected+":"+numberIndex++,"Thickness (mm)",b.diagnosticThickness,.01,3000);
+  if(previous!=b.diagnosticThickness.text){b.diagnosticThicknessEdited=true;if(b.diagnosticThickness.TryGet(out double thickness)&&thickness>=.01&&thickness<=3000)b.thickness=(float)thickness;}
+  b.shieldingEnabled=GUILayout.Toggle(b.shieldingEnabled," Shielding enabled");
+  GUILayout.Label("Path length is calculated from the physical barrier. Unsupported material/spectrum combinations cannot be calculated.",small);
+ }
  void OnGUI(){if(design==null)return;uiScale=Layout.scale;if(CtDiagnosticsEnabled&&Event.current.type==EventType.Repaint)ctControlBounds.Clear();CaptureScenePointer(Event.current);HandleKeyboardEvent(Event.current);numberIndex=0;Styles();bool previousEnabled=GUI.enabled;GUI.enabled=previousEnabled&&!showHelp&&!showFiles&&!showQa&&!showComponentEditor&&!showPlanAuthoring&&!showReset&&!dragging&&!resizingWall&&!scalingEquipment;GUI.matrix=Matrix4x4.Scale(Vector3.one*uiScale);
   GUI.DrawTexture(new Rect(0,0,W,68),panel);
   if(Layout.compact){
@@ -344,7 +356,7 @@ public partial class StudioApp : MonoBehaviour {
   GUILayout.BeginHorizontal();foreach(var name in new[]{"Build","Components","Floor plan"})if(Btn(name,leftTab==name)){leftTab=name;GUI.changed=false;}GUILayout.EndHorizontal();
   if(leftTab=="Components")ComponentsUI();else if(leftTab=="Floor plan")FloorPlanUI();else{Section("01 / Build");
   foreach(var t in new[]{"Select","Wall","Desk"})if(Btn(t=="Select"?"Select & move":t=="Wall"?"Draw a wall":"Place workstation",tool==t)){tool=t;wallStart=null;}
-  EquipmentPaletteUI();CtPlacementUI();}
+  EquipmentPaletteUI();DiagnosticPlacementUI();}
   PrecisionUI();GUILayout.Space(10);GUILayout.BeginHorizontal();if(Btn("Undo"))Undo(-1);if(Btn("Redo"))Undo(1);GUILayout.EndHorizontal();
   Section("02 / View");GUILayout.BeginHorizontal();if(Btn("2D plan",top))SetCameraView(true);if(Btn("3D view",!top))SetCameraView(false);GUILayout.EndHorizontal();
   bool c=GUILayout.Toggle(cutaway," Cutaway walls");bool r=GUILayout.Toggle(showRoof," Show ceiling");showBeam=GUILayout.Toggle(showBeam," Show beam direction");if(c!=cutaway||r!=showRoof){cutaway=c;showRoof=r;Rebuild();}UpdateBeam();if(Btn("Fit room")){focus=Vector3.zero;zoom=Mathf.Max(design.width,design.depth)*1.7f;}
@@ -357,12 +369,13 @@ public partial class StudioApp : MonoBehaviour {
   }
   if(!Layout.compact||compactPanel=="Properties"){
   GUI.DrawTexture(Layout.RightPanel,panel);
-  GUILayout.BeginArea(Layout.RightContent);GUILayout.BeginHorizontal();foreach(var t in new[]{"Room","Object","Beam","CT"})if(Btn(t,tab==t))tab=t;GUILayout.EndHorizontal();rightScroll=GUILayout.BeginScrollView(rightScroll);bool changedBefore=GUI.changed;GUI.changed=false;
+  if(tab=="Beam"||tab=="CT")tab="Calculation";
+  GUILayout.BeginArea(Layout.RightContent);GUILayout.BeginHorizontal();foreach(var t in new[]{"Room","Object","Calculation"})if(Btn(t,tab==t)){tab=t;rightScroll=Vector2.zero;}GUILayout.EndHorizontal();rightScroll=GUILayout.BeginScrollView(rightScroll);bool changedBefore=GUI.changed;GUI.changed=false;
   Design connectedBefore=tab=="Object"&&SelectedItems.Any(i=>IsJoinedWall(i.id))?JsonUtility.FromJson<Design>(JsonUtility.ToJson(design)):null;
   bool beamPanelRebuild=false,gantryAngleChanged=false;
-  if(tab=="Room")RoomUI();else if(tab=="Object")ObjectUI();else if(tab=="CT")CtUI();else beamPanelRebuild=BeamUI(out gantryAngleChanged);
+  if(tab=="Room")RoomUI();else if(tab=="Object")ObjectUI();else beamPanelRebuild=DiagnosticUI(out gantryAngleChanged);
   bool edit=GUI.changed;GUI.changed=changedBefore||edit;if(edit){
-   if(tab=="Beam"){
+   if(tab=="Calculation"&&TreatmentCalculation){
     dirty=true;
     if(beamPanelRebuild)Rebuild();
     else{if(gantryAngleChanged)TweenGantryTo(design.gantry);UpdateBeam();}
@@ -371,9 +384,7 @@ public partial class StudioApp : MonoBehaviour {
     catch(Exception e){if(connectedBefore!=null)design=connectedBefore;dirty=false;status=e.Message;Rebuild();}
    }
   }if(dirty&&!dragging&&!resizingWall&&!scalingEquipment&&!Input.GetMouseButton(0)){Commit();}
-  if(Layout.compact)CalculationPanelUI();
   GUILayout.EndScrollView();GUILayout.EndArea();
-  if(!Layout.compact){GUILayout.BeginArea(Layout.Calculation);CalculationPanelUI();GUILayout.EndArea();}
   }
   if(!CompactPanelOpen){
   var view=View;GUI.BeginGroup(view);
@@ -382,6 +393,7 @@ public partial class StudioApp : MonoBehaviour {
   GUI.EndGroup();
   DrawPrecisionOverlay();
   DrawCtDistanceLabels();
+  DrawDiagnosticLabels();
   if(marquee){var rectangle=MarqueeRect;var color=GUI.color;GUI.color=new Color(.2f,1,.85f,.18f);GUI.DrawTexture(rectangle,Texture2D.whiteTexture);GUI.color=new Color(.2f,1,.85f,.9f);GUI.DrawTexture(new Rect(rectangle.x,rectangle.y,rectangle.width,1),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(rectangle.x,rectangle.yMax,rectangle.width,1),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(rectangle.x,rectangle.y,1,rectangle.height),Texture2D.whiteTexture);GUI.DrawTexture(new Rect(rectangle.xMax,rectangle.y,1,rectangle.height),Texture2D.whiteTexture);GUI.color=color;}
   }
   GUI.DrawTexture(new Rect(0,H-34,W,34),panel);GUI.Label(new Rect(20,H-29,W-40,25),status,small);
@@ -393,7 +405,7 @@ public partial class StudioApp : MonoBehaviour {
   PublishCtDiagnostics();
  }
  void CalculationPanelUI(){
-  if(tab=="CT"){CtCalculationControls();return;}
+  if(tab!="Calculation"||!TreatmentCalculation)return;
   Section("Reference barrier QA");
   bool allowCalculation=GUI.enabled;GUI.enabled=allowCalculation&&qaTask==null;
   if(Btn(qaTask==null?"Calculate reference QA":"Calculating reference QA...")){BeginQa();GUIUtility.ExitGUI();}
@@ -513,8 +525,9 @@ public partial class StudioApp : MonoBehaviour {
   float rotation=Number("Rotate together",selectionRotation,-180,180,"deg");if(rotation!=selectionRotation)try{SelectionEditing.Rotate(items,rotation-selectionRotation,design);selectionRotation=rotation;}catch(Exception e){status=e.Message;}
    GUILayout.Label("Positions use the selection center. Relative spacing is preserved.",small);
    }else if(i!=null){
-   if(CtShieldingData.IsPoint(i))CtObjectControls(i);
-    bool attachedScatter=CtShieldingData.IsPoint(i)&&i.ctPoint.role=="Scatter",protectedCtOwner=design.items.Any(point=>CtShieldingData.IsPoint(point)&&point.ctPoint.ownerId==i.id&&point.locked);bool transformEnabled=GUI.enabled;GUI.enabled=transformEnabled&&!attachedScatter&&!protectedCtOwner;
+   DiagnosticObjectControls(i);
+   if(DiagnosticData.IsPoint(i)){DiagnosticPointCoordinates(i);GUI.enabled=objectEnabled;return;}
+    bool attachedScatter=CtShieldingData.IsPoint(i)&&i.ctPoint.role=="Scatter",protectedCtOwner=design.items.Any(point=>point.locked&&(CtShieldingData.IsPoint(point)&&point.ctPoint.ownerId==i.id||DiagnosticData.IsPoint(point)&&point.diagnosticPoint.role==DiagnosticPointRole.Target&&point.diagnosticPoint.machineId==i.id));bool transformEnabled=GUI.enabled;GUI.enabled=transformEnabled&&!attachedScatter&&!protectedCtOwner;
   Section(ObjectDisplayName(i));i.x=Number("Position X",i.x,-100,100,"m");i.z=Number("Position Z",i.z,-100,100,"m");
   float nextBase=Number("Base height Y",i.y,-20,i.kind=="Wall"&&design.linkWallsToRoom?Mathf.Min(20,design.height-.001f):20,"m");
   if(nextBase!=i.y){
@@ -530,7 +543,6 @@ public partial class StudioApp : MonoBehaviour {
   else if(i.kind=="Component")ComponentObjectUI(i);
   else{i.scale=Number("Model scale",i.scale,.05f,3);GUILayout.Label("Visual scale is not calibrated. Confirm actual equipment dimensions before planning clearances.",small);}
   if(i.kind=="Desk"){i.assessmentHeight=Number("Point height",i.assessmentHeight,0,5,"m");i.occupancy=Slider("Occupancy",i.occupancy,0,1);i.isControlled=GUILayout.Toggle(i.isControlled," Controlled area");var machine=design.items.Find(x=>x.kind=="LINAC");if(machine!=null){GUILayout.Space(10);GUILayout.Label(F(Vector3.Distance(new Vector3(i.x,i.y+i.assessmentHeight,i.z),Isocentre()))+" m",metric);GUILayout.Label("Distance to configured isocentre",small);}GUILayout.Label("The turquoise dot is the assessment point. No dose value is available.",small);}
-  if(!CtShieldingData.IsPoint(i))CtObjectControls(i);
  }
  if(items.Count>0&&Btn("Delete selection ("+items.Count+")")){Delete();GUI.changed=false;}
  GUI.enabled=objectEnabled;

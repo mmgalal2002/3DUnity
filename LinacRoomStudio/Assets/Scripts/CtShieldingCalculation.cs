@@ -8,7 +8,8 @@ using UnityEngine;
 namespace RoomStudio {
 public sealed class CtCalculationException : Exception {
  public readonly string Status;
- public CtCalculationException(string status,string message):base(message){Status=status;}
+ public readonly string ActionTarget,ObservedValue,ExpectedDomain;
+ public CtCalculationException(string status,string message,string actionTarget="",string observedValue="",string expectedDomain=""):base(message){Status=status;ActionTarget=actionTarget;ObservedValue=observedValue;ExpectedDomain=expectedDomain;}
 }
 [Serializable] sealed class CtCalculationInputs {
  public string projectName="";
@@ -72,8 +73,11 @@ public static class CtShieldingCalculation {
  }
  static CtVector Metres(CtVector point,double units)=>new CtVector(point.x*units,point.y*units,point.z*units);
  public static List<CtPathSegment> Path(Design design,Item scatter,Item roi,string shieldingMode){
+  return Path(design,CtShieldingData.Position(design,scatter),CtShieldingData.Position(design,roi),design.ct.metersPerUnityUnit,shieldingMode);
+ }
+ public static List<CtPathSegment> Path(Design design,CtVector sourcePosition,CtVector roiPosition,double units,string shieldingMode="Current"){
   var segments=new List<CtPathSegment>();if(shieldingMode=="AllOff")return segments;
-  double units=design.ct.metersPerUnityUnit;var source=Metres(CtShieldingData.Position(design,scatter),units);var target=Metres(CtShieldingData.Position(design,roi),units);
+  var source=Metres(sourcePosition,units);var target=Metres(roiPosition,units);
   if(shieldingMode!="WallsOff")foreach(var wall in design.items.Where(item=>item.kind=="Wall")){
    var barrier=wall.shielding;if(!barrier.shieldingEnabled||barrier.thickness==0)continue;
    bool joined=design.wallJunctions!=null&&design.wallJunctions.Any(junction=>junction.arms.Any(arm=>arm.wallId==wall.id));
@@ -86,7 +90,7 @@ public static class CtShieldingCalculation {
   return segments;
  }
  static Barrier BarrierFor(Design design,string id)=>id=="floor"?design.floor:id=="ceiling"?design.ceiling:design.items.Find(item=>item.id==id)?.shielding;
- static double TotalHomogeneousPath(List<CtPathSegment> segments){
+ public static double TotalHomogeneousPath(List<CtPathSegment> segments){
   if(segments.Count==0)return 0;
   string material=segments[0].material;double entry=segments[0].entryMeters,exit=segments[0].exitMeters;
   foreach(var segment in segments.Skip(1)){

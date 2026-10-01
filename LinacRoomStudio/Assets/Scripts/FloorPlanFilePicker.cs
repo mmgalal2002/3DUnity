@@ -24,15 +24,15 @@ public static class FloorPlanFilePicker {
  [DllImport("comdlg32.dll")] static extern uint CommDlgExtendedError();
  [DllImport("user32.dll")] static extern IntPtr GetActiveWindow();
 #endif
- public static string Open() {
+ public static string Open(string title="Choose a floor-plan guide",string filter="Floor plans (PNG, JPEG, JSON)\0*.png;*.jpg;*.jpeg;*.json\0\0") {
 #if UNITY_EDITOR
-  return UnityEditor.EditorUtility.OpenFilePanel("Choose a floor-plan guide","","");
+  return UnityEditor.EditorUtility.OpenFilePanel(title,"","");
 #elif UNITY_STANDALONE_WIN
   var data=new OpenFileName{structSize=Marshal.SizeOf(typeof(OpenFileName)),owner=GetActiveWindow(),filterIndex=1,maxFile=32768,
    flags=0x00080000|0x00001000|0x00000800|0x00000008|0x02000000};
   try {
-   data.filter=Marshal.StringToHGlobalUni("Floor plans (PNG, JPEG, JSON)\0*.png;*.jpg;*.jpeg;*.json\0\0");
-   data.title=Marshal.StringToHGlobalUni("Choose a floor-plan guide");
+   data.filter=Marshal.StringToHGlobalUni(filter);
+   data.title=Marshal.StringToHGlobalUni(title);
    data.file=Marshal.AllocHGlobal(data.maxFile*2);Marshal.WriteInt16(data.file,0);
    if(GetOpenFileNameW(ref data))return Marshal.PtrToStringUni(data.file);
    uint error=CommDlgExtendedError();if(error!=0)throw new Exception("Windows file picker failed ("+error+"). Use Load from path.");return null;

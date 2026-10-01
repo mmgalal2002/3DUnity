@@ -19,8 +19,10 @@ public static class SceneClipboard {
  static string FreshId(HashSet<string> used){string id;do{id=Guid.NewGuid().ToString();}while(!used.Add(id));return id;}
  public static SceneClipboardPayload Copy(Design design,IEnumerable<string> selectedIds,string primaryId){
   var expanded=SelectionEditing.Expand(design,selectedIds);
+  foreach(var point in design.items.Where(i=>DiagnosticData.IsPoint(i)&&i.diagnosticPoint.role==DiagnosticPointRole.Target&&expanded.Contains(i.diagnosticPoint.machineId)).ToArray())expanded.Add(point.id);
   var items=design.items.Where(item=>expanded.Contains(item.id)).ToList();
   if(items.Count==0)throw new Exception("Select a scene object before copying.");
+  if(items.Any(i=>DiagnosticData.IsPoint(i)&&i.diagnosticPoint.role==DiagnosticPointRole.Target&&!expanded.Contains(i.diagnosticPoint.machineId)))throw new Exception("Copy Target with its owning machine.");
     if(items.Any(item=>CtShieldingData.IsPoint(item)&&item.ctPoint.role=="Scatter"))throw new Exception("Copy the CT scanner as an unconfigured device; attached scatter points cannot be copied independently.");
   return new SceneClipboardPayload{
    primaryId=expanded.Contains(primaryId)?primaryId:items[0].id,
@@ -62,11 +64,23 @@ public static class SceneClipboard {
    if(copy.kind=="Component")ComponentGeometry.Validate(copy.component);
    copies.Add(copy);
   }
+  foreach(var copy in copies.Where(DiagnosticData.IsPoint)){
+   var point=copy.diagnosticPoint;
+   if(point.role==DiagnosticPointRole.Target)point.machineId=itemMap[point.machineId];
+   else{
+    point.machineId="";
+    double units=design.diagnosticCalculation?.metersPerUnityUnit??1;
+    point.positionMeters.x+=offset*units;point.positionMeters.z+=offset*units;
+   }
+  }
+  if((design.diagnosticCalculation?.machines.Count??0)+copies.Count(i=>DiagnosticData.IsPoint(i)&&i.diagnosticPoint.role==DiagnosticPointRole.Target)>16)throw new Exception("Copied machines exceed the diagnostic record limit.");
+  if(design.items.Count(DiagnosticData.IsPoint)+copies.Count(DiagnosticData.IsPoint)>64)throw new Exception("Copied markers exceed the diagnostic point limit.");
   return new ScenePasteResult{items=copies,primaryId=itemMap.TryGetValue(payload.primaryId,out string primary)?primary:copies[0].id};
  }
  public static ScenePasteResult Paste(Design design,SceneClipboardPayload payload,int pasteNumber){
   var prepared=PreparePaste(design,payload,pasteNumber);
   design.items.AddRange(prepared.items);
+  DiagnosticData.ConfigureCopiedTargets(design,prepared.items);
   return prepared;
  }
 }

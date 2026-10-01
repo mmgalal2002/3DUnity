@@ -48,6 +48,7 @@ public partial class StudioApp {
   if(tool=="Polygon")AddComponentPoint(p);
   else if(tool=="Component"){PlaceComponent(p);tool="Select";}
   else if(tool=="Door")PlaceDoorAtPoint(raw);
+  else if(tool.StartsWith("Diagnostic_",StringComparison.Ordinal))PlaceDiagnosticPoint(p,ray);
     else if(tool=="CT_ROI"||tool=="CT_Patient")PlaceCtRoi(p,tool=="CT_ROI"?"ROI":"Patient");
   else if(tool=="Wall"){
    if(!wallStart.HasValue)wallStart=p;
@@ -131,7 +132,7 @@ public partial class StudioApp {
   if(Btn("Z −"))NudgeSelection(Vector3.back);if(Btn("Z +"))NudgeSelection(Vector3.forward);GUILayout.EndHorizontal();
  }
  void BeginPrecisionDrag(Vector3 raw){
-    try{CtShieldingData.RequireTransform(design,SelectedItems);}catch(Exception error){status=error.Message;return;}
+    try{CtShieldingData.RequireTransform(design,SelectedItems);DiagnosticData.RequireTransform(design,SelectedItems);}catch(Exception error){status=error.Message;return;}
   dragStart=raw;dragMoved=false;dragPositions.Clear();dragAnchors.Clear();
   dragConnectedBefore=SelectedItems.Any(i=>IsJoinedWall(i.id))?JsonUtility.FromJson<Design>(JsonUtility.ToJson(design)):null;
   foreach(var item in SelectedItems){
@@ -158,7 +159,8 @@ public partial class StudioApp {
   }
   foreach(var item in items){
    var next=dragPositions[item.id]+delta;if(next.x==item.x&&next.z==item.z)continue;
-   item.x=next.x;item.z=next.z;dirty=dragMoved=true;
+   if(DiagnosticData.IsPoint(item))DiagnosticData.SetPosition(design,item,new CtVector(next.x,item.y,next.z));
+   else{item.x=next.x;item.z=next.z;}dirty=dragMoved=true;
    var root=objects[item.id];Vector3 shift=new Vector3(item.x,item.y,item.z)-root.transform.position;root.transform.position+=shift;
    foreach(var line in root.GetComponentsInChildren<LineRenderer>())if(line.useWorldSpace)for(int k=0;k<line.positionCount;k++)line.SetPosition(k,line.GetPosition(k)+shift);
   }

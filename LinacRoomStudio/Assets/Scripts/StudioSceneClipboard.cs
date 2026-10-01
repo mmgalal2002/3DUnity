@@ -18,6 +18,7 @@ public partial class StudioApp {
    var pasted=SceneClipboard.PreparePaste(design,sceneClipboard,scenePasteCount+1);
    if(dirty)Commit();
    design.items.AddRange(pasted.items);
+   DiagnosticData.ConfigureCopiedTargets(design,pasted.items);
    scenePasteCount++;
    ClearSelection();selection.UnionWith(pasted.items.Select(item=>item.id));selected=pasted.primaryId;
    tab="Object";tool="Select";wallStart=null;

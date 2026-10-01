@@ -135,7 +135,7 @@ public static class PrecisionChecks {
    foreach(var rectangle in new[]{scene,layout.LeftPanel,layout.RightPanel,layout.LeftContent,layout.RightContent})
     Require(rectangle.width>0&&rectangle.height>0&&rectangle.xMin>=0&&rectangle.yMin>=0&&rectangle.xMax<=layout.width&&rectangle.yMax<=layout.height,"panel or scene outside viewport");
    if(layout.compact){Near(layout.scale,1,"compact controls retain readable scale");Require(layout.RightContent.height==layout.LeftContent.height,"compact calculation controls must remain inside the scrollable panel");}
-   else Require(layout.LeftPanel.xMax<scene.xMin&&scene.xMax<layout.RightPanel.xMin&&layout.RightContent.yMax<layout.Calculation.yMin,"desktop scene/panels/calculation area overlap");
+   else Require(layout.LeftPanel.xMax<scene.xMin&&scene.xMax<layout.RightPanel.xMin&&layout.RightContent.height==layout.LeftContent.height,"desktop calculation must share the full-height tab without overlapping the scene");
    foreach(var position in new[]{scene.min,scene.max,scene.center,new Vector2(-10000,10000)}){
     var label=StudioViewportLayout.DistanceLabel(scene,position);
     Require(label.width>0&&label.xMin>=scene.xMin+6&&label.xMax<=scene.xMax-6&&label.yMin>=scene.yMin+86&&label.yMax<=scene.yMax-6,"CT distance label overlaps panels or scene heading");

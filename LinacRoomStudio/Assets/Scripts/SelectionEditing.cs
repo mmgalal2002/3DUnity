@@ -28,30 +28,33 @@ public static class SelectionEditing {
  public static void Move(Design design,IList<Item> items,Vector3 delta){
   RequireUnlocked(items);
     CtShieldingData.RequireTransform(design,items);
+  DiagnosticData.RequireTransform(design,items);
   if(delta.y!=0&&design.linkWallsToRoom&&items.Any(i=>i.kind=="Wall"))throw new Exception("Unlink walls from room size before moving them vertically as a group.");
   foreach(var item in items)CheckPosition(new Vector3(item.x,item.y,item.z)+delta);
-  foreach(var item in items){item.x+=delta.x;item.y+=delta.y;item.z+=delta.z;}
+  foreach(var item in items){if(DiagnosticData.IsPoint(item))DiagnosticData.SetPosition(design,item,new CtVector(item.x+delta.x,item.y+delta.y,item.z+delta.z));else{item.x+=delta.x;item.y+=delta.y;item.z+=delta.z;}}
  }
  public static void Rotate(IList<Item> items,float degrees,Design design=null){
   RequireUnlocked(items);
   CtShieldingData.RequireTransform(design,items);
+  DiagnosticData.RequireTransform(design,items);
   if(float.IsNaN(degrees)||float.IsInfinity(degrees))throw new Exception("Invalid rotation.");
   var center=Center(items);var rotation=Quaternion.Euler(0,degrees,0);
   var positions=items.Select(i=>center+rotation*(new Vector3(i.x,i.y,i.z)-center)).ToArray();
   foreach(var position in positions)CheckPosition(position);
-  for(int n=0;n<items.Count;n++){items[n].x=positions[n].x;items[n].z=positions[n].z;items[n].angle=Mathf.Repeat(items[n].angle+degrees,360);}
+  for(int n=0;n<items.Count;n++){if(DiagnosticData.IsPoint(items[n]))DiagnosticData.SetPosition(design,items[n],new CtVector(positions[n].x,items[n].y,positions[n].z));else{items[n].x=positions[n].x;items[n].z=positions[n].z;}items[n].angle=Mathf.Repeat(items[n].angle+degrees,360);}
  }
  public static void Group(Design design,IEnumerable<string> ids){
   var expanded=Expand(design,ids);if(expanded.Count<2)return;
   RequireUnlocked(design.items.Where(i=>expanded.Contains(i.id)));
     CtShieldingData.RequireTransform(design,design.items.Where(i=>expanded.Contains(i.id)));
+  DiagnosticData.RequireTransform(design,design.items.Where(i=>expanded.Contains(i.id)));
   string group=Guid.NewGuid().ToString();foreach(var item in design.items)if(expanded.Contains(item.id))item.groupId=group;
  }
  public static void Ungroup(Design design,IEnumerable<string> ids){
   var expanded=Expand(design,ids);RequireUnlocked(design.items.Where(i=>expanded.Contains(i.id)));foreach(var item in design.items)if(expanded.Contains(item.id))item.groupId="";
  }
  public static void Remove(Design design,IEnumerable<string> ids){
-    var expanded=CtShieldingData.RemovalIds(design,Expand(design,ids));CtShieldingData.RemoveReferences(design,expanded);design.items.RemoveAll(i=>expanded.Contains(i.id));
+    var expanded=DiagnosticData.RemovalIds(design,CtShieldingData.RemovalIds(design,Expand(design,ids)));CtShieldingData.RemoveReferences(design,expanded);DiagnosticData.RemoveReferences(design,expanded);design.items.RemoveAll(i=>expanded.Contains(i.id));
  }
  static void CheckPosition(Vector3 p){
   if(float.IsNaN(p.x)||float.IsNaN(p.y)||float.IsNaN(p.z)||float.IsInfinity(p.x)||float.IsInfinity(p.y)||float.IsInfinity(p.z)||Mathf.Abs(p.x)>10000||Mathf.Abs(p.y)>10000||Mathf.Abs(p.z)>10000)throw new Exception("Movement would put an object outside the supported range.");

@@ -124,6 +124,7 @@ public static class BuildStudio {
   WallConnectionChecks.Run();
   WallGenerationChecks.Run();
   CheckCTAssets();
+  DiagnosticChecks.Run();
   ComponentChecks.Run();
     FloorPlanChecks.Run();
   if(string.Join(",",EquipmentPalette.Groups)!="Linac,CT,MRI,Room items")throw new Exception("Palette group order changed");

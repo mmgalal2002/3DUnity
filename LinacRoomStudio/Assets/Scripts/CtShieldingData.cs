@@ -113,6 +113,7 @@ public static class CtShieldingData {
   source.kvp=kvp;source.applicabilityReviewed=false;
  }
  public static CtVector Position(Design design,Item item){
+  if(DiagnosticData.IsPoint(item))return DiagnosticData.Position(design,item);
   if(!IsPoint(item)||string.IsNullOrEmpty(item.ctPoint.ownerId))return WorldPosition(item);
   var owner=design.items.Find(candidate=>candidate.id==item.ctPoint.ownerId);
   if(owner==null)throw new Exception("Calculation point owner is missing: "+item.id);
@@ -161,7 +162,7 @@ public static class CtShieldingData {
   if(points.Count>MaxPoints)throw new Exception("Maximum 64 calculation points.");
   foreach(var item in design.items){
    if(item.ctPoint!=null&&item.ctPoint.version!=0&&!IsPoint(item))throw new Exception("Invalid calculation-point metadata: "+item.id);
-   if(item.model=="Dot"&&!IsPoint(item))throw new Exception("A Dot marker needs an explicit calculation role.");
+   if(item.model=="Dot"&&!IsPoint(item)&&!DiagnosticData.IsPoint(item))throw new Exception("A Dot marker needs an explicit calculation role.");
   }
   if(!Active(design.ct)){if(points.Count>0)throw new Exception("Calculation points need CT project metadata.");return;}
   if(design.ct.metersPerUnityUnit!=1)throw new Exception("This Room Studio geometry uses exactly 1 metre per Unity unit.");

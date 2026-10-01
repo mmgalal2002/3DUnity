@@ -8,6 +8,8 @@ namespace RoomStudio {
  public string material="Concrete";
  public float thickness=150, density=2350;
  public bool shieldingEnabled=true,ctApplicabilityReviewed;
+ public bool diagnosticThicknessEdited;
+ public DiagnosticNumber diagnosticThickness=new DiagnosticNumber();
 }
 [Serializable] public class RegionItem {
  public string id=Guid.NewGuid().ToString(), name="Occupied region", scope="Wall";
@@ -39,6 +41,8 @@ namespace RoomStudio {
  // this is a hand-authored wall, independent of floor-plan generation.
  public GeneratedWallRef generated=null;
  public CtPointData ctPoint=null;
+ public DiagnosticPoint diagnosticPoint=null;
+ public DiagnosticMachineType machineType=DiagnosticMachineType.Unconfigured;
  public float transparency=0;
  public float Opacity { get=>1-transparency; set=>transparency=1-value; }
  public float x,z,y,angle,length=4,height=4,scale=1,occupancy=1,assessmentHeight=1.2f;
@@ -57,6 +61,7 @@ namespace RoomStudio {
  public List<WallJunction> wallJunctions=new List<WallJunction>();
  public EditingPreferences editing=new EditingPreferences();
  public CtProjectData ct=null;
+ public DiagnosticProject diagnosticCalculation=null;
  public List<Item> items=new List<Item>();
  public List<RegionItem> regions=new List<RegionItem>();
  public string selectedTool="Select", selectedEquipmentType="linac", selectedWallMaterial="Concrete";
@@ -80,7 +85,7 @@ namespace RoomStudio {
   if(current==null)throw new Exception("No room is available to reset.");
   var next=JsonUtility.FromJson<Design>(JsonUtility.ToJson(current));
   next.items=new List<Item>();next.regions=new List<RegionItem>();next.generationBatches=new List<WallGenerationBatch>();next.wallJunctions=new List<WallJunction>();
-  next.floorPlan=null;next.ct=null;next.sourceJson="";next.sourceProjectionJson="";next.importSummary="";next.selectedTool="Select";
+  next.floorPlan=null;next.ct=null;next.diagnosticCalculation=null;next.sourceJson="";next.sourceProjectionJson="";next.importSummary="";next.selectedTool="Select";
   next.width=Mathf.Max(3,next.width);next.depth=Mathf.Max(3,next.depth);next.height=Mathf.Max(2,next.height);
   Validate(next);return next;
  }
@@ -119,6 +124,7 @@ namespace RoomStudio {
    d.floor.thickness*=1000;d.ceiling.thickness*=1000;foreach(var i in d.items)i.shielding.thickness*=1000;
    d.version=2;d.schemaVersion=2;
   }
+  DiagnosticData.MigrateMachineTypes(d);DiagnosticData.MigrateLegacy(d);
  }
  public static void Validate(Design d) {
   if(d==null || d.version!=2 || d.schemaVersion!=2 || d.items==null || d.items.Count>250) throw new Exception("Invalid or unsupported project file. Legacy files must be migrated before validation.");
@@ -140,6 +146,7 @@ namespace RoomStudio {
   WallGenerationData.Validate(d);
   WallConnections.ValidateStored(d);
   CtShieldingData.Validate(d);
+  DiagnosticData.Validate(d);
  }
  static void ValidateFloorPlan(FloorPlanData p){if(!IsEmptyFloorPlan(p))FloorPlanCodec.Validate(p);}
  static void Check(float f,float min,float max){if(float.IsNaN(f)||float.IsInfinity(f)||f<min||f>max)throw new Exception("A project value is outside the supported range.");}
