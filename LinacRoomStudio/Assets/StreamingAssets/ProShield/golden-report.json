@@ -1,0 +1,221 @@
+{
+  "engine": "ProShield TypeScript reference / c33e41d",
+  "notice": "Planning prototype. Not an approval or construction certificate. Air-kerma in mGy/week; no conversion to effective dose. Barrier samples are not direct workstation dose measurements.",
+  "summary": "3 barrier assessments; 3 exceed the source design-goal test.",
+  "report": {
+    "timestamp": "2026-09-29T15:57:26.854Z",
+    "room": {
+      "width": 12,
+      "height": 10,
+      "roomHeight": 5,
+      "sampleDistance": 0.3,
+      "walls": [
+        {
+          "id": "wall",
+          "x1": 12,
+          "y1": 10,
+          "x2": 12,
+          "y2": 0,
+          "thickness": 150,
+          "material": "concrete"
+        }
+      ],
+      "equipment": [
+        {
+          "type": "linac",
+          "z": 1.3,
+          "planRotationDegrees": 270,
+          "gantryAngleDegrees": 0,
+          "workload": 50000,
+          "kVp": 6000,
+          "linacFieldSizeCm": 26.666666666666668,
+          "linacScatterAngleDegrees": 90,
+          "linacLeakageFactor": 1,
+          "K1": 100,
+          "nPatients": 30,
+          "useFactor": 0.25,
+          "workloadDistribution": "rad_room_all_other",
+          "sourcePresetId": "linac-cardinal",
+          "sourceComponents": [],
+          "id": "linac",
+          "name": "LINAC",
+          "x": 2.4,
+          "y": 6
+        }
+      ],
+      "workstations": [
+        {
+          "id": "desk",
+          "name": "Workstation",
+          "x": 14.5,
+          "y": 2,
+          "z": 1.2,
+          "occupancyFactor": 0.25,
+          "isControlled": false
+        }
+      ],
+      "occupiedRegions": [],
+      "floor": {
+        "thickness": 200,
+        "material": "concrete"
+      },
+      "ceiling": {
+        "thickness": 200,
+        "material": "concrete"
+      },
+      "floorPlanOpacity": 0.5
+    },
+    "results": [
+      {
+        "workstationId": "desk",
+        "workstationName": "Workstation - wall Side A",
+        "equipmentId": "linac",
+        "equipmentName": "LINAC",
+        "calculationStandard": "NCRP 151 / IPEM 75",
+        "linacBeamEnergyMV": 6,
+        "linacWeeklyWorkload": 50000,
+        "linacFieldSizeCm": 26.666666666666668,
+        "linacScatterAngleDegrees": 90,
+        "linacLeakageFactor": 1,
+        "distance": 9.90050503762308,
+        "unshieldedAirKerma": 1058.0692920220952,
+        "requiredTransmission": 0.00007560941481168079,
+        "currentTransmission": 0.39267689456882365,
+        "shieldedAirKerma": 415.4793638298701,
+        "designGoal": 0.02,
+        "occupancyAdjustedGoal": 0.08,
+        "passed": false,
+        "requiredThickness": 1000,
+        "additionalThickness": 850,
+        "barrierMaterial": "concrete"
+      }
+    ],
+    "overallPassed": false,
+    "maxAirKermaLocation": {
+      "x": 12.3,
+      "y": 5.7
+    },
+    "totalUnshieldedAtWorst": 4214.36886256217,
+    "floorResults": [
+      {
+        "workstationId": "desk",
+        "workstationName": "Workstation (Below)",
+        "equipmentId": "linac",
+        "equipmentName": "LINAC",
+        "calculationStandard": "NCRP 151 / IPEM 75",
+        "linacBeamEnergyMV": 6,
+        "linacWeeklyWorkload": 50000,
+        "linacFieldSizeCm": 26.666666666666668,
+        "linacScatterAngleDegrees": 90,
+        "linacLeakageFactor": 1,
+        "distance": 6.23698645180507,
+        "unshieldedAirKerma": 2401.9687095673053,
+        "requiredTransmission": 0.000033306012556013415,
+        "currentTransmission": 0.28765975086381224,
+        "shieldedAirKerma": 690.9497205768037,
+        "designGoal": 0.02,
+        "occupancyAdjustedGoal": 0.08,
+        "passed": false,
+        "requiredThickness": 1000,
+        "additionalThickness": 800,
+        "barrierMaterial": "concrete"
+      }
+    ],
+    "ceilingResults": [
+      {
+        "workstationId": "desk",
+        "workstationName": "Workstation (Above)",
+        "equipmentId": "linac",
+        "equipmentName": "LINAC",
+        "calculationStandard": "NCRP 151 / IPEM 75",
+        "linacBeamEnergyMV": 6,
+        "linacWeeklyWorkload": 50000,
+        "linacFieldSizeCm": 26.666666666666668,
+        "linacScatterAngleDegrees": 90,
+        "linacLeakageFactor": 1,
+        "distance": 3.7013511046643495,
+        "unshieldedAirKerma": 43.40632603406326,
+        "requiredTransmission": 0.00184304932735426,
+        "currentTransmission": 0.22760427944428768,
+        "shieldedAirKerma": 9.879465560306794,
+        "designGoal": 0.02,
+        "occupancyAdjustedGoal": 0.08,
+        "passed": false,
+        "requiredThickness": 821.1562405544238,
+        "additionalThickness": 621.1562405544238,
+        "barrierMaterial": "concrete"
+      }
+    ]
+  },
+  "rows": [
+    {
+      "workstationId": "desk",
+      "workstationName": "Workstation - wall Side A",
+      "equipmentId": "linac",
+      "equipmentName": "LINAC",
+      "calculationStandard": "NCRP 151 / IPEM 75",
+      "linacBeamEnergyMV": 6,
+      "linacWeeklyWorkload": 50000,
+      "linacFieldSizeCm": 26.666666666666668,
+      "linacScatterAngleDegrees": 90,
+      "linacLeakageFactor": 1,
+      "distance": 9.90050503762308,
+      "unshieldedAirKerma": 1058.0692920220952,
+      "requiredTransmission": 0.00007560941481168079,
+      "currentTransmission": 0.39267689456882365,
+      "shieldedAirKerma": 415.4793638298701,
+      "designGoal": 0.02,
+      "occupancyAdjustedGoal": 0.08,
+      "passed": false,
+      "requiredThickness": 1000,
+      "additionalThickness": 850,
+      "barrierMaterial": "concrete"
+    },
+    {
+      "workstationId": "desk",
+      "workstationName": "Workstation (Below)",
+      "equipmentId": "linac",
+      "equipmentName": "LINAC",
+      "calculationStandard": "NCRP 151 / IPEM 75",
+      "linacBeamEnergyMV": 6,
+      "linacWeeklyWorkload": 50000,
+      "linacFieldSizeCm": 26.666666666666668,
+      "linacScatterAngleDegrees": 90,
+      "linacLeakageFactor": 1,
+      "distance": 6.23698645180507,
+      "unshieldedAirKerma": 2401.9687095673053,
+      "requiredTransmission": 0.000033306012556013415,
+      "currentTransmission": 0.28765975086381224,
+      "shieldedAirKerma": 690.9497205768037,
+      "designGoal": 0.02,
+      "occupancyAdjustedGoal": 0.08,
+      "passed": false,
+      "requiredThickness": 1000,
+      "additionalThickness": 800,
+      "barrierMaterial": "concrete"
+    },
+    {
+      "workstationId": "desk",
+      "workstationName": "Workstation (Above)",
+      "equipmentId": "linac",
+      "equipmentName": "LINAC",
+      "calculationStandard": "NCRP 151 / IPEM 75",
+      "linacBeamEnergyMV": 6,
+      "linacWeeklyWorkload": 50000,
+      "linacFieldSizeCm": 26.666666666666668,
+      "linacScatterAngleDegrees": 90,
+      "linacLeakageFactor": 1,
+      "distance": 3.7013511046643495,
+      "unshieldedAirKerma": 43.40632603406326,
+      "requiredTransmission": 0.00184304932735426,
+      "currentTransmission": 0.22760427944428768,
+      "shieldedAirKerma": 9.879465560306794,
+      "designGoal": 0.02,
+      "occupancyAdjustedGoal": 0.08,
+      "passed": false,
+      "requiredThickness": 821.1562405544238,
+      "additionalThickness": 621.1562405544238,
+      "barrierMaterial": "concrete"
+    }
+  ]
+}

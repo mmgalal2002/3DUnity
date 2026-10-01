@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+ <meta charset="utf-8">
+ <meta name="viewport" content="width=device-width,initial-scale=1">
+ <title>LINAC Room Studio</title>
+ <style>
+  html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#0e141c;color:#d9e5ef;font-family:system-ui,sans-serif}
+  #unity-canvas{display:block;width:100%;height:100%;outline:none}
+  #loading{position:fixed;inset:0;display:grid;place-content:center;gap:14px;text-align:center;background:#0e141c}
+  progress{width:min(70vw,380px);accent-color:#32d5c2}h1{font-size:24px;margin:0}p{margin:0;max-width:600px}
+ </style>
+</head>
+<body>
+ <canvas id="unity-canvas" width="1600" height="1000" tabindex="0" aria-label="LINAC Room Studio interactive room planner"></canvas>
+ <div id="loading" role="status"><h1>LINAC / ROOM STUDIO</h1><p id="load-message">Loading your room planner...</p><progress id="progress" max="1" value="0"></progress></div>
+ <script src="Build/{{{ LOADER_FILENAME }}}?v={{{ Date.now() }}}"></script>
+ <script>
+  const canvas=document.getElementById('unity-canvas');
+  const buildRevision='{{{ Date.now() }}}';
+  createUnityInstance(canvas,{
+#if PROGRESSIVE_ASSET_LOADING
+   primaryDataUrls: {{{ JSON.stringify(PRIMARY_DATA_FILES) }}},
+   secondaryDataUrls: {{{ JSON.stringify(SECONDARY_DATA_FILES) }}},
+#else
+   dataUrl:'Build/{{{ DATA_FILENAME }}}?v='+buildRevision,
+#endif
+   frameworkUrl:'Build/{{{ FRAMEWORK_FILENAME }}}?v='+buildRevision,
+   codeUrl:'Build/{{{ CODE_FILENAME }}}?v='+buildRevision,
+   streamingAssetsUrl:'StreamingAssets',
+   companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+   productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+   productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+   devicePixelRatio:Math.min(window.devicePixelRatio,1.5)
+  },value=>document.getElementById('progress').value=value).then(instance=>{
+   document.getElementById('loading').remove();canvas.focus();
+  }).catch(error=>{
+   document.getElementById('load-message').textContent='Could not start Room Studio: '+error;
+   document.getElementById('progress').hidden=true;
+  });
+ </script>
+</body>
+</html>

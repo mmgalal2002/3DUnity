@@ -1,0 +1,59 @@
+{
+  "width": 12,
+  "depth": 10,
+  "height": 5,
+  "sampleDistance": 0.3,
+  "floor": {
+    "thickness": 200,
+    "material": "Concrete"
+  },
+  "ceiling": {
+    "thickness": 200,
+    "material": "Concrete"
+  },
+  "workload": 500,
+  "energy": 6,
+  "gantry": 0,
+  "fieldX": 20,
+  "fieldY": 40,
+  "isocentreHeight": 1.3,
+  "isoOffsetX": 0,
+  "isoOffsetZ": -1.6,
+  "items": [
+    {
+      "id": "wall",
+      "name": "Wall",
+      "kind": "Wall",
+      "x": 6,
+      "z": 0,
+      "y": 0,
+      "length": 10,
+      "angle": 90,
+      "shielding": {
+        "thickness": 150,
+        "material": "Concrete"
+      }
+    },
+    {
+      "id": "linac",
+      "name": "LINAC",
+      "kind": "LINAC",
+      "x": -2,
+      "z": 1,
+      "y": 0,
+      "angle": 90
+    },
+    {
+      "id": "desk",
+      "name": "Workstation",
+      "kind": "Desk",
+      "x": 8.5,
+      "z": -3,
+      "y": 0,
+      "assessmentHeight": 1.2,
+      "occupancy": 0.25,
+      "isControlled": false
+    }
+  ],
+  "regions": []
+}

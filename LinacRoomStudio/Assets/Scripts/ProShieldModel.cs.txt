@@ -1,0 +1,47 @@
+using System;
+using System.Collections.Generic;
+using RoomStudio;
+
+namespace ProShield {
+public enum EquipmentType { xray, ct, linac, fluoroscopy, mammo, dental }
+public enum SourceComponentType { primary, scatter, leakage }
+public enum RegionScope { wall, floor, ceiling }
+public enum WorkloadDistribution { rad_room_chest_bucky, rad_room_all_other, rad_room_floor_or_other_barriers, rad_tube_r_and_f, fluoro_tube, chest_room, ct_scanner, mammo_unit, dental_unit }
+public enum WallMaterial { lead, concrete, gypsum, steel, glass, wood }
+
+[Serializable] public class Point2D { public double x,y; public Point2D(){} public Point2D(double x,double y){this.x=x;this.y=y;} }
+[Serializable] public class SourceComponent {
+ public string id,name; public SourceComponentType type; public double x,y,z,relativeOutput,directionDegrees,elevationDegrees,beamWidthDegrees; public WorkloadDistribution workloadDistribution; public bool enabled=true;
+}
+[Serializable] public class Equipment {
+ public string id,name; public EquipmentType type; public double x,y,z,planRotationDegrees,gantryAngleDegrees,workload,kVp,linacFieldSizeCm,linacScatterAngleDegrees,linacLeakageFactor,K1,nPatients,useFactor; public WorkloadDistribution workloadDistribution; public string sourcePresetId; public List<SourceComponent> sourceComponents=new List<SourceComponent>();
+}
+[Serializable] public class Workstation { public string id,name; public double x,y,z,occupancyFactor; public bool isControlled; }
+[Serializable] public class Wall { public string id; public double x1,y1,x2,y2,thickness; public WallMaterial material; }
+[Serializable] public class OccupiedRegion { public string id,name; public List<Point2D> points=new List<Point2D>(); public double occupancyFactor,designGoal; public RegionScope scope; }
+[Serializable] public class HorizontalBarrier { public double thickness; public WallMaterial material; }
+[Serializable] public class MazeConfig {
+ public bool enabled; public string scenarioName="NCRP 151 Chapter 7 Maze / Door"; public double fieldSizeCm=40,useFactor=1,doorDesignGoalMsvPerWeek=.02,roomScatterCorrectionFactor=1,primaryWallFraction=.25,wallScatterProjectionAreaM2=2.82,wallScatterReflectionCoefficient=8e-3,mazeEntranceProjectionAreaM2=8.4,wallScatterSourceDistanceM=4.2,wallScatterMazeDistanceM=5.9,wallScatterDoorDistanceM=6.8,headLeakageScatterAreaM2=2.82,headLeakageScatterDistanceM=4.2,headLeakageDoorDistanceM=6.8,patientScatterWallReflectionCoefficient=2e-2,patientScatterDistanceM=4.2,patientScatterMazeDistanceM=7.3,patientScatterDoorDistanceM=6.8,transmittedLeakageDistanceM=10,roomSurfaceAreaM2=650,innerMazeDistanceM=6.4,mazeLengthM=8.5,innerMazeOpeningAreaM2=9.2,mazeCrossSectionAreaM2=8.4,mazeBarrierAngleDegrees=40,mazeBarrierDistanceM=7.7,installedMazeBarrierThicknessMm=958,minimumMazeBarrierSlantThicknessMm=1250,installedDoorLeadMm=0,installedDoorBpeMm=0; public WallMaterial mazeBarrierMaterial=WallMaterial.concrete;
+}
+[Serializable] public class Room {
+ public double width,height,roomHeight,sampleDistance=.3; public List<Wall> walls=new List<Wall>(); public List<Equipment> equipment=new List<Equipment>(); public List<Workstation> workstations=new List<Workstation>(); public List<OccupiedRegion> occupiedRegions=new List<OccupiedRegion>(); public HorizontalBarrier floor=new HorizontalBarrier(),ceiling=new HorizontalBarrier(); public MazeConfig linacMazeAnalysis;
+}
+[Serializable] public class ProjectEnvelope { public int schemaVersion=2; public string application="Linac Room Studio",calculationEngineVersion="ProShield-Unity-0.1",savedAtUtc; public Room room; public Design editorDesign; }
+
+public static class ProShieldBridge {
+ public static Room ToRoom(Design d) {
+  var r=new Room{width=d.width,height=d.depth,roomHeight=d.height,sampleDistance=d.sampleDistance}; r.floor=new HorizontalBarrier{thickness=d.floor.thickness,material=Material(d.floor.material)}; r.ceiling=new HorizontalBarrier{thickness=d.ceiling.thickness,material=Material(d.ceiling.material)};
+  foreach(var i in d.items) {
+   if(i==null)continue;
+   if(i.kind=="Wall") { var a=i.angle*Math.PI/180.0; var dx=Math.Cos(a)*i.length/2.0; var dz=Math.Sin(a)*i.length/2.0; r.walls.Add(new Wall{id=i.id,x1=i.x-dx,y1=i.z-dz,x2=i.x+dx,y2=i.z+dz,thickness=i.shielding.thickness,material=Material(i.shielding.material)}); }
+   else if(i.kind=="LINAC") { var e=ProShieldCatalog.DefaultEquipment(EquipmentType.linac,i.id,i.name); e.x=i.x;e.y=i.z;e.z=i.y+d.isocentreHeight;e.planRotationDegrees=i.angle;e.gantryAngleDegrees=d.gantry;e.workload=d.workload;e.kVp=d.energy*1000;e.linacFieldSizeCm=(d.fieldX+d.fieldY)/2.0;r.equipment.Add(e); }
+   else if(i.kind=="Desk") r.workstations.Add(new Workstation{id=i.id,name=i.name,x=i.x,y=i.z,z=i.y+i.assessmentHeight,occupancyFactor=i.occupancy,isControlled=i.occupancy>=.5});
+  }
+  if(d.regions!=null)foreach(var q in d.regions){var region=new OccupiedRegion{id=q.id,name=q.name,occupancyFactor=q.occupancy,designGoal=q.designGoal,scope=ParseScope(q.scope)};foreach(var p in q.points)region.points.Add(new Point2D(p.x,p.y));r.occupiedRegions.Add(region);}
+  return r;
+ }
+ public static ProjectEnvelope Envelope(Design d){return new ProjectEnvelope{savedAtUtc=DateTime.UtcNow.ToString("o"),room=ToRoom(d),editorDesign=d};}
+ static WallMaterial Material(string s){switch((s??"").ToLowerInvariant()){case "lead":return WallMaterial.lead;case "gypsum":return WallMaterial.gypsum;case "steel":return WallMaterial.steel;case "glass":return WallMaterial.glass;case "wood":return WallMaterial.wood;default:return WallMaterial.concrete;}}
+ static RegionScope ParseScope(string s){switch((s??"").ToLowerInvariant()){case "floor":return RegionScope.floor;case "ceiling":return RegionScope.ceiling;default:return RegionScope.wall;}}
+}
+}
