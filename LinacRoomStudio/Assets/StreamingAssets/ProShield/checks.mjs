@@ -28,6 +28,8 @@ assert.throws(()=>run(diagnostic),/diagnostic Calculation provider/,'diagnostic 
 assert.throws(()=>execute(diagnostic,'export'),/Diagnostic calculation records.*no records were discarded/,'diagnostic persistence boundary');
 diagnostic.diagnosticCalculation.activeMachineId='linac';
 assert.deepEqual(run(diagnostic).rows,report.rows,'diagnostic metadata does not alter separate treatment result');
+diagnostic.items.push({...structuredClone(diagnostic.items.find(item=>item.id==='linac')),id:'second-linac'});
+assert.deepEqual(run(diagnostic).rows,report.rows,'active treatment calculation must not sum layout copies');
 const disabled=structuredClone(d);disabled.items[0].shielding.shieldingEnabled=false;
 assert.throws(()=>run(disabled),/Disabled CT shielding/,'disabled shielding must not be silently enabled for reference QA');
 assert.throws(()=>execute(disabled,'export'),/Disabled CT shielding/,'disabled shielding export rejected');

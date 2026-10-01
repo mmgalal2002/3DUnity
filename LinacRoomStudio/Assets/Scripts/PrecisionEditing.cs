@@ -38,7 +38,7 @@ public static class PrecisionEditing {
  public static float Step(float value,float step,int direction){
   Range(step,.000001f,10000,"increment");return (float)((double)value+(double)step*direction);
  }
- public static bool IsEquipment(Item item){return item!=null&&(item.kind=="LINAC"||item.kind=="Desk"||item.kind=="Model"||item.kind=="Source")&&!CtShieldingData.IsPoint(item);}
+ public static bool IsEquipment(Item item){return item!=null&&(item.kind=="LINAC"||item.kind=="Desk"||item.kind=="Model"||item.kind=="Source")&&!CtShieldingData.IsPoint(item)&&!DiagnosticData.IsPoint(item);}
  public static void SetEquipmentScale(Item item,float scale){
   if(!IsEquipment(item))throw new Exception("Select equipment to change its scale.");
   SelectionEditing.RequireUnlocked(new[]{item});Range(scale,.05f,3,"equipment scale");item.scale=scale;

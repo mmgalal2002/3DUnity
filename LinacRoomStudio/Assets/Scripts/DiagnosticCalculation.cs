@@ -112,7 +112,7 @@ public static class DiagnosticCalculation {
   try{
    var ledger=Contributions(design,machine,profile);
    var barriers=ledger.SelectMany(c=>c.segments).Select(s=>s.barrierId).Distinct().ToList();
-   string paths=barriers.Count==0?"No shielding on these supported paths.":string.Join(", ",barriers.Select(id=>design.items.Find(i=>i.id==id)?.name??id));
+   string paths=barriers.Count==0?"No shielding on these supported paths.":string.Join("; ",ledger.SelectMany(row=>row.segments).Select(segment=>(design.items.Find(i=>i.id==segment.barrierId)?.name??segment.barrierId)+": "+Number(segment.pathThicknessMm)+" mm "+segment.material+" path").Distinct());
    var roi=design.items.Find(i=>i.id==data.activeRoiId);
    ready.summary="Ready for "+item.name+" -> "+roi.name+". "+Number(kvp)+" kVp; "+profile.exposureDefinition+". "+ledger.Count+" validated component/sample paths. "+paths+" Calculate combines the profile's unshielded field and matched transmission in Gy/"+profile.basis+".";
    ready.state="Ready";ready.canCalculatePhysical=true;
