@@ -1,58 +1,58 @@
 {
-    "datasetId":  "NCRP147_APPENDIX_A_CT_SECONDARY",
-    "thicknessUnit":  "mm",
-    "coefficientInverseLengthUnit":  "1/mm",
-    "radiationQuantity":  "airKerma",
-    "beamFamily":  "CT_SECONDARY",
-    "interpolationEnabled":  false,
-    "extrapolationEnabled":  false,
-    "fits":  [
-                 {
-                     "id":  "CT_PB_120",
-                     "material":  "lead",
-                     "kvp":  120,
-                     "alpha":  2.246,
-                     "beta":  5.73,
-                     "gamma":  0.547,
-                     "pdfPage":  8,
-                     "reportPage":  123,
-                     "figure":  "A.2"
-                 },
-                 {
-                     "id":  "CT_PB_140",
-                     "material":  "lead",
-                     "kvp":  140,
-                     "alpha":  2.009,
-                     "beta":  3.99,
-                     "gamma":  0.342,
-                     "pdfPage":  8,
-                     "reportPage":  123,
-                     "figure":  "A.2"
-                 },
-                 {
-                     "id":  "CT_CONCRETE_120",
-                     "material":  "concrete",
-                     "kvp":  120,
-                     "alpha":  0.0383,
-                     "beta":  0.0142,
-                     "gamma":  0.658,
-                     "pdfPage":  9,
-                     "reportPage":  124,
-                     "figure":  "A.3"
-                 },
-                 {
-                     "id":  "CT_CONCRETE_140",
-                     "material":  "concrete",
-                     "kvp":  140,
-                     "alpha":  0.0336,
-                     "beta":  0.0122,
-                     "gamma":  0.519,
-                     "pdfPage":  9,
-                     "reportPage":  124,
-                     "figure":  "A.3"
-                 }
-             ],
-    "schemaVersion":  1,
-    "specificationSha256":  "ed9442ba6f5f7f4b949f3d76c255ac003c96bb9da1331f23eb378ff46a17704f",
-    "reportedPdfSha256":  "168bd82cfe61ff318c73e81becbdb381b04b0998af9a355246bf31158f801e81"
+  "datasetId": "NCRP147_APPENDIX_A_CT_SECONDARY",
+  "thicknessUnit": "mm",
+  "coefficientInverseLengthUnit": "1/mm",
+  "radiationQuantity": "airKerma",
+  "beamFamily": "CT_SECONDARY",
+  "interpolationEnabled": false,
+  "extrapolationEnabled": false,
+  "fits": [
+    {
+      "id": "CT_PB_120",
+      "material": "lead",
+      "kvp": 120,
+      "alpha": 2.246,
+      "beta": 5.73,
+      "gamma": 0.547,
+      "pdfPage": 8,
+      "reportPage": 123,
+      "figure": "A.2"
+    },
+    {
+      "id": "CT_PB_140",
+      "material": "lead",
+      "kvp": 140,
+      "alpha": 2.009,
+      "beta": 3.99,
+      "gamma": 0.342,
+      "pdfPage": 8,
+      "reportPage": 123,
+      "figure": "A.2"
+    },
+    {
+      "id": "CT_CONCRETE_120",
+      "material": "concrete",
+      "kvp": 120,
+      "alpha": 0.0383,
+      "beta": 0.0142,
+      "gamma": 0.658,
+      "pdfPage": 9,
+      "reportPage": 124,
+      "figure": "A.3"
+    },
+    {
+      "id": "CT_CONCRETE_140",
+      "material": "concrete",
+      "kvp": 140,
+      "alpha": 0.0336,
+      "beta": 0.0122,
+      "gamma": 0.519,
+      "pdfPage": 9,
+      "reportPage": 124,
+      "figure": "A.3"
+    }
+  ],
+  "schemaVersion": 1,
+  "specificationSha256": "c0589634afbae3351a43f0a4d5e68ca9c8fa288010a6cf65e727c42eed242e8e",
+  "reportedPdfSha256": "168bd82cfe61ff318c73e81becbdb381b04b0998af9a355246bf31158f801e81"
 }
