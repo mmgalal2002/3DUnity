@@ -24,15 +24,18 @@ public partial class StudioApp {
   return edited==visible?original:edited;
  }
  void HandleKeyboardEvent(Event e){
-  cameraTextFocused=(GUI.GetNameOfFocusedControl()??"").StartsWith("edit:",StringComparison.Ordinal);
+  cameraTextFocused=(GUI.GetNameOfFocusedControl()??"").StartsWith("edit:",StringComparison.Ordinal)||!string.IsNullOrEmpty(diagnosticEnergyMenuMachine);
   if(e.type!=EventType.KeyDown)return;
   if(HandleShortcut(e.keyCode,e.control,e.shift,e.alt||e.command,cameraTextFocused)){if(e.keyCode==KeyCode.Escape)GUI.FocusControl(null);e.Use();GUIUtility.ExitGUI();}
  }
  // One dispatch path for actual IMGUI events and runtime regression checks.
  bool HandleShortcut(KeyCode key,bool control=false,bool shift=false,bool otherModifier=false,bool editing=false){
   if(key==KeyCode.F1&&!control&&!shift&&!otherModifier){ToggleHelp();return true;}
-  if(key==KeyCode.Escape&&!control&&!shift&&!otherModifier){CancelInteraction();ClosePlanAuthoring();compactPanel="";showHelp=showFiles=showQa=showComponentEditor=showReset=false;return true;}
-  if(editing||CompactPanelOpen||showHelp||showFiles||showQa||showComponentEditor||showPlanAuthoring||showReset||dragging||resizingWall||scalingEquipment||marquee||otherModifier)return false;
+  if(key==KeyCode.Escape&&!control&&!shift&&!otherModifier){
+   if(!string.IsNullOrEmpty(diagnosticEnergyMenuMachine)){diagnosticEnergyMenuMachine="";return true;}
+   CancelInteraction();ClosePlanAuthoring();compactPanel="";showHelp=showFiles=showQa=showComponentEditor=showReset=false;return true;
+  }
+  if(editing||!string.IsNullOrEmpty(diagnosticEnergyMenuMachine)||CompactPanelOpen||showHelp||showFiles||showQa||showComponentEditor||showPlanAuthoring||showReset||dragging||resizingWall||scalingEquipment||marquee||otherModifier)return false;
   if(control&&!shift&&key==KeyCode.V){PasteSceneSelection();return true;}
   if(!control&&!shift&&key==KeyCode.V){ToggleCameraView();return true;}
   if(!control&&!shift&&key==KeyCode.C){cutaway=!cutaway;Rebuild();status=cutaway?"Cutaway walls on.":"Cutaway walls off.";return true;}
@@ -64,6 +67,7 @@ public partial class StudioApp {
   return false;
  }
  void CancelInteraction(){
+  diagnosticEnergyMenuMachine="";
   scenePointerEvents.Clear();CancelWallResize();CancelEquipmentScale();showSnapTarget=false;
   if(dragging&&dragMoved){
    if(dragConnectedBefore!=null)design=dragConnectedBefore;
@@ -113,6 +117,7 @@ public partial class StudioApp {
  static readonly string UpdatedHelpContent="CALCULATION\nRoom | Object | Calculation is the single workflow. Select a machine, place Target at the device source, Scatter at the patient and ROI at the measurement location. Target follows its machine without display-scale correction; Scatter and ROI remain world points. Enter an explicit placement height in 2D. Escape cancels placement.\n\nEnter one tube voltage (kVp) and only the exposure inputs declared by an approved machine profile. Voltage alone cannot determine Gy. The catalogue ships without calibrated source outputs: Load matching machine profile requires an independently approved catalogue entry. MRI/ultrasound and radionuclide equipment do not use this X-ray model. Treatment uses its separate MV controls and reference engine.\n\nAir kerma at ROI is not patient dose. Missing data displays --, changed inputs hide stale numbers, and unsupported spectra/materials are never approximated silently. Details contains the component/path ledger. Weekly total and numeric limit comparison are optional and do not change physical kerma. Save native JSON to retain incomplete inputs, points, historical CT records and results.\n\n"+HelpContent
   .Replace("V  — Toggle between 2D plan and 3D view\nCtrl+Z", "V  — Toggle between 2D plan and 3D view\nC  — Toggle cutaway walls\nCtrl+Z")
   .Replace("Automatic wall-path generation, physical joins and regeneration are still pending.", "Generate connected walls previews source-pixel centerlines and physical joins before one-step Apply. Select existing walls in Object to preview Connect wall edges. Native saves retain source paths and regeneration diffs.")
+  .Replace("Enter one tube voltage (kVp) and only the exposure inputs declared by an approved machine profile.", "Select tube voltage (kVp) from the supported-value dropdown, then enter only the exposure inputs declared by an approved machine profile. Unsupported energies are not selectable. Escape closes the dropdown without changing its value. The shielding reference is bundled from the specification; calibrated machine output is separate.")
   .Replace("A copied LINAC cannot be pasted while a LINAC already exists.", "LINACs can be pasted repeatedly like other equipment. The first LINAC remains the calculation and beam-visual source; additional units are layout instances.")
   .Replace("R  — Rotate selection clockwise 15 degrees", "+ / -  — Scale selected equipment (keypad supported)\nShift  — Constrain wall drawing / endpoint direction to 45 degrees\nR  — Rotate selection clockwise 15 degrees");
  void HelpModal(){
