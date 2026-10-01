@@ -1,0 +1,79 @@
+<!doctype html><html lang="en"><meta charset="utf-8"><title>Room Studio browser engine verification</title>
+<style>body{font:16px system-ui;margin:40px;background:#101722;color:#e6eef5}button{padding:12px}pre{white-space:pre-wrap}</style>
+<h1>Browser engine verification</h1><button id="run">Run worker checks</button><pre id="result">Ready</pre>
+<script type="module">
+const packageName=new URLSearchParams(location.search).get('package');
+const base=packageName==='web'?'../web/StreamingAssets/ProShield/':packageName==='WebGL'?'../WebGL/StreamingAssets/ProShield/':'../LinacRoomStudio/Assets/StreamingAssets/ProShield/';
+function check(ok,message){if(!ok)throw Error(message);document.querySelector('#result').textContent+='\nPASS: '+message;}
+function run(input,mode){return new Promise((resolve,reject)=>{const worker=new Worker(base+'browser-worker.mjs',{type:'module'});const timer=setTimeout(()=>{worker.terminate();reject(Error('Timeout'));},30000);worker.onmessage=({data})=>{clearTimeout(timer);worker.terminate();if(data.ok)resolve(JSON.parse(data.payload));else reject(Error(data.error));};worker.onerror=e=>{clearTimeout(timer);worker.terminate();reject(Error(e.message));};worker.postMessage({json:JSON.stringify(input),mode});});}
+document.querySelector('#run').onclick=async()=>{
+ const button=document.querySelector('#run');button.disabled=true;document.querySelector('#result').textContent='Running real browser workers...';
+ try{
+  const [design,golden,fixture]=await Promise.all(['example-design.json','golden-report.json','import-fixture.json'].map(name=>fetch(base+name).then(r=>r.json())));
+  const first=await run(design,'qa');check(JSON.stringify(first.rows)===JSON.stringify(golden.rows),'Browser QA matches desktop golden rows');
+  const second=await run(design,'qa');check(JSON.stringify(second.rows)===JSON.stringify(first.rows),'Recalculation returns the same results');
+  const more=structuredClone(design);more.workload*=2;const changed=await run(more,'qa');check(changed.rows.every((row,i)=>Math.abs(row.shieldedAirKerma-2*first.rows[i].shieldedAirKerma)<1e-10),'Changed workload changes results');
+  const imported=await run(fixture,'import');const exported=await run(imported.design,'export');check(JSON.stringify(JSON.parse(exported.json))===JSON.stringify(fixture),'Browser import/export preserves source fixture exactly');
+  const qa=await run(imported.design,'qa');check(qa.rows.length>0,'Imported workspace calculates in browser');
+  const guide={kind:'Vector',sourceName:'trace.json',sourcePath:'',widthMeters:12,heightMeters:8,pixelWidth:0,pixelHeight:0,metersPerPixel:.01,imageBase64:'',opacity:.35,x:1.234567890123,z:-2,rotation:15,visible:true,segments:[{start:{x:-6,y:-4},end:{x:6,y:-4}}],annotation:'preserve'};
+  const guided=structuredClone(imported.design);guided.floorPlan=guide;
+  const guideQa=await run(guided,'qa');check(JSON.stringify(guideQa.rows)===JSON.stringify(qa.rows),'Floor-plan guide does not affect QA');
+  const guideExport=JSON.parse((await run(guided,'export')).json);check((guideExport.room??guideExport).floorPlan.annotation==='preserve','Canonical export retains separate guide metadata');
+  const guideImport=await run(guideExport,'import');check(guideImport.design.items.length===imported.design.items.length,'Guide metadata creates no shielding objects');
+  const rounded=JSON.parse(JSON.stringify(guideImport.design,(_k,v)=>typeof v==='number'?Math.fround(v):v));
+  check((JSON.parse((await run(rounded,'export')).json).room??{}).floorPlan.x===guide.x,'Guide round-trip preserves original precision');
+  guideImport.design.floorPlan=null;check(!(JSON.parse((await run(guideImport.design,'export')).json).room??{}).floorPlan,'Clearing a guide removes metadata');
+  const invalidGuide=structuredClone(guideExport);(invalidGuide.room??invalidGuide).floorPlan.widthMeters=0;
+  let rejectedGuide=false;try{await run(invalidGuide,'import');}catch(e){rejectedGuide=true;}check(rejectedGuide,'Malformed guide metadata is rejected');
+  const png='iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+aL1sAAAAASUVORK5CYII=';
+  const digest=await crypto.subtle.digest('SHA-256',Uint8Array.from(atob(png),c=>c.charCodeAt(0)));
+  const fingerprint=Array.from(new Uint8Array(digest),b=>b.toString(16).padStart(2,'0')).join('');
+  const color={r:1,g:0,b:1,a:1};
+  const authoring={version:1,id:'browser-plan',sourceFingerprint:fingerprint,pixelWidth:1,pixelHeight:1,alphaThreshold:.1,
+   calibration:{confirmed:true,method:'Manual',unit:'m/px',value:1,metresPerPixel:1,distanceMetres:5,a:{x:0,y:0},b:{x:1,y:1}},
+   rules:[{id:'magenta',name:'Wall category',enabled:true,classification:'Wall',colorSpace:'RGB',material:'Concrete',priority:0,minAreaPixels:4,tolerance:.08,minLengthPixels:5,height:5,baseElevation:0,thicknessMm:150,target:color,display:color}],annotation:'retain authoring extension'};
+  const authored=structuredClone(imported.design);authored.floorPlan={kind:'Image',sourceName:'pixel.png',sourcePath:'',pixelWidth:1,pixelHeight:1,widthMeters:1,heightMeters:1,metersPerPixel:1,imageBase64:png,opacity:.35,x:0,z:0,rotation:0,visible:true,segments:[],authoring};
+  authored.editing={moveStep:.01,gridSnap:true,gridVisible:false};
+  check(JSON.stringify((await run(authored,'qa')).rows)===JSON.stringify(qa.rows),'Calibration, rules and precision preferences preserve QA');
+  const authoredExport=JSON.parse((await run(authored,'export')).json),authoredImport=await run(authoredExport,'import');
+  check(authoredImport.design.items.length===imported.design.items.length&&authoredImport.design.floorPlan.authoring.rules[0].material==='Concrete','Authoring round-trip retains rules without generating items');
+  authoredImport.design.floorPlan.authoring.rules[0].display={r:0,g:1,b:0,a:1};
+  check((JSON.parse((await run(authoredImport.design,'export')).json).room??{}).floorPlan.authoring.annotation===authoring.annotation,'Rule color edit preserves unknown authoring metadata');
+  const badAuthoring=structuredClone(authoredExport);(badAuthoring.room??badAuthoring).floorPlan.authoring.calibration.metresPerPixel=.5;
+  let badScale=false;try{await run(badAuthoring,'import');}catch{badScale=true;}check(badScale,'Inconsistent confirmed calibration is rejected');
+  const generated=structuredClone(authored),generatedWall=generated.items.find(item=>item.kind==='Wall');
+  const pixel={x:.5,y:.5};
+  generatedWall.generated={batchId:'browser-batch',pathId:'browser-path',ruleId:'magenta',categoryName:'Wall category',displayColor:color,
+   sourceAPixel:pixel,sourceBPixel:pixel,manuallyEdited:false,unsupportedGeometry:false};
+  generated.generationBatches=[{version:1,id:'browser-batch',sourceFingerprint:fingerprint,snapshotSignature:'a'.repeat(64),pixelWidth:1,pixelHeight:1,sourceSnapshot:null,paths:[
+   {id:'browser-path',ruleId:'magenta',itemId:generatedWall.id,categoryName:'Wall category',material:'Concrete',displayColor:color,
+    sourceAPixel:pixel,sourceBPixel:pixel,aPixel:pixel,bPixel:pixel,aWorld:{x:0,y:0,z:0},bWorld:{x:1,y:0,z:0},
+    sourceComponent:0,areaPixels:1,lengthPixels:1,height:5,baseElevation:0,thicknessMm:150,densityKgM3:2350,
+    manuallyEdited:false,deletedOverride:false,unsupportedGeometry:false}]}];
+  check(JSON.stringify((await run(generated,'qa')).rows)===JSON.stringify(qa.rows),'Generated straight-wall metadata leaves reference QA unchanged');
+  const generatedExport=JSON.parse((await run(generated,'export')).json);
+  check((generatedExport.room??generatedExport).floorPlan.roomStudioGeneration.batches[0].paths[0].id==='browser-path','Canonical metadata retains generated path identity');
+  const generatedImport=await run(generatedExport,'import');
+  check(generatedImport.design.items.find(item=>item.id===generatedWall.id).generated.pathId==='browser-path','Browser worker round-trip retains wall provenance');
+  const joined=structuredClone(generated);joined.wallJunctions=[{id:'browser-join',kind:'T',x:0,z:0,arms:[{wallId:generatedWall.id,endpoint:'End'}]}];
+  for(const mode of ['qa','export']){let blocked=false;try{await run(joined,mode);}catch(e){blocked=/Joined wall footprints/.test(e.message)&&e.message.includes(generatedWall.id);}check(blocked,'Joined wall '+mode+' rejects unsupported physical geometry');}
+  const protectedDesign=structuredClone(imported.design);for(const item of protectedDesign.items){item.locked=true;item.groupId='protected-group';item.transparency=.5;}
+  const protectedExport=await run(protectedDesign,'export');check(JSON.stringify(JSON.parse(protectedExport.json))===JSON.stringify(fixture),'Protection/group/opacity metadata preserves exact canonical export');
+  const protectedQa=await run(protectedDesign,'qa');check(JSON.stringify(protectedQa.rows)===JSON.stringify(qa.rows),'Protection metadata preserves imported QA');
+  const ctMarkers=structuredClone(design);ctMarkers.ct={version:1,sources:[],results:[]};ctMarkers.items.push({id:'ct-roi-marker',kind:'Model',model:'Dot',x:3,y:1,z:0,ctPoint:{version:1,role:'ROI'}});
+  check(JSON.stringify((await run(ctMarkers,'qa')).rows)===JSON.stringify(first.rows),'CT point annotations leave LINAC QA geometry unchanged');
+  let ctExportBlocked=false;try{await run(ctMarkers,'export');}catch(error){ctExportBlocked=/CT points/.test(error.message)&&/no records were discarded/.test(error.message);}check(ctExportBlocked,'Canonical export explicitly rejects unsupported CT metadata');
+  const ctSource=structuredClone(ctMarkers);ctSource.ct.sources.push({id:'ct-provider'});let ctQaBlocked=false;try{await run(ctSource,'qa');}catch(error){ctQaBlocked=/dedicated CT ROI engine/.test(error.message);}check(ctQaBlocked,'CT sources cannot receive a LINAC QA verdict');
+  const disabledCt=structuredClone(design);disabledCt.items.find(item=>item.kind==='Wall').shielding.shieldingEnabled=false;
+  for(const mode of ['qa','export']){let blocked=false;try{await run(disabledCt,mode);}catch(error){blocked=/Disabled CT shielding/.test(error.message);}check(blocked,'Disabled CT shielding '+mode+' rejects silent re-enabling');}
+  const plateGlassCt=structuredClone(design);plateGlassCt.items.find(item=>item.kind==='Wall').shielding.material='PlateGlass';let plateGlassBlocked=false;try{await run(plateGlassCt,'qa');}catch(error){plateGlassBlocked=/not the legacy lead-glass fit/.test(error.message);}check(plateGlassBlocked,'Plate glass cannot inherit legacy lead-glass attenuation');
+  const visualDesign=structuredClone(imported.design);for(const model of ['CT','CathLab','Cyberknife','Mammography','MRI','Dental','Xray'])visualDesign.items.push({id:'visual-'+model,kind:'Model',model,name:model,x:1,z:2,y:0,angle:0,scale:1});
+  const visualExport=await run(visualDesign,'export');check(JSON.stringify(JSON.parse(visualExport.json))===JSON.stringify(fixture),'All seven visual palette additions preserve imported source roles and canonical export');
+  const shaped=structuredClone(imported.design);shaped.items.push({id:'custom',kind:'Component',component:{type:'Polygon'}});
+  for(const mode of ['qa','export']){let blocked=false;try{await run(shaped,mode);}catch(e){blocked=/Custom component geometry is not supported/.test(e.message);}check(blocked,'Custom component '+mode+' reports unsupported geometry instead of silently omitting it');}
+  let invalid=false;try{await run({width:-1},'qa');}catch(e){invalid=true;}check(invalid,'Invalid input returns an error');
+  const recovered=await run(design,'qa');check(recovered.rows.length===first.rows.length,'Calculation recovers after an error');
+  document.querySelector('#result').textContent+='\nALL BROWSER WORKER CHECKS PASSED';
+ }catch(error){document.querySelector('#result').textContent+='\nFAILED: '+error.message;}finally{button.disabled=false;}
+};
+</script></html>
