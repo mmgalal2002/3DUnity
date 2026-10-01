@@ -57,6 +57,13 @@ public static class CtCoefficientLibrary {
   coefficient=coefficients.FirstOrDefault(row=>row.Material==normalized&&row.Kvp==kvp);
   status=coefficient==null?"UnsupportedMaterialSpectrumCombination":"ValidCalculation";return coefficient!=null;
  }
+ public static int[] SupportedTubeVoltages(string family){
+  Load();
+  if(family=="CT_SECONDARY")return coefficients.Select(row=>row.Kvp).Distinct().OrderBy(kvp=>kvp).ToArray();
+  if(family=="PRIMARY_RADIOGRAPHIC"||family=="PRIMARY_MAMMOGRAPHIC")
+   return archive.rows.Where(row=>row.provided&&row.beamFamily==family).Select(row=>row.kvp).Distinct().OrderBy(kvp=>kvp).ToArray();
+  throw new ArgumentException("Unknown attenuation reference family: "+family,nameof(family));
+ }
  public static double PlottedMaximumMm(CtCoefficient coefficient)=>coefficient.Material=="lead"?3:300;
 }
 }
