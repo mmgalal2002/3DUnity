@@ -21,6 +21,13 @@ assert.deepEqual(run(markers).rows,report.rows,'point annotations do not alter l
 assert.throws(()=>execute(markers,'export'),/CT points.*no records were discarded/,'canonical export must not lose CT metadata');
 const ctSources=structuredClone(markers);ctSources.ct.sources.push({id:'ct-source'});
 assert.throws(()=>run(ctSources),/dedicated CT ROI engine/,'CT sources cannot receive LINAC QA verdicts');
+const diagnostic=structuredClone(d);
+diagnostic.diagnosticCalculation={version:1,activeMachineId:'ct'};
+diagnostic.items.push({id:'ct',kind:'Model',model:'CT',machineType:8});
+assert.throws(()=>run(diagnostic),/diagnostic Calculation provider/,'diagnostic source cannot enter treatment calculation');
+assert.throws(()=>execute(diagnostic,'export'),/Diagnostic calculation records.*no records were discarded/,'diagnostic persistence boundary');
+diagnostic.diagnosticCalculation.activeMachineId='linac';
+assert.deepEqual(run(diagnostic).rows,report.rows,'diagnostic metadata does not alter separate treatment result');
 const disabled=structuredClone(d);disabled.items[0].shielding.shieldingEnabled=false;
 assert.throws(()=>run(disabled),/Disabled CT shielding/,'disabled shielding must not be silently enabled for reference QA');
 assert.throws(()=>execute(disabled,'export'),/Disabled CT shielding/,'disabled shielding export rejected');

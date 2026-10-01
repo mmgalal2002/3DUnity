@@ -3,7 +3,7 @@
   "notice": "Planning prototype. Not an approval or construction certificate. Air-kerma in mGy/week; no conversion to effective dose. Barrier samples are not direct workstation dose measurements.",
   "summary": "3 barrier assessments; 3 exceed the source design-goal test.",
   "report": {
-    "timestamp": "2026-09-29T15:57:26.854Z",
+    "timestamp": "2026-10-01T19:12:55.986Z",
     "room": {
       "width": 12,
       "height": 10,
