@@ -1,0 +1,32 @@
+# Equipment model sources — September 29, 2026
+
+The supplied GLBs are stored in `LinacRoomStudio/Assets/SourceModels`; the Versa HD project copy has its standalone Elekta logo mesh removed. Unity uses `Assets/ModelData` to generate meshes, materials and `Resources` prefabs. The `Linac` model ID and `LINAC` calculation role remain stable; its visible model is the Versa HD without a patient. Planmeca Viso has its own `PlanmecaViso` ID, displays as Dental OPG in CT, and is visual only. CathLab is now listed under CT with its original model ID. Toilet, Basin, and Chair are visual-only entries in the new Room items section.
+
+## Request 6 calculation marker - October 1, 2026
+
+[Dot.glb](LinacRoomStudio/Assets/SourceModels/Dot.glb) is retained verbatim from the supplied file: SHA-256 `3ae862c269e872fdad45a1181b93dec93f43b3e5d23a0925ecca4c207516470f`, 5,988,632 bytes. Its converted [Dot.json](LinacRoomStudio/Assets/ModelData/Dot.json) SHA-256 is `827508e20cb699b22c2a773656d8e2b654829356bfa8375064e7433780e3e064`: one part/material, 107,414 vertices and 212,520 triangles. Matrix hierarchy transforms, handedness and normals are baked only with the converter's explicit `--flatten` option; existing flat imports are unchanged.
+
+Converted bounds are approximately X=-0.002091476..0.003908247 m, Y=-0.000645830..0.005354170 m and Z=-0.003183786..0.002816075 m. `BuildStudio` centers the display prefab in all axes and normalizes its largest diameter to 1. The default scene marker diameter is 0.15 m; this is visualization only and never scales source/ROI distance or intensity. The overlay annotation shader keeps points/measurement lines visible inside the scanner. The marker is typed as scatter, ROI or patient evaluation data, never a shielding solid or an automatic source contribution. Editor and compiled Windows checks pass; WebGL verification is pending at this checkpoint. Its high-detail mesh is shared between instances; the 64-point data limit is not a mobile-performance certification.
+
+| Source GLB | Source SHA-256 | ModelData JSON | JSON SHA-256 | Imported geometry |
+| --- | --- | --- | --- | --- |
+| `Versa HD .glb` (project copy: `versa hd without patient.glb`) | `91a467bfcffe2fc8ea91d1e64903f3426617e5c669142e53eb9ef22de1e9afda` | `Linac.json` | `0eb8b849955af9322446f0c3289914221453c3da32ce3441588031260ebac829` | 208 parts, 71,079 triangles, 15 materials |
+| `planmeca viso.glb` | `4d880c320022271a468d2d13039c6e78be25d0e79326bfd92a477c9b28b5c706` | `PlanmecaViso.json` | `638fccac06975d1762185d464bdecf4c1db2e6506ea02847eae1c8f11b13fc9b` | 32 parts, 15,176 triangles, 9 materials |
+| `CT no patient .glb` | `e7560f1b9dc1989b63da3d9da04bd7253e7b4bd7faa3a67a40c35cd87f38ba42` | `CT.json` | `42b062b9237f09c8474b04b222578027def9223031adbad7e14fd2cb4de93951` | 37 parts, 35,492 triangles, 9 materials |
+| `cyberknife no patient.glb` | `266f8642786d1e58a0b95971bf2d20b4d9e77d411981cb3c4ef631a24380654c` | `Cyberknife.json` | `672c723581951ffed42d1ef250f62d36e74709a3394325f3e2031ef37923c854` | 58 parts, 43,092 triangles, 17 materials |
+| `mri no patient.glb` | `7dafa6e10e92d1603eeda4d6150944c9da94073d4145cf45c55e946452fda48e` | `MRI.json` | `5bb95dd7a307d28074330c40ecc50bb4726dde8a245d503ff2a7e8c59582faf5` | 45 parts, 53,488 triangles, 7 materials |
+| `Toilet without.glb` | `0686f9207dcbf6d17da6e54c82c23ecce870937815ce663da2a19ec438091bb8` | `Toilet.json` | `64cb622ca10d1c6de950922bd88688cd0537c966a021f89916e5e7006b9bb1e0` | 2 parts, 14,518 triangles, 2 materials |
+| `Basin no human .glb` | `49cc24f4f307aff8c7804528868e4c0e5a0b54efe3dfb73a0956bf45a71ff4b9` | `Basin.json` | `a6bbc42b04f50c5b7b20f4982c554a373813b7233fc775ec162a76afc61b2857` | 13 parts, 35,137 triangles, 1 material |
+| `Chair without human .glb` | `c59fc90002cd45520f85840cbdca2a5ac1b9703d2ec43932625133a733973851` | `Chair.json` | `47ffc33f7636f6196d4bbfa86423d14df4dd66b0ed2b6b36992172ede52ee886` | 4 parts, 100,824 triangles, 2 materials |
+
+`LinacRoomStudio/Tools/convert-glb.mjs` converts each static glTF scene to Unity coordinates and preserves base color, opacity, metallic, roughness and emission. The latest Versa HD file has no embedded textures, animation or required material extensions. The `planmeca viso.glb` later supplied in Downloads is byte-for-byte identical to the project copy, so it was not duplicated.
+
+`BuildStudio.EnsureModels` checks a source hash marker and regenerates the relevant mesh/material assets and prefab when any of the eight tracked converted models changes. `BuildStudio.RunChecks` verifies the source-specific mesh part counts after a licensed Editor import. ModelData can be regenerated from each original with `node Tools/convert-glb.mjs <source.glb> Assets/ModelData/<name>.json` from the `LinacRoomStudio` directory.
+
+The static geometry bounds in model coordinates are approximately 2.80 × 3.20 × 3.685 m for the latest Versa HD and 1.68 × 2.62 × 0.64 m for Planmeca Viso. Both meet the floor at Y≈0; the palette places Versa at its existing 0.75 scale and Planmeca at scale 1.
+
+The Versa GLB contains a `Beam_Window` mesh at the gantry head (local center approximately X=0, Y=2.313, Z=-0.920 m). The scene beam preview starts just below its lower face after prefab scale, placement, rotation, and floor alignment. The Beam-panel gantry control uses DOTween to rotate the treatment head and its source and imaging arms around the configured isocentre while leaving the gantry rings, bore, LINAC root, and room-facing yaw fixed. The beam line follows the moving aperture and aims at the isocentre. This is a runtime preview rig: reference QA continues to consume the saved gantry angle through its existing input path, and the animated mesh transforms are not used as QA geometry.
+
+CT is approximately 3.44 × 3.62 × 4.51 m, Cyberknife 5.51 × 3.10 × 2.10 m, and MRI 3.30 × 4.27 × 4.07 m. Their lowest vertices are at Y≈0. The Cyberknife source scene is offset from its visual center: its X bounds run from about −7.10 to −1.59 m. The importer centers only the generated Cyberknife prefab horizontally, leaving the original GLB and ModelData unchanged, so its placement point lands on the machine footprint.
+
+Toilet is approximately 0.39 × 0.47 × 0.56 m, Basin 1.16 × 1.44 × 0.72 m, and Chair 0.52 × 0.77 × 0.53 m. The Basin GLB is offset from its visual center; the importer centers only its generated prefab horizontally so the placement point lands on its footprint. Scene placement lifts all three models to the floor.

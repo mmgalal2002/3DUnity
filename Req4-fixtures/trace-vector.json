@@ -1,0 +1,58 @@
+{
+  "format": "RoomStudio.FloorPlan",
+  "version": 1,
+  "widthMeters": 12,
+  "heightMeters": 8,
+  "segments": [
+    {
+      "start": {
+        "x": -6,
+        "y": -4
+      },
+      "end": {
+        "x": 6,
+        "y": -4
+      }
+    },
+    {
+      "start": {
+        "x": 6,
+        "y": -4
+      },
+      "end": {
+        "x": 6,
+        "y": 4
+      }
+    },
+    {
+      "start": {
+        "x": 6,
+        "y": 4
+      },
+      "end": {
+        "x": -6,
+        "y": 4
+      }
+    },
+    {
+      "start": {
+        "x": -6,
+        "y": 4
+      },
+      "end": {
+        "x": -6,
+        "y": -4
+      }
+    },
+    {
+      "start": {
+        "x": 2,
+        "y": -4
+      },
+      "end": {
+        "x": 2,
+        "y": 1
+      }
+    }
+  ]
+}
