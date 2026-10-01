@@ -37,7 +37,12 @@ export function run(input){
  const treatment=active&&(active.kind==='LINAC'||active.machineType===12);
  if(active&&!treatment)throw Error('The active machine requires the diagnostic Calculation provider; kVp must never enter the treatment engine.');
  if(input.items&&input.ct?.version===1&&input.ct.sources?.length&&!treatment)throw Error('CT source records are evaluated by the dedicated CT ROI engine, not LINAC reference QA. Source IDs: '+input.ct.sources.map(source=>source.id).join(', ')+'.');
- const room=input.room??(input.items?fromDesign(input):input);
+ let room=input.room??(input.items?fromDesign(input):input);
+ if(treatment){
+  const source=room.equipment?.find(e=>e.id===activeId&&e.type==='linac');
+  if(!source)throw Error('The active treatment machine has no compatible LINAC engine source.');
+  room={...room,equipment:[source]};
+ }
  if(!room||!Array.isArray(room.walls)||!Array.isArray(room.equipment)||!Array.isArray(room.workstations)||!Array.isArray(room.occupiedRegions))throw Error('Expected a ProShield room, {room} workspace, or Room Studio design.');
  if(room.walls.length>250||room.equipment.length>100||room.occupiedRegions.length>100)throw Error('Input exceeds desktop calculation limits.');
  for(const key of ['width','height','roomHeight'])if(!Number.isFinite(room[key])||room[key]<=0||room[key]>100)throw Error('Invalid room dimension: '+key);
