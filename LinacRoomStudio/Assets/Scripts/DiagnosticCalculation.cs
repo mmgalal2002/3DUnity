@@ -77,7 +77,7 @@ public static class DiagnosticCalculation {
   var ready=Check(design,profile);
   var device=design.items.Find(i=>i.id==design.diagnosticCalculation?.activeMachineId);
   var first=ready.NextAction;
-  if(device?.locked==true&&first!=null&&new[]{"Input","PlaceTarget","PlaceScatter","PlaceROI","ConfigureMachine","LoadProfile"}.Contains(first.actionKind)){
+  if(device?.locked==true&&first!=null&&new[]{"Input","SelectEnergy","PlaceTarget","PlaceScatter","PlaceROI","ConfigureMachine","LoadProfile"}.Contains(first.actionKind)){
    first.code="ObjectLocked";first.explanation=device.name+" is locked. Select it in Object and unlock it before the required edit.";first.actionKind="UnlockObject";first.actionTarget=device.id;
   }
   foreach(var issue in ready.issues){issue.machineId=design.diagnosticCalculation?.activeMachineId??"";issue.roiId=design.diagnosticCalculation?.activeRoiId??"";if(issue.actionKind=="SelectBarrier"||issue.actionKind=="RoomBarrier")issue.barrierId=issue.actionTarget;if(issue.actionKind=="SelectPoint")issue.pointId=issue.actionTarget;}
@@ -99,11 +99,15 @@ public static class DiagnosticCalculation {
     return Block(ready,"MissingInput","InvalidNumericInput","Complete the finite coordinates of "+point.name+" in Object. Its previous position is not used for a new calculation.","SelectPoint",point.id);
    if(point.diagnosticPoint.machineId!=machine.machineId)return Block(ready,"MissingMachine","AmbiguousAssociation",point.name+" is not associated with "+item.name+". Choose its machine explicitly.","AssociatePoint",point.id);
   }
-  if(!machine.tubeVoltageKvp.TryGet(out double kvp)||kvp<=0)return Block(ready,"MissingInput","InvalidNumericInput","Enter a finite positive tube voltage for "+item.name+". Voltage selects beam quality, not source strength.","Input","kvp","kvp","> 0 kVp",machine.tubeVoltageKvp.text);
-  if(profile==null)return Block(ready,"UnsupportedModel","NoApplicableMachineProfile",item.name+" at "+Number(kvp)+" kVp has no matching installed calibrated source-output profile. Voltage alone cannot determine Gy; your points are retained.","LoadProfile");
+  var supportedVoltages=DiagnosticProfiles.SupportedTubeVoltages(machine.machineType);
+  string supportedLabel=string.Join(", ",supportedVoltages.Select(Number));
+  if(supportedVoltages.Length==0)return Block(ready,"UnsupportedModel","UnsupportedSpectrum","No supported tube voltages are available for "+item.name+". This acquisition needs a matching machine model; the primary reference in section 16 is not an OPG, CBCT or directional-scatter substitute. Your points are retained.","LoadProfile",input:"kvp",observed:machine.tubeVoltageKvp.text);
+  if(!machine.tubeVoltageKvp.TryGet(out double kvp)||kvp<=0)return Block(ready,"MissingInput","InvalidNumericInput","Choose a supported tube voltage for "+item.name+" from the dropdown: "+supportedLabel+" kVp. No voltage is selected automatically.","SelectEnergy","kvp","kvp",supportedLabel+" kVp",machine.tubeVoltageKvp.text);
+  if(!supportedVoltages.Contains(kvp))return Block(ready,"UnsupportedModel","UnsupportedSpectrum",Number(kvp)+" kVp is not supported for "+item.name+". Choose from "+supportedLabel+" kVp; no rounding or replacement has been applied.","SelectEnergy","kvp","kvp",supportedLabel+" kVp",Number(kvp));
+  if(profile==null)return Block(ready,"UnsupportedModel","NoApplicableMachineProfile","The shielding reference for "+Number(kvp)+" kVp is already bundled; no reference JSON needs to be loaded. "+item.name+" still needs calibrated source output to determine Gy. The reference tables provide transmission coefficients, not that output.","LoadProfile");
   DiagnosticProfiles.Validate(profile);
   if(profile.machineType!=machine.machineType||profile.id!=machine.profileId||profile.revision!=machine.profileVersion)return Block(ready,"UnsupportedModel","NoApplicableMachineProfile","The selected profile does not match this machine and acquisition.","LoadProfile");
-  if(profile.tubeVoltageKvp!=kvp)return Block(ready,"UnsupportedModel","UnsupportedSpectrum","This profile supports "+Number(profile.tubeVoltageKvp)+" kVp, not "+Number(kvp)+" kVp. No rounding or substitute coefficients have been applied.","Input","kvp","kvp",Number(profile.tubeVoltageKvp)+" kVp",Number(kvp));
+  if(profile.tubeVoltageKvp!=kvp)return Block(ready,"UnsupportedModel","UnsupportedSpectrum","This profile supports "+Number(profile.tubeVoltageKvp)+" kVp, not "+Number(kvp)+" kVp. No rounding or substitute coefficients have been applied.","SelectEnergy","kvp","kvp",Number(profile.tubeVoltageKvp)+" kVp",Number(kvp));
   foreach(var requirement in profile.inputs){
    var input=machine.exposureInputs.Find(i=>i.key==requirement.key);
    if(input==null||!input.value.TryGet(out double value)||value<requirement.minimum||value>requirement.maximum)
