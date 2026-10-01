@@ -1,0 +1,180 @@
+{
+  "sourceJson": "",
+  "sourceProjectionJson": "",
+  "importSummary": "",
+  "version": 2,
+  "schemaVersion": 2,
+  "documentRevision": 1,
+  "calculationEngineVersion": "ProShield-Unity-0.1",
+  "name": "REQ5-network",
+  "selectedModel": "CT",
+  "width": 4,
+  "depth": 4,
+  "height": 3,
+  "linkWallsToRoom": false,
+  "floor": {
+    "material": "Concrete",
+    "thickness": 200.0,
+    "density": 2350.0
+  },
+  "ceiling": {
+    "material": "Concrete",
+    "thickness": 200.0,
+    "density": 2350.0
+  },
+  "floorPlan": {
+    "kind": "Image",
+    "sourceName": "REQ5-network.png",
+    "sourcePath": "",
+    "imageBase64": "iVBORw0KGgoAAAANSUhEUgAAAKAAAAB4CAYAAAB1ovlvAAAB/UlEQVR4nO3SUUpEAQwEwb3/pfUEgo3D5qlVkP8M9OsDDr2uH+B/EyCnBMgpAXJKgJwSIKcEyCkBckqAnPp+gC/3uHuI1w+eaQH+BXbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DH3vgDds+4h3hMgfEGAnBIgpwTIKQFySoCcEiCnBMgpAXJKgJwSIL+WADklQE4JkFMC5JQAOSVATgmQUwLklAA5JUBOCZBTAuSUADklQE4JkFMC5JQAOSVATn0Ca0F6xlb+OyMAAAAASUVORK5CYII=",
+    "pixelWidth": 160,
+    "pixelHeight": 120,
+    "metersPerPixel": 0.01,
+    "widthMeters": 1.6,
+    "heightMeters": 1.2,
+    "opacity": 0.5,
+    "x": 0.237,
+    "z": -0.1237,
+    "rotation": 37,
+    "visible": true,
+    "authoring": {
+      "version": 1,
+      "id": "REQ5-network",
+      "sourceFingerprint": "199c012aff373dfe2a8d772ff0e12489bae7bcf6eb9790203764a35428420f50",
+      "pixelWidth": 160,
+      "pixelHeight": 120,
+      "alphaThreshold": 0.10000000149011612,
+      "calibration": {
+        "confirmed": true,
+        "method": "Manual",
+        "unit": "m/px",
+        "value": 0.01,
+        "metresPerPixel": 0.01,
+        "distanceMetres": 1,
+        "a": {
+          "x": 0,
+          "y": 0
+        },
+        "b": {
+          "x": 100,
+          "y": 0
+        }
+      },
+      "rules": [
+        {
+          "id": "Network",
+          "name": "Network",
+          "classification": "Wall",
+          "colorSpace": "RGB",
+          "material": "Concrete",
+          "enabled": true,
+          "priority": 0,
+          "minAreaPixels": 3,
+          "tolerance": 0.01,
+          "minLengthPixels": 3,
+          "height": 3,
+          "baseElevation": 0,
+          "thicknessMm": 150,
+          "densityKgM3": 2350,
+          "target": {
+            "r": 1,
+            "g": 0,
+            "b": 1,
+            "a": 1
+          },
+          "display": {
+            "r": 1,
+            "g": 0,
+            "b": 1,
+            "a": 1
+          }
+        },
+        {
+          "id": "Parallel",
+          "name": "Parallel",
+          "classification": "Wall",
+          "colorSpace": "RGB",
+          "material": "Concrete",
+          "enabled": true,
+          "priority": 0,
+          "minAreaPixels": 3,
+          "tolerance": 0.01,
+          "minLengthPixels": 3,
+          "height": 3,
+          "baseElevation": 0,
+          "thicknessMm": 100,
+          "densityKgM3": 2350,
+          "target": {
+            "r": 0,
+            "g": 1,
+            "b": 0,
+            "a": 1
+          },
+          "display": {
+            "r": 0,
+            "g": 1,
+            "b": 0,
+            "a": 1
+          }
+        }
+      ]
+    },
+    "segments": []
+  },
+  "editing": {
+    "moveStep": 0.009999999776482582,
+    "resizeStep": 0.009999999776482582,
+    "thicknessStepMm": 1.0,
+    "scaleStep": 0.009999999776482582,
+    "gridVisible": true,
+    "gridSnap": false,
+    "wallSnap": false,
+    "gridSpacing": 0.10000000149011612,
+    "wallSnapTolerance": 0.019999999552965164,
+    "lengthAnchor": "Center"
+  },
+  "items": [],
+  "regions": [
+    {
+      "id": "5bfd3b2c-d78d-4d45-b325-ae065c5ef97a",
+      "name": "Control room",
+      "scope": "Wall",
+      "occupancy": 0.25,
+      "designGoal": 0.10000000149011612,
+      "points": [
+        {
+          "x": 6.199999809265137,
+          "y": -4.5
+        },
+        {
+          "x": 11.0,
+          "y": -4.5
+        },
+        {
+          "x": 11.0,
+          "y": 4.5
+        },
+        {
+          "x": 6.199999809265137,
+          "y": 4.5
+        }
+      ]
+    }
+  ],
+  "selectedTool": "Select",
+  "selectedEquipmentType": "linac",
+  "selectedWallMaterial": "Concrete",
+  "sampleDistance": 0.30000001192092896,
+  "energy": 6.0,
+  "workload": 500.0,
+  "gantry": 0.0,
+  "fieldX": 20.0,
+  "fieldY": 20.0,
+  "isocentreHeight": 1.2999999523162842,
+  "isoOffsetX": 0.0,
+  "isoOffsetZ": -1.600000023841858,
+  "sourceDistance": 1.0,
+  "machine": "Elekta Versa HS (user supplied model)",
+  "generationBatches": [],
+  "wallJunctions": []
+}

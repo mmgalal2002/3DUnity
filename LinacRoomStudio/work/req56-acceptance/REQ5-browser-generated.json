@@ -1,0 +1,1585 @@
+{
+    "sourceJson": "",
+    "sourceProjectionJson": "",
+    "importSummary": "",
+    "version": 2,
+    "schemaVersion": 2,
+    "documentRevision": 1,
+    "calculationEngineVersion": "ProShield-Unity-0.1",
+    "name": "REQ5-network",
+    "selectedModel": "CT",
+    "width": 4.0,
+    "depth": 4.0,
+    "height": 3.0,
+    "linkWallsToRoom": false,
+    "floor": {
+        "material": "Concrete",
+        "thickness": 200.0,
+        "density": 2350.0,
+        "shieldingEnabled": true,
+        "ctApplicabilityReviewed": false
+    },
+    "ceiling": {
+        "material": "Concrete",
+        "thickness": 200.0,
+        "density": 2350.0,
+        "shieldingEnabled": true,
+        "ctApplicabilityReviewed": false
+    },
+    "floorPlan": {
+        "kind": "Image",
+        "sourceName": "REQ5-network.png",
+        "sourcePath": "",
+        "imageBase64": "iVBORw0KGgoAAAANSUhEUgAAAKAAAAB4CAYAAAB1ovlvAAAB/UlEQVR4nO3SUUpEAQwEwb3/pfUEgo3D5qlVkP8M9OsDDr2uH+B/EyCnBMgpAXJKgJwSIKcEyCkBckqAnPp+gC/3uHuI1w+eaQH+BXbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DH3vgDds+4h3hMgfEGAnBIgpwTIKQFySoCcEiCnBMgpAXJKgJwSIL+WADklQE4JkFMC5JQAOSVATgmQUwLklAA5JUBOCZBTAuSUADklQE4JkFMC5JQAOSVATn0Ca0F6xlb+OyMAAAAASUVORK5CYII=",
+        "pixelWidth": 160,
+        "pixelHeight": 120,
+        "metersPerPixel": 0.009999999776482582,
+        "widthMeters": 1.600000023841858,
+        "heightMeters": 1.2000000476837158,
+        "opacity": 0.5,
+        "x": 0.2370000034570694,
+        "z": -0.12370000034570694,
+        "rotation": 37.0,
+        "visible": true,
+        "authoring": {
+            "version": 1,
+            "id": "REQ5-network",
+            "sourceFingerprint": "199c012aff373dfe2a8d772ff0e12489bae7bcf6eb9790203764a35428420f50",
+            "pixelWidth": 160,
+            "pixelHeight": 120,
+            "alphaThreshold": 0.10000000149011612,
+            "calibration": {
+                "confirmed": true,
+                "method": "Manual",
+                "unit": "m/px",
+                "value": 0.009999999776482582,
+                "metresPerPixel": 0.009999999776482582,
+                "distanceMetres": 1.0,
+                "a": {
+                    "x": 0.0,
+                    "y": 0.0
+                },
+                "b": {
+                    "x": 100.0,
+                    "y": 0.0
+                }
+            },
+            "rules": [
+                {
+                    "id": "Network",
+                    "name": "Network",
+                    "classification": "Wall",
+                    "colorSpace": "RGB",
+                    "material": "Concrete",
+                    "enabled": true,
+                    "priority": 0,
+                    "minAreaPixels": 3,
+                    "tolerance": 0.009999999776482582,
+                    "minLengthPixels": 3.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "target": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "display": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    }
+                },
+                {
+                    "id": "Parallel",
+                    "name": "Parallel",
+                    "classification": "Wall",
+                    "colorSpace": "RGB",
+                    "material": "Concrete",
+                    "enabled": true,
+                    "priority": 0,
+                    "minAreaPixels": 3,
+                    "tolerance": 0.009999999776482582,
+                    "minLengthPixels": 3.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 100.0,
+                    "densityKgM3": 2350.0,
+                    "target": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "display": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    }
+                }
+            ]
+        },
+        "segments": []
+    },
+    "generationBatches": [
+        {
+            "version": 1,
+            "id": "d793d8d148e446648633f1c4794a68d2",
+            "sourceFingerprint": "199c012aff373dfe2a8d772ff0e12489bae7bcf6eb9790203764a35428420f50",
+            "snapshotSignature": "a64cc3f7f95a4d6fa2a1cbe56133902ea21d624d1093d4b77f8a9e602128d157",
+            "pixelWidth": 160,
+            "pixelHeight": 120,
+            "connectionOptions": {
+                "version": 1,
+                "autoConnect": true,
+                "allowCrossCategory": false,
+                "tolerance": 0.019999999552965164
+            },
+            "sourceSnapshot": {
+                "kind": "Image",
+                "sourceName": "REQ5-network.png",
+                "sourcePath": "",
+                "imageBase64": "iVBORw0KGgoAAAANSUhEUgAAAKAAAAB4CAYAAAB1ovlvAAAB/UlEQVR4nO3SUUpEAQwEwb3/pfUEgo3D5qlVkP8M9OsDDr2uH+B/EyCnBMgpAXJKgJwSIKcEyCkBckqAnPp+gC/3uHuI1w+eaQH+BXbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DEnwMKOOQEWdswJsLBjToCFHXMCLOyYE2Bhx5wACzvmBFjYMSfAwo45ARZ2zAmwsGNOgIUdcwIs7JgTYGHHnAALO+YEWNgxJ8DCjjkBFnbMCbCwY06AhR1zAizsmBNgYcecAAs75gRY2DH3vgDds+4h3hMgfEGAnBIgpwTIKQFySoCcEiCnBMgpAXJKgJwSIL+WADklQE4JkFMC5JQAOSVATgmQUwLklAA5JUBOCZBTAuSUADklQE4JkFMC5JQAOSVATn0Ca0F6xlb+OyMAAAAASUVORK5CYII=",
+                "pixelWidth": 160,
+                "pixelHeight": 120,
+                "metersPerPixel": 0.009999999776482582,
+                "widthMeters": 1.600000023841858,
+                "heightMeters": 1.2000000476837158,
+                "opacity": 0.5,
+                "x": 0.2370000034570694,
+                "z": -0.12370000034570694,
+                "rotation": 37.0,
+                "visible": true,
+                "authoring": {
+                    "version": 1,
+                    "id": "REQ5-network",
+                    "sourceFingerprint": "199c012aff373dfe2a8d772ff0e12489bae7bcf6eb9790203764a35428420f50",
+                    "pixelWidth": 160,
+                    "pixelHeight": 120,
+                    "alphaThreshold": 0.10000000149011612,
+                    "calibration": {
+                        "confirmed": true,
+                        "method": "Manual",
+                        "unit": "m/px",
+                        "value": 0.009999999776482582,
+                        "metresPerPixel": 0.009999999776482582,
+                        "distanceMetres": 1.0,
+                        "a": {
+                            "x": 0.0,
+                            "y": 0.0
+                        },
+                        "b": {
+                            "x": 100.0,
+                            "y": 0.0
+                        }
+                    },
+                    "rules": [
+                        {
+                            "id": "Network",
+                            "name": "Network",
+                            "classification": "Wall",
+                            "colorSpace": "RGB",
+                            "material": "Concrete",
+                            "enabled": true,
+                            "priority": 0,
+                            "minAreaPixels": 3,
+                            "tolerance": 0.009999999776482582,
+                            "minLengthPixels": 3.0,
+                            "height": 3.0,
+                            "baseElevation": 0.0,
+                            "thicknessMm": 150.0,
+                            "densityKgM3": 2350.0,
+                            "target": {
+                                "r": 1.0,
+                                "g": 0.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            },
+                            "display": {
+                                "r": 1.0,
+                                "g": 0.0,
+                                "b": 1.0,
+                                "a": 1.0
+                            }
+                        },
+                        {
+                            "id": "Parallel",
+                            "name": "Parallel",
+                            "classification": "Wall",
+                            "colorSpace": "RGB",
+                            "material": "Concrete",
+                            "enabled": true,
+                            "priority": 0,
+                            "minAreaPixels": 3,
+                            "tolerance": 0.009999999776482582,
+                            "minLengthPixels": 3.0,
+                            "height": 3.0,
+                            "baseElevation": 0.0,
+                            "thicknessMm": 100.0,
+                            "densityKgM3": 2350.0,
+                            "target": {
+                                "r": 0.0,
+                                "g": 1.0,
+                                "b": 0.0,
+                                "a": 1.0
+                            },
+                            "display": {
+                                "r": 0.0,
+                                "g": 1.0,
+                                "b": 0.0,
+                                "a": 1.0
+                            }
+                        }
+                    ]
+                },
+                "segments": []
+            },
+            "paths": [
+                {
+                    "id": "path-1acffc0f4ebee84e",
+                    "ruleId": "Parallel",
+                    "itemId": "generated-57da37b9297b5d9775cb09beee772c24",
+                    "categoryName": "Parallel",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 0.0,
+                        "g": 1.0,
+                        "b": 0.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 145.5,
+                        "y": 10.5
+                    },
+                    "sourceBPixel": {
+                        "x": 145.5,
+                        "y": 100.5
+                    },
+                    "aPixel": {
+                        "x": 145.5,
+                        "y": 10.5
+                    },
+                    "bPixel": {
+                        "x": 145.5,
+                        "y": 100.5
+                    },
+                    "aWorld": {
+                        "x": 1.0580047369003296,
+                        "y": 0.0,
+                        "z": -0.12256423383951187
+                    },
+                    "bWorld": {
+                        "x": 0.5163711905479431,
+                        "y": 0.0,
+                        "z": -0.8413362503051758
+                    },
+                    "sourceComponent": 0,
+                    "areaPixels": 91,
+                    "lengthPixels": 90.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 100.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-ab5f21f8ba00ca4b",
+                    "ruleId": "Network",
+                    "itemId": "generated-549b8c76012cd32da8103645ff1306a6",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 60.5,
+                        "y": 10.5
+                    },
+                    "sourceBPixel": {
+                        "x": 60.5,
+                        "y": 90.5
+                    },
+                    "aPixel": {
+                        "x": 60.5,
+                        "y": 10.5
+                    },
+                    "bPixel": {
+                        "x": 60.5,
+                        "y": 90.5
+                    },
+                    "aWorld": {
+                        "x": 0.37916451692581177,
+                        "y": 0.0,
+                        "z": 0.388978511095047
+                    },
+                    "bWorld": {
+                        "x": -0.10228748619556427,
+                        "y": 0.0,
+                        "z": -0.24992993474006653
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 80.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-ffdf8580827f45cd",
+                    "ruleId": "Network",
+                    "itemId": "generated-d9b7ab5549f1bcdcc6484c27b80dfb38",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 60.5,
+                        "y": 90.5
+                    },
+                    "sourceBPixel": {
+                        "x": 110.5,
+                        "y": 90.5
+                    },
+                    "aPixel": {
+                        "x": 60.5,
+                        "y": 90.5
+                    },
+                    "bPixel": {
+                        "x": 110.5,
+                        "y": 90.5
+                    },
+                    "aWorld": {
+                        "x": -0.10228748619556427,
+                        "y": 0.0,
+                        "z": -0.24992993474006653
+                    },
+                    "bWorld": {
+                        "x": 0.2970302999019623,
+                        "y": 0.0,
+                        "z": -0.5508374571800232
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 50.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-66067f586b73fff3",
+                    "ruleId": "Network",
+                    "itemId": "generated-75ef5b4f4d310c95bdf6c8d3685e6723",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 110.5,
+                        "y": 10.5
+                    },
+                    "sourceBPixel": {
+                        "x": 110.5,
+                        "y": 90.5
+                    },
+                    "aPixel": {
+                        "x": 110.5,
+                        "y": 10.5
+                    },
+                    "bPixel": {
+                        "x": 110.5,
+                        "y": 90.5
+                    },
+                    "aWorld": {
+                        "x": 0.7784822583198547,
+                        "y": 0.0,
+                        "z": 0.08807099610567093
+                    },
+                    "bWorld": {
+                        "x": 0.2970302999019623,
+                        "y": 0.0,
+                        "z": -0.5508374571800232
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 80.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-3adab29b0d400bed",
+                    "ruleId": "Network",
+                    "itemId": "generated-34ed8b4e161d57a64243445885416209",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 60.5,
+                        "y": 10.5
+                    },
+                    "sourceBPixel": {
+                        "x": 110.5,
+                        "y": 10.5
+                    },
+                    "aPixel": {
+                        "x": 60.5,
+                        "y": 10.5
+                    },
+                    "bPixel": {
+                        "x": 110.5,
+                        "y": 10.5
+                    },
+                    "aWorld": {
+                        "x": 0.37916451692581177,
+                        "y": 0.0,
+                        "z": 0.388978511095047
+                    },
+                    "bWorld": {
+                        "x": 0.7784822583198547,
+                        "y": 0.0,
+                        "z": 0.08807099610567093
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 50.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-e4ee36bc42dad0ec",
+                    "ruleId": "Network",
+                    "itemId": "generated-b7f8f31c38041967abd9a2e943feada5",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 10.5,
+                        "y": 90.5
+                    },
+                    "sourceBPixel": {
+                        "x": 60.5,
+                        "y": 90.5
+                    },
+                    "aPixel": {
+                        "x": 10.5,
+                        "y": 90.5
+                    },
+                    "bPixel": {
+                        "x": 60.5,
+                        "y": 90.5
+                    },
+                    "aWorld": {
+                        "x": -0.5016052722930908,
+                        "y": 0.0,
+                        "z": 0.050977565348148346
+                    },
+                    "bWorld": {
+                        "x": -0.10228748619556427,
+                        "y": 0.0,
+                        "z": -0.24992993474006653
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 50.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-9a06d0a5ab11ae9b",
+                    "ruleId": "Network",
+                    "itemId": "generated-d421044f35c849158db068bbb54c02fe",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 10.5,
+                        "y": 10.5
+                    },
+                    "sourceBPixel": {
+                        "x": 10.5,
+                        "y": 90.5
+                    },
+                    "aPixel": {
+                        "x": 10.5,
+                        "y": 10.5
+                    },
+                    "bPixel": {
+                        "x": 10.5,
+                        "y": 90.5
+                    },
+                    "aWorld": {
+                        "x": -0.020153269171714783,
+                        "y": 0.0,
+                        "z": 0.6898859739303589
+                    },
+                    "bWorld": {
+                        "x": -0.5016052722930908,
+                        "y": 0.0,
+                        "z": 0.050977565348148346
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 80.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                },
+                {
+                    "id": "path-6966fe28c89ce2fc",
+                    "ruleId": "Network",
+                    "itemId": "generated-e67384f4cad73062fa251491776599bc",
+                    "categoryName": "Network",
+                    "material": "Concrete",
+                    "detectionPathId": "",
+                    "detectionAPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "detectionBPixel": {
+                        "x": 0.0,
+                        "y": 0.0
+                    },
+                    "displayColor": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "sourceAPixel": {
+                        "x": 10.5,
+                        "y": 10.5
+                    },
+                    "sourceBPixel": {
+                        "x": 60.5,
+                        "y": 10.5
+                    },
+                    "aPixel": {
+                        "x": 10.5,
+                        "y": 10.5
+                    },
+                    "bPixel": {
+                        "x": 60.5,
+                        "y": 10.5
+                    },
+                    "aWorld": {
+                        "x": -0.020153269171714783,
+                        "y": 0.0,
+                        "z": 0.6898859739303589
+                    },
+                    "bWorld": {
+                        "x": 0.37916451692581177,
+                        "y": 0.0,
+                        "z": 0.388978511095047
+                    },
+                    "sourceComponent": 1,
+                    "areaPixels": 439,
+                    "lengthPixels": 50.0,
+                    "height": 3.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "densityKgM3": 2350.0,
+                    "manuallyEdited": false,
+                    "deletedOverride": false,
+                    "unsupportedGeometry": false
+                }
+            ]
+        }
+    ],
+    "wallJunctions": [
+        {
+            "id": "c5f047ab-3bbf-4f54-934e-38b402aa9d0f",
+            "kind": "T",
+            "x": 0.37916451692581177,
+            "z": 0.388978511095047,
+            "arms": [
+                {
+                    "wallId": "generated-34ed8b4e161d57a64243445885416209",
+                    "endpoint": "Start"
+                },
+                {
+                    "wallId": "generated-e67384f4cad73062fa251491776599bc",
+                    "endpoint": "End"
+                },
+                {
+                    "wallId": "generated-549b8c76012cd32da8103645ff1306a6",
+                    "endpoint": "Start"
+                }
+            ]
+        },
+        {
+            "id": "48af0f5a-b954-427e-a0aa-92924d9c23a2",
+            "kind": "Corner",
+            "x": -0.020153291523456573,
+            "z": 0.6898859739303589,
+            "arms": [
+                {
+                    "wallId": "generated-d421044f35c849158db068bbb54c02fe",
+                    "endpoint": "Start"
+                },
+                {
+                    "wallId": "generated-e67384f4cad73062fa251491776599bc",
+                    "endpoint": "Start"
+                }
+            ]
+        },
+        {
+            "id": "a844d678-8971-40b4-8c35-164b595d3751",
+            "kind": "T",
+            "x": -0.10228748619556427,
+            "z": -0.2499299943447113,
+            "arms": [
+                {
+                    "wallId": "generated-549b8c76012cd32da8103645ff1306a6",
+                    "endpoint": "End"
+                },
+                {
+                    "wallId": "generated-d9b7ab5549f1bcdcc6484c27b80dfb38",
+                    "endpoint": "Start"
+                },
+                {
+                    "wallId": "generated-b7f8f31c38041967abd9a2e943feada5",
+                    "endpoint": "End"
+                }
+            ]
+        },
+        {
+            "id": "2b9fe3f5-58d4-4ffc-9d6d-0df6b821f0df",
+            "kind": "Corner",
+            "x": 0.7784822583198547,
+            "z": 0.08807101845741272,
+            "arms": [
+                {
+                    "wallId": "generated-75ef5b4f4d310c95bdf6c8d3685e6723",
+                    "endpoint": "Start"
+                },
+                {
+                    "wallId": "generated-34ed8b4e161d57a64243445885416209",
+                    "endpoint": "End"
+                }
+            ]
+        },
+        {
+            "id": "8efd365c-7de0-48a0-b6bf-6ad968c1c6ab",
+            "kind": "Corner",
+            "x": 0.2970302700996399,
+            "z": -0.550837516784668,
+            "arms": [
+                {
+                    "wallId": "generated-d9b7ab5549f1bcdcc6484c27b80dfb38",
+                    "endpoint": "End"
+                },
+                {
+                    "wallId": "generated-75ef5b4f4d310c95bdf6c8d3685e6723",
+                    "endpoint": "End"
+                }
+            ]
+        },
+        {
+            "id": "60a03560-4fe9-479a-990e-8a3a7cd76676",
+            "kind": "Corner",
+            "x": -0.5016052722930908,
+            "z": 0.05097758024930954,
+            "arms": [
+                {
+                    "wallId": "generated-b7f8f31c38041967abd9a2e943feada5",
+                    "endpoint": "Start"
+                },
+                {
+                    "wallId": "generated-d421044f35c849158db068bbb54c02fe",
+                    "endpoint": "End"
+                }
+            ]
+        }
+    ],
+    "editing": {
+        "moveStep": 0.009999999776482582,
+        "resizeStep": 0.009999999776482582,
+        "thicknessStepMm": 1.0,
+        "scaleStep": 0.009999999776482582,
+        "gridVisible": true,
+        "gridSnap": false,
+        "wallSnap": false,
+        "gridSpacing": 0.10000000149011612,
+        "wallSnapTolerance": 0.019999999552965164,
+        "lengthAnchor": "Center"
+    },
+    "ct": {
+        "version": 0,
+        "metersPerUnityUnit": 1.0,
+        "scenarioName": "Nominal",
+        "selectedCase": "Nominal",
+        "shieldingMode": "Current",
+        "selectedRoiId": "",
+        "selectedSourceId": "",
+        "sources": [],
+        "results": []
+    },
+    "items": [
+        {
+            "id": "generated-57da37b9297b5d9775cb09beee772c24",
+            "kind": "Wall",
+            "name": "Parallel",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-1acffc0f4ebee84e",
+                "ruleId": "Parallel",
+                "categoryName": "Parallel",
+                "displayColor": {
+                    "r": 0.0,
+                    "g": 1.0,
+                    "b": 0.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 145.5,
+                    "y": 10.5
+                },
+                "sourceBPixel": {
+                    "x": 145.5,
+                    "y": 100.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": 0.787187933921814,
+            "z": -0.4819502532482147,
+            "y": 0.0,
+            "angle": 127.00000762939453,
+            "length": 0.9000000357627869,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 100.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-549b8c76012cd32da8103645ff1306a6",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-ab5f21f8ba00ca4b",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 60.5,
+                    "y": 10.5
+                },
+                "sourceBPixel": {
+                    "x": 60.5,
+                    "y": 90.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": 0.13843853771686554,
+            "z": 0.06952431797981262,
+            "y": 0.0,
+            "angle": 126.99999237060547,
+            "length": 0.8000001311302185,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-d9b7ab5549f1bcdcc6484c27b80dfb38",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-ffdf8580827f45cd",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 60.5,
+                    "y": 90.5
+                },
+                "sourceBPixel": {
+                    "x": 110.5,
+                    "y": 90.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": 0.09737138450145721,
+            "z": -0.40038377046585083,
+            "y": 0.0,
+            "angle": 37.0,
+            "length": 0.5,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-75ef5b4f4d310c95bdf6c8d3685e6723",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-66067f586b73fff3",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 110.5,
+                    "y": 10.5
+                },
+                "sourceBPixel": {
+                    "x": 110.5,
+                    "y": 90.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": 0.5377562642097473,
+            "z": -0.23138323426246643,
+            "y": 0.0,
+            "angle": 126.99999237060547,
+            "length": 0.8000001311302185,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-34ed8b4e161d57a64243445885416209",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-3adab29b0d400bed",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 60.5,
+                    "y": 10.5
+                },
+                "sourceBPixel": {
+                    "x": 110.5,
+                    "y": 10.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": 0.5788233876228333,
+            "z": 0.23852477967739105,
+            "y": 0.0,
+            "angle": 37.000003814697266,
+            "length": 0.5,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-b7f8f31c38041967abd9a2e943feada5",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-e4ee36bc42dad0ec",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 10.5,
+                    "y": 90.5
+                },
+                "sourceBPixel": {
+                    "x": 60.5,
+                    "y": 90.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": -0.30194637179374695,
+            "z": -0.09947618842124939,
+            "y": 0.0,
+            "angle": 36.999996185302734,
+            "length": 0.5,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-d421044f35c849158db068bbb54c02fe",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-9a06d0a5ab11ae9b",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 10.5,
+                    "y": 10.5
+                },
+                "sourceBPixel": {
+                    "x": 10.5,
+                    "y": 90.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": -0.2608792781829834,
+            "z": 0.3704317808151245,
+            "y": 0.0,
+            "angle": 127.00000762939453,
+            "length": 0.7999999523162842,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        },
+        {
+            "id": "generated-e67384f4cad73062fa251491776599bc",
+            "kind": "Wall",
+            "name": "Network",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "doors": [],
+            "generated": {
+                "batchId": "d793d8d148e446648633f1c4794a68d2",
+                "pathId": "path-6966fe28c89ce2fc",
+                "ruleId": "Network",
+                "categoryName": "Network",
+                "displayColor": {
+                    "r": 1.0,
+                    "g": 0.0,
+                    "b": 1.0,
+                    "a": 1.0
+                },
+                "sourceAPixel": {
+                    "x": 10.5,
+                    "y": 10.5
+                },
+                "sourceBPixel": {
+                    "x": 60.5,
+                    "y": 10.5
+                },
+                "manuallyEdited": false,
+                "unsupportedGeometry": false
+            },
+            "ctPoint": {
+                "version": 0,
+                "role": "",
+                "ownerId": "",
+                "localX": 0.0,
+                "localY": 0.0,
+                "localZ": 0.0,
+                "hasWorldCoordinates": false,
+                "worldX": 0.0,
+                "worldY": 0.0,
+                "worldZ": 0.0,
+                "anchorConfirmed": false,
+                "roi": {
+                    "hasOccupancy": false,
+                    "hasGoal": false,
+                    "hasBestFactor": false,
+                    "hasWorstFactor": false,
+                    "occupancy": 0.0,
+                    "goalMgyPerWeek": 0.0,
+                    "bestFactor": 0.0,
+                    "worstFactor": 0.0,
+                    "purpose": "",
+                    "goalSource": "",
+                    "occupancyConvention": "",
+                    "goalConvention": "Occupied",
+                    "contributions": []
+                }
+            },
+            "transparency": 0.0,
+            "x": 0.1795056164264679,
+            "z": 0.5394322872161865,
+            "y": 0.0,
+            "angle": 36.9999885559082,
+            "length": 0.4999999701976776,
+            "height": 3.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0,
+                "shieldingEnabled": true,
+                "ctApplicabilityReviewed": false
+            }
+        }
+    ],
+    "regions": [
+        {
+            "id": "5bfd3b2c-d78d-4d45-b325-ae065c5ef97a",
+            "name": "Control room",
+            "scope": "Wall",
+            "occupancy": 0.25,
+            "designGoal": 0.10000000149011612,
+            "points": [
+                {
+                    "x": 6.199999809265137,
+                    "y": -4.5
+                },
+                {
+                    "x": 11.0,
+                    "y": -4.5
+                },
+                {
+                    "x": 11.0,
+                    "y": 4.5
+                },
+                {
+                    "x": 6.199999809265137,
+                    "y": 4.5
+                }
+            ]
+        }
+    ],
+    "selectedTool": "Select",
+    "selectedEquipmentType": "linac",
+    "selectedWallMaterial": "Concrete",
+    "sampleDistance": 0.30000001192092896,
+    "energy": 6.0,
+    "workload": 500.0,
+    "gantry": 0.0,
+    "fieldX": 20.0,
+    "fieldY": 20.0,
+    "isocentreHeight": 1.2999999523162842,
+    "isoOffsetX": 0.0,
+    "isoOffsetZ": -1.600000023841858,
+    "sourceDistance": 1.0,
+    "machine": "Elekta Versa HS (user supplied model)"
+}

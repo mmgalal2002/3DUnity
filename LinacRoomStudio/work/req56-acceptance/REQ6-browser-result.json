@@ -1,0 +1,105 @@
+{
+    "format": "RoomStudio.CT.Results",
+    "version": 1,
+    "results": [
+        {
+            "version": 1,
+            "id": "4829d2b3-af75-4304-857f-5c088fe8e5a0",
+            "createdUtc": "2026-10-01T08:33:22.5450000Z",
+            "name": "DEMO_ONLY",
+            "scenarioCase": "Nominal",
+            "shieldingMode": "Current",
+            "projectName": "CT arithmetic demo - NOT CLINICAL",
+            "engineVersion": "RoomStudio.CT.1",
+            "datasetId": "NCRP147_APPENDIX_A_CT_SECONDARY",
+            "datasetHash": "2be8944a3db0ed708faf681ae20c67f8b24bf9c562950d9594b6459082f65309",
+            "specificationHash": "ed9442ba6f5f7f4b949f3d76c255ac003c96bb9da1331f23eb378ff46a17704f",
+            "reportedPdfHash": "168bd82cfe61ff318c73e81becbdb381b04b0998af9a355246bf31158f801e81",
+            "recordHash": "ed274fd7fdd906ac20af4f379ede12d2fea25e3b5c18474bfae61f2b4a7d79e7",
+            "quantity": "airKerma",
+            "unit": "mGy",
+            "interval": "week",
+            "inputFingerprint": "0044a6dbf259180d5d227e4b084920b5067f7aedead1f325779bc7d1be3e6b3e",
+            "inputsJson": "{\"projectName\":\"CT arithmetic demo - NOT CLINICAL\",\"width\":12.0,\"depth\":10.0,\"height\":5.0,\"metersPerUnityUnit\":1.0,\"floor\":{\"material\":\"Concrete\",\"thickness\":150.0,\"density\":2350.0,\"shieldingEnabled\":true,\"ctApplicabilityReviewed\":false},\"ceiling\":{\"material\":\"Concrete\",\"thickness\":150.0,\"density\":2350.0,\"shieldingEnabled\":true,\"ctApplicabilityReviewed\":false},\"items\":[{\"id\":\"7a67523f-f5eb-4fce-8074-374eabe559fc\",\"kind\":\"Model\",\"name\":\"CT (visual only)\",\"model\":\"CT\",\"isControlled\":true,\"groupId\":\"\",\"locked\":false,\"component\":{\"type\":\"Trapezoid\",\"width\":4.0,\"topWidth\":2.0,\"depth\":1.0,\"radius\":2.0,\"wallThickness\":0.25,\"sweep\":90.0,\"segments\":24,\"points\":[]},\"doors\":[],\"generated\":{\"batchId\":\"\",\"pathId\":\"\",\"ruleId\":\"\",\"categoryName\":\"\",\"displayColor\":{\"r\":1.0,\"g\":0.0,\"b\":1.0,\"a\":1.0},\"sourceAPixel\":{\"x\":0.0,\"y\":0.0},\"sourceBPixel\":{\"x\":0.0,\"y\":0.0},\"manuallyEdited\":false,\"unsupportedGeometry\":false},\"ctPoint\":{\"version\":0,\"role\":\"\",\"ownerId\":\"\",\"localX\":0.0,\"localY\":0.0,\"localZ\":0.0,\"hasWorldCoordinates\":false,\"worldX\":0.0,\"worldY\":0.0,\"worldZ\":0.0,\"anchorConfirmed\":false,\"roi\":{\"hasOccupancy\":false,\"hasGoal\":false,\"hasBestFactor\":false,\"hasWorstFactor\":false,\"occupancy\":0.0,\"goalMgyPerWeek\":0.0,\"bestFactor\":0.0,\"worstFactor\":0.0,\"purpose\":\"\",\"goalSource\":\"\",\"occupancyConvention\":\"\",\"goalConvention\":\"Occupied\",\"contributions\":[]}},\"transparency\":0.0,\"x\":0.0,\"z\":0.0,\"y\":0.0,\"angle\":0.0,\"length\":4.0,\"height\":4.0,\"scale\":1.0,\"occupancy\":1.0,\"assessmentHeight\":1.2000000476837158,\"shielding\":{\"material\":\"Concrete\",\"thickness\":150.0,\"density\":2350.0,\"shieldingEnabled\":true,\"ctApplicabilityReviewed\":false}},{\"id\":\"cd6385e6-2938-4377-a037-e0faf28683b4\",\"kind\":\"Model\",\"name\":\"Scatter point\",\"model\":\"Dot\",\"isControlled\":true,\"groupId\":\"\",\"locked\":false,\"component\":{\"type\":\"Trapezoid\",\"width\":4.0,\"topWidth\":2.0,\"depth\":1.0,\"radius\":2.0,\"wallThickness\":0.25,\"sweep\":90.0,\"segments\":24,\"points\":[]},\"doors\":[],\"generated\":{\"batchId\":\"\",\"pathId\":\"\",\"ruleId\":\"\",\"categoryName\":\"\",\"displayColor\":{\"r\":1.0,\"g\":0.0,\"b\":1.0,\"a\":1.0},\"sourceAPixel\":{\"x\":0.0,\"y\":0.0},\"sourceBPixel\":{\"x\":0.0,\"y\":0.0},\"manuallyEdited\":false,\"unsupportedGeometry\":false},\"ctPoint\":{\"version\":1,\"role\":\"Scatter\",\"ownerId\":\"7a67523f-f5eb-4fce-8074-374eabe559fc\",\"localX\":0.0,\"localY\":1.0,\"localZ\":0.0,\"hasWorldCoordinates\":false,\"worldX\":0.0,\"worldY\":1.0,\"worldZ\":0.0,\"anchorConfirmed\":true,\"roi\":{\"hasOccupancy\":false,\"hasGoal\":false,\"hasBestFactor\":false,\"hasWorstFactor\":false,\"occupancy\":0.0,\"goalMgyPerWeek\":0.0,\"bestFactor\":0.0,\"worstFactor\":0.0,\"purpose\":\"\",\"goalSource\":\"\",\"occupancyConvention\":\"\",\"goalConvention\":\"Occupied\",\"contributions\":[]}},\"transparency\":0.0,\"x\":0.0,\"z\":0.0,\"y\":1.0,\"angle\":0.0,\"length\":4.0,\"height\":4.0,\"scale\":0.15000000596046448,\"occupancy\":1.0,\"assessmentHeight\":1.2000000476837158,\"shielding\":{\"material\":\"Concrete\",\"thickness\":150.0,\"density\":2350.0,\"shieldingEnabled\":true,\"ctApplicabilityReviewed\":false}},{\"id\":\"abbc694a-8dd2-4a14-b3be-a34e16356887\",\"kind\":\"Model\",\"name\":\"ROI point\",\"model\":\"Dot\",\"isControlled\":true,\"groupId\":\"\",\"locked\":false,\"component\":{\"type\":\"Trapezoid\",\"width\":4.0,\"topWidth\":2.0,\"depth\":1.0,\"radius\":2.0,\"wallThickness\":0.25,\"sweep\":90.0,\"segments\":24,\"points\":[]},\"doors\":[],\"generated\":{\"batchId\":\"\",\"pathId\":\"\",\"ruleId\":\"\",\"categoryName\":\"\",\"displayColor\":{\"r\":1.0,\"g\":0.0,\"b\":1.0,\"a\":1.0},\"sourceAPixel\":{\"x\":0.0,\"y\":0.0},\"sourceBPixel\":{\"x\":0.0,\"y\":0.0},\"manuallyEdited\":false,\"unsupportedGeometry\":false},\"ctPoint\":{\"version\":1,\"role\":\"ROI\",\"ownerId\":\"\",\"localX\":0.0,\"localY\":0.0,\"localZ\":0.0,\"hasWorldCoordinates\":true,\"worldX\":3.0,\"worldY\":1.0,\"worldZ\":0.0,\"anchorConfirmed\":false,\"roi\":{\"hasOccupancy\":true,\"hasGoal\":true,\"hasBestFactor\":true,\"hasWorstFactor\":true,\"occupancy\":0.25,\"goalMgyPerWeek\":0.002,\"bestFactor\":0.5,\"worstFactor\":2.0,\"purpose\":\"\",\"goalSource\":\"DEMO_ONLY invented goal\",\"occupancyConvention\":\"DEMO_ONLY exposure occupancy\",\"goalConvention\":\"Occupied\",\"contributions\":[{\"sourceId\":\"7812633a-d85e-49ec-b0b8-7a90deaec540\",\"directSourceFingerprint\":\"\",\"hasDirectKerma\":false,\"hasKermaPosition\":false,\"directMgyPerWeek\":0.0,\"kermaX\":0.0,\"kermaY\":0.0,\"kermaZ\":0.0}]}},\"transparency\":0.0,\"x\":3.0,\"z\":0.0,\"y\":1.0,\"angle\":0.0,\"length\":4.0,\"height\":4.0,\"scale\":0.15000000596046448,\"occupancy\":1.0,\"assessmentHeight\":1.2000000476837158,\"shielding\":{\"material\":\"Concrete\",\"thickness\":150.0,\"density\":2350.0,\"shieldingEnabled\":true,\"ctApplicabilityReviewed\":false}},{\"id\":\"b3cfdea2-2b27-468a-927a-a750e93f236f\",\"kind\":\"Wall\",\"name\":\"Lead\",\"model\":\"CT\",\"isControlled\":true,\"groupId\":\"\",\"locked\":false,\"component\":{\"type\":\"Trapezoid\",\"width\":4.0,\"topWidth\":2.0,\"depth\":1.0,\"radius\":2.0,\"wallThickness\":0.25,\"sweep\":90.0,\"segments\":24,\"points\":[]},\"doors\":[],\"generated\":{\"batchId\":\"\",\"pathId\":\"\",\"ruleId\":\"\",\"categoryName\":\"\",\"displayColor\":{\"r\":1.0,\"g\":0.0,\"b\":1.0,\"a\":1.0},\"sourceAPixel\":{\"x\":0.0,\"y\":0.0},\"sourceBPixel\":{\"x\":0.0,\"y\":0.0},\"manuallyEdited\":false,\"unsupportedGeometry\":false},\"ctPoint\":{\"version\":0,\"role\":\"\",\"ownerId\":\"\",\"localX\":0.0,\"localY\":0.0,\"localZ\":0.0,\"hasWorldCoordinates\":false,\"worldX\":0.0,\"worldY\":0.0,\"worldZ\":0.0,\"anchorConfirmed\":false,\"roi\":{\"hasOccupancy\":false,\"hasGoal\":false,\"hasBestFactor\":false,\"hasWorstFactor\":false,\"occupancy\":0.0,\"goalMgyPerWeek\":0.0,\"bestFactor\":0.0,\"worstFactor\":0.0,\"purpose\":\"\",\"goalSource\":\"\",\"occupancyConvention\":\"\",\"goalConvention\":\"Occupied\",\"contributions\":[]}},\"transparency\":0.0,\"x\":1.5,\"z\":0.0,\"y\":0.0,\"angle\":90.0,\"length\":4.0,\"height\":3.0,\"scale\":1.0,\"occupancy\":1.0,\"assessmentHeight\":1.2000000476837158,\"shielding\":{\"material\":\"Lead\",\"thickness\":2.0,\"density\":2350.0,\"shieldingEnabled\":true,\"ctApplicabilityReviewed\":true}}],\"junctions\":[],\"sources\":[{\"id\":\"7812633a-d85e-49ec-b0b8-7a90deaec540\",\"deviceId\":\"7a67523f-f5eb-4fce-8074-374eabe559fc\",\"scatterPointId\":\"cd6385e6-2938-4377-a037-e0faf28683b4\",\"scannerId\":\"DEMO_ONLY\",\"protocolId\":\"Reference example\",\"beamFamily\":\"CT_SECONDARY\",\"mode\":\"ReferenceExams\",\"citation\":\"DEMO_ONLY specification section 14.1\",\"validityDomain\":\"DEMO_ONLY isotropic effective point model 1-10 m\",\"includedComponents\":\"Total secondary; no extra leakage\",\"radiationQuantity\":\"airKerma\",\"kermaUnit\":\"mGy\",\"interval\":\"week\",\"kvp\":120,\"applicabilityReviewed\":true,\"pathApproximationAccepted\":true,\"componentsConfirmed\":true,\"includesRoomBarriers\":false,\"isotropicReferenceAccepted\":true,\"hasReferenceKerma\":true,\"hasReferenceDistance\":true,\"hasWorkload\":true,\"hasMinimumDistance\":true,\"hasMaximumDistance\":true,\"referenceMgyPerExam\":0.2,\"referenceDistanceMeters\":1.0,\"examsPerWeek\":200.0,\"minimumDistanceMeters\":1.0,\"maximumDistanceMeters\":10.0}]}",
+            "geometryToleranceMeters": 1e-7,
+            "rows": [
+                {
+                    "roiId": "abbc694a-8dd2-4a14-b3be-a34e16356887",
+                    "roiName": "ROI point",
+                    "status": "ValidCalculationWithDeclaredApproximation",
+                    "verdict": "Pass",
+                    "position": {
+                        "x": 3.0,
+                        "y": 1.0,
+                        "z": 0.0
+                    },
+                    "complete": true,
+                    "hasPhysical": true,
+                    "hasOccupied": true,
+                    "hasGoal": true,
+                    "hasVerdict": true,
+                    "passed": true,
+                    "isZero": false,
+                    "underflow": false,
+                    "physicalMgyPerWeek": 0.005511067464395314,
+                    "occupiedMgyPerWeek": 0.0013777668660988282,
+                    "unshieldedMgyPerWeek": 4.444444444444441,
+                    "logPhysical": -5.200996942385816,
+                    "logOccupied": -6.587291303505706,
+                    "occupancy": 0.25,
+                    "goalMgyPerWeek": 0.002,
+                    "utilization": 0.6888834330494138,
+                    "margin": 0.0006222331339011719,
+                    "contributions": [
+                        {
+                            "sourceId": "7812633a-d85e-49ec-b0b8-7a90deaec540",
+                            "protocolId": "Reference example",
+                            "status": "ValidCalculationWithDeclaredApproximation",
+                            "message": "",
+                            "hasResult": true,
+                            "isZero": false,
+                            "underflow": false,
+                            "distanceMeters": 3.0,
+                            "unshieldedMgyPerWeek": 4.444444444444441,
+                            "logUnshielded": 1.4916548767777162,
+                            "shieldedMgyPerWeek": 0.005511067464395314,
+                            "logShielded": -5.200996942385816,
+                            "logB": -6.692651819163531,
+                            "transmission": 0.001239990179488947,
+                            "segments": [
+                                {
+                                    "barrierId": "b3cfdea2-2b27-468a-927a-a750e93f236f",
+                                    "material": "Lead",
+                                    "fitId": "CT_PB_120",
+                                    "entryMeters": 1.499,
+                                    "exitMeters": 1.501,
+                                    "pathThicknessMm": 1.9999999999997797,
+                                    "alpha": 2.246,
+                                    "beta": 5.73,
+                                    "gamma": 0.547,
+                                    "entry": {
+                                        "x": 1.499,
+                                        "y": 1.0,
+                                        "z": 0.0
+                                    },
+                                    "exit": {
+                                        "x": 1.501,
+                                        "y": 1.0,
+                                        "z": 0.0
+                                    }
+                                }
+                            ],
+                            "flags": [
+                                "Declared effective-source finite-path broad-beam approximation"
+                            ]
+                        }
+                    ],
+                    "errors": [],
+                    "flags": [
+                        "Declared effective-source finite-path broad-beam approximation"
+                    ]
+                }
+            ]
+        }
+    ]
+}

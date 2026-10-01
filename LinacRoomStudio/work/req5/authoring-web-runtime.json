@@ -1,0 +1,62 @@
+[
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_SELECTION_RUNTIME_PASSED\n",
+    "timestamp": "2026-09-26T08:42:02.233Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_SHORTCUT_RUNTIME_PASSED: undo, redo, delete, protection, persistence, text focus and help lifecycle\n",
+    "timestamp": "2026-09-26T08:42:02.287Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PALETTE_RUNTIME_PASSED: all 8 palette entries, original IDs/roles, placement, renderers, selection and native persistence; 9 supplied models including Desk\n",
+    "timestamp": "2026-09-26T08:42:02.459Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_COMPONENT_RUNTIME_PASSED: preset placement, mesh colliders, protection, native save/load, custom drawing, edit undo/redo, save/rename/delete/reuse and JSON export/import\n",
+    "timestamp": "2026-09-26T08:42:02.575Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_FLOORPLAN_RUNTIME_PASSED: PNG/JPEG, scale, opacity, undo/redo, invalid replacement, 2D-only guide, scaled vector tracing, guide export and native filesystem persistence\n",
+    "timestamp": "2026-09-26T08:42:02.634Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PRECISION_CHECKS_PASSED: increments, 100 nudges, exact/free input, anchors, grid signs, wall edges/priority, rigid groups, protection, native/v1/v2/null defaults\n",
+    "timestamp": "2026-09-26T08:42:02.641Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PRECISION_RUNTIME_PASSED: preferences without transform history, grid display, nudge/resize undo-redo, focus guards, free drag, cancellation and native load\n",
+    "timestamp": "2026-09-26T08:42:02.688Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PLAN_AUTHORING_CHECKS_PASSED: calibration/units/coordinates, invalid/nonuniform scale, mask counts/noise/alpha/priority/HSV/diagonals, source fingerprint, native/guide compatibility and physical-material guards\n",
+    "timestamp": "2026-09-26T08:42:02.748Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_PLAN_AUTHORING_RUNTIME_PASSED: draft/preview invariance, unconfirmed detection, cooperative cancellation, stale/empty results, one-step apply undo-redo, discard and embedded-image native load\n",
+    "timestamp": "2026-09-26T08:42:02.791Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  },
+  {
+    "level": "log",
+    "message": "ROOM_STUDIO_WEB_FEATURE_CHECKS_PASSED\n",
+    "timestamp": "2026-09-26T08:42:02.795Z",
+    "url": "http://127.0.0.1:8080/web/Build/WebGL.framework.js?v=adde2367b21741088fa4b01b6d0e2b2f"
+  }
+]

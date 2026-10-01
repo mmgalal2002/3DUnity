@@ -1,0 +1,70 @@
+{
+    "format": "RoomStudio.Components",
+    "version": 1,
+    "components": [
+        {
+            "id": "bed31f1a-f3e4-492f-88d8-4f402692ae1f",
+            "name": "Ltest",
+            "item": {
+                "id": "51f8c05b-d6d8-4c07-9715-6ee6410ce48c",
+                "kind": "Component",
+                "name": "Ltest",
+                "model": "CT",
+                "isControlled": true,
+                "groupId": "",
+                "locked": false,
+                "component": {
+                    "type": "Polygon",
+                    "width": 4.0,
+                    "topWidth": 2.0,
+                    "depth": 1.0,
+                    "radius": 2.0,
+                    "wallThickness": 0.25,
+                    "sweep": 90.0,
+                    "segments": 24,
+                    "points": [
+                        {
+                            "x": -2.0,
+                            "y": 1.6666666269302368
+                        },
+                        {
+                            "x": 2.0,
+                            "y": 1.6666666269302368
+                        },
+                        {
+                            "x": 2.0,
+                            "y": -0.3333333730697632
+                        },
+                        {
+                            "x": 0.0,
+                            "y": -0.3333333730697632
+                        },
+                        {
+                            "x": 0.0,
+                            "y": -1.3333333730697632
+                        },
+                        {
+                            "x": -2.0,
+                            "y": -1.3333333730697632
+                        }
+                    ]
+                },
+                "transparency": 0.0,
+                "x": 0.0,
+                "z": 0.0,
+                "y": 0.0,
+                "angle": 0.0,
+                "length": 4.0,
+                "height": 4.0,
+                "scale": 1.0,
+                "occupancy": 1.0,
+                "assessmentHeight": 1.2000000476837158,
+                "shielding": {
+                    "material": "Concrete",
+                    "thickness": 150.0,
+                    "density": 2350.0
+                }
+            }
+        }
+    ]
+}

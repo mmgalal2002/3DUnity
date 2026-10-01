@@ -1,0 +1,48 @@
+{
+  "utc": "2026-09-28T14:39:24.1657379Z",
+  "node": "v24.18.1",
+  "fixtureSha256": {
+    "import-fixture.json": "2FEC049AC26A937BF3410EC5FFBB4521BFB6F3E4D9FBA7E687C98225507C2E6E",
+    "example-design.json": "79DF3EF11164CAE58A826945804E365B82D3F247CFB1F03AB9589DC9C07EBBCB",
+    "golden-report.json": "A4972AD19AE057B8E7976281AFAD29B17FA6C6ECBF5A38F8A77DF60917C46FCC",
+    "imported-design-fixture.json": "19242250FBB4928605D205C2C6440F1191536B6D254CB823A69B26C9A9ECD22A"
+  },
+  "fixturesRestoredByteForByte": true,
+  "results": [
+    {
+      "script": "benchmark.mjs",
+      "exitCode": 0,
+      "output": "Secondary barriers\r\n┌─────────┬───────────────────────────┬───────────┬───────────┬───────────┬────────┬───────────────────────────────────────────────────────────────┐\r\n│ (index) │ Case                      │ Expected  │ Actual    │ Delta     │ Status │ Notes                                                         │\r\n├─────────┼───────────────────────────┼───────────┼───────────┼───────────┼────────┼───────────────────────────────────────────────────────────────┤\r\n│ 0       │ 'Location A conventional' │ '66.4 cm' │ '66.5 cm' │ '0.1 cm'  │ 'PASS' │ 'Published wall thickness: 66.4 cm'                           │\r\n│ 1       │ 'Location A IMRT'         │ '73.0 cm' │ '73.0 cm' │ '-0.0 cm' │ 'PASS' │ 'Published wall thickness: 73.0 cm'                           │\r\n│ 2       │ 'Location H conventional' │ '63.2 cm' │ '63.0 cm' │ '-0.3 cm' │ 'PASS' │ 'Published ceiling thickness: 73 cm slant, 63.2 cm normal'    │\r\n│ 3       │ 'Location H IMRT'         │ '79.0 cm' │ '78.9 cm' │ '-0.1 cm' │ 'PASS' │ 'Published final ceiling thickness after verification: 79 cm' │\r\n└─────────┴───────────────────────────┴───────────┴───────────┴───────────┴────────┴───────────────────────────────────────────────────────────────┘\r\nMaze and door components\r\n┌─────────┬──────────────────────────────────────┬───────────────────┬───────────────────┬──────────────────┬────────┬──────────────────────────────────────────────────────┐\r\n│ (index) │ Case                                 │ Expected          │ Actual            │ Delta            │ Status │ Notes                                                │\r\n├─────────┼──────────────────────────────────────┼───────────────────┼───────────────────┼──────────────────┼────────┼──────────────────────────────────────────────────────┤\r\n│ 0       │ 'Maze door photons conventional'     │ '100.0 uSv/week'  │ '100.0 uSv/week'  │ '0.0 uSv/week'   │ 'PASS' │ 'Published Htot = 100 uSv/week'                      │\r\n│ 1       │ 'Maze door photons IMRT'             │ '113.0 uSv/week'  │ '112.8 uSv/week'  │ '-0.2 uSv/week'  │ 'PASS' │ 'Published Htot = 113 uSv/week'                      │\r\n│ 2       │ 'Capture gamma conventional'         │ '65.3 uSv/week'   │ '64.9 uSv/week'   │ '-0.4 uSv/week'  │ 'PASS' │ 'Published Hcg = 65.3 uSv/week'                      │\r\n│ 3       │ 'Capture gamma IMRT'                 │ '170.0 uSv/week'  │ '168.8 uSv/week'  │ '-1.2 uSv/week'  │ 'PASS' │ 'Published Hcg = 170 uSv/week'                       │\r\n│ 4       │ 'Maze door neutron conventional'     │ '765.0 uSv/week'  │ '765.0 uSv/week'  │ '0.0 uSv/week'   │ 'PASS' │ 'Published Kersey Hn = 765 uSv/week'                 │\r\n│ 5       │ 'Maze door neutron IMRT'             │ '1989.0 uSv/week' │ '1989.0 uSv/week' │ '0.0 uSv/week'   │ 'PASS' │ 'Published Kersey Hn = 1,989 uSv/week'               │\r\n│ 6       │ 'Maze door neutron Wu-McGinley'      │ '360.0 uSv/week'  │ '335.9 uSv/week'  │ '-24.1 uSv/week' │ 'PASS' │ 'Published alternative estimate: about 0.8e-6 Sv/Gy' │\r\n│ 7       │ 'Maze barrier photon slant'          │ '910.0 mm'        │ '908.7 mm'        │ '-1.3 mm'        │ 'PASS' │ 'Published leakage-photon slant thickness: 91 cm'    │\r\n│ 8       │ 'Maze barrier recommended thickness' │ '957.6 mm'        │ '957.6 mm'        │ '0.0 mm'         │ 'PASS' │ 'Published recommended concrete thickness: 96 cm'    │\r\n│ 9       │ 'Door lead conventional'             │ '7.3 mm'          │ '6.9 mm'          │ '-0.4 mm'        │ 'PASS' │ 'Published lead requirement: about 7 mm'             │\r\n│ 10      │ 'Door BPE conventional'              │ '53.6 mm'         │ '53.3 mm'         │ '-0.3 mm'        │ 'PASS' │ 'Published BPE requirement: 53.6 mm'                 │\r\n│ 11      │ 'Door lead IMRT'                     │ '32.0 mm'         │ '32.2 mm'         │ '0.2 mm'         │ 'PASS' │ 'Published lead requirement: 32 mm'                  │\r\n│ 12      │ 'Door BPE IMRT'                      │ '72.0 mm'         │ '72.0 mm'         │ '-0.0 mm'        │ 'PASS' │ 'Published BPE requirement: 72 mm'                   │\r\n└─────────┴──────────────────────────────────────┴───────────────────┴───────────────────┴──────────────────┴────────┴──────────────────────────────────────────────────────┘"
+    },
+    {
+      "script": "checks.mjs",
+      "exitCode": 0,
+      "output": "PASS: workload, mm units, centered origin, yaw, rotated isocentre, equivalent field, wall endpoints, controlled-area flag, populated finite QA, canonical room parity, workload scaling, empty occupancy."
+    },
+    {
+      "script": "workspace-checks.mjs",
+      "exitCode": 0,
+      "output": "PASS: bare/wrapper import, float32 scene projection with exact double round-trip, unknown fields, saved design round-trip, direct QA parity, Planmeca visual source isolation, source translation, mixed MV storage, wall ordering, deletion, documented repairs, empty components, invalid enums/numbers/IDs."
+    },
+    {
+      "script": "floor-plan-checks.mjs",
+      "exitCode": 0,
+      "output": "ROOM_STUDIO_FLOORPLAN_BRIDGE_PASSED: precision, unknown metadata, edited guide, clear guide, QA/geometry parity, PNG header, invalid input, legacy empty DTO"
+    },
+    {
+      "script": "precision-checks.mjs",
+      "exitCode": 0,
+      "output": "ROOM_STUDIO_PRECISION_BRIDGE_PASSED: native editing preferences leave geometry, reference QA and canonical source export unchanged"
+    },
+    {
+      "script": "plan-authoring-checks.mjs",
+      "exitCode": 0,
+      "output": "ROOM_STUDIO_PLAN_AUTHORING_BRIDGE_PASSED: metadata/unknown-field roundtrip, geometry/QA invariance, color-only edits, malformed rules/calibration rejection, legacy empty DTO"
+    },
+    {
+      "script": "door-checks.mjs",
+      "exitCode": 0,
+      "output": "ROOM_STUDIO_DOOR_REFERENCE_GUARD_PASSED: QA and canonical export reject apertures; native source retained"
+    }
+  ]
+}

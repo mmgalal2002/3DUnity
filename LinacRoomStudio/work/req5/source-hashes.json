@@ -1,0 +1,42 @@
+[
+  {
+    "path": "Assets/Scripts/ProjectData.cs",
+    "sha256": "1AC9DDDD1B9C34DDAF689DE2A1E1D447C6485835088BD089282ECC6D3B43E87F"
+  },
+  {
+    "path": "Assets/Scripts/StudioApp.cs",
+    "sha256": "7829C5481799E3A879BF16E6728D45F9CE074BE6534B24F9BC6E7054F01B1CC4"
+  },
+  {
+    "path": "Assets/Scripts/StudioShortcuts.cs",
+    "sha256": "65E75F5E1B89FE7CFEE265C503BCCEF30C3CB9C7ABC8D940F21D7C90649D9A56"
+  },
+  {
+    "path": "Assets/Scripts/StudioComponents.cs",
+    "sha256": "A32048C205548453C5590CE8542FBEF25539B9410408A2E06C0C2416255D259D"
+  },
+  {
+    "path": "Assets/Scripts/PrecisionEditing.cs",
+    "sha256": "2AD012EFA210849BC33B0FB9C3E46B04B0C4391FFCA997AB5C9317C9CA9477C3"
+  },
+  {
+    "path": "Assets/Scripts/PrecisionChecks.cs",
+    "sha256": "BC818F8F4650CA5A4B8352D2D3B28B3156274CBD7D9B43D0CAC984A0EFFBFAC1"
+  },
+  {
+    "path": "Assets/Scripts/StudioPrecision.cs",
+    "sha256": "5A0EE62BA92949FCB1C1F081944E76BEA1B922CE132B5374CF204C1FBCE45820"
+  },
+  {
+    "path": "Assets/Scripts/StudioPrecisionChecks.cs",
+    "sha256": "D07E2E6A28C5E02EF42511732B46B36F89DB09340E738B7D96D789255CAFB070"
+  },
+  {
+    "path": "Assets/Editor/BuildStudio.cs",
+    "sha256": "9FF8555C6CCD3D6F1B85B22670433584598958564D1F5ABB4F27C507940B94B6"
+  },
+  {
+    "path": "Assets/StreamingAssets/ProShield/precision-checks.mjs",
+    "sha256": "10317FAFB8960F7F8086FFC4B6BA0E5739E6872FC9D8538C592564851CBA54AA"
+  }
+]

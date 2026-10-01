@@ -1,0 +1,12 @@
+{
+  "wallCount": 8,
+  "pathCount": 8,
+  "junctionCount": 6,
+  "categoryThicknesses": [
+    100.0,
+    150.0
+  ],
+  "sourceEmbedded": true,
+  "confirmedCalibration": true,
+  "moveStep": 0.009999999776482582
+}

@@ -1,0 +1,508 @@
+{
+  "sourceJson": "",
+  "sourceProjectionJson": "",
+  "importSummary": "",
+  "version": 2,
+  "schemaVersion": 2,
+  "documentRevision": 1,
+  "calculationEngineVersion": "ProShield-Unity-0.1",
+  "name": "CT arithmetic demo - NOT CLINICAL",
+  "selectedModel": "CT",
+  "width": 12.0,
+  "depth": 10.0,
+  "height": 5.0,
+  "linkWallsToRoom": false,
+  "floor": {
+    "material": "Concrete",
+    "thickness": 150.0,
+    "density": 2350.0,
+    "shieldingEnabled": true,
+    "ctApplicabilityReviewed": false
+  },
+  "ceiling": {
+    "material": "Concrete",
+    "thickness": 150.0,
+    "density": 2350.0,
+    "shieldingEnabled": true,
+    "ctApplicabilityReviewed": false
+  },
+  "floorPlan": {
+    "kind": "Image",
+    "sourceName": "",
+    "sourcePath": "",
+    "imageBase64": "",
+    "pixelWidth": 0,
+    "pixelHeight": 0,
+    "metersPerPixel": 0.009999999776482582,
+    "widthMeters": 10.0,
+    "heightMeters": 10.0,
+    "opacity": 0.3499999940395355,
+    "x": 0.0,
+    "z": 0.0,
+    "rotation": 0.0,
+    "visible": true,
+    "authoring": {
+      "version": 0,
+      "id": "",
+      "sourceFingerprint": "",
+      "pixelWidth": 0,
+      "pixelHeight": 0,
+      "alphaThreshold": 0.10000000149011612,
+      "calibration": {
+        "confirmed": false,
+        "method": "Manual",
+        "unit": "m/px",
+        "value": 0.009999999776482582,
+        "metresPerPixel": 0.009999999776482582,
+        "distanceMetres": 5.0,
+        "a": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "b": {
+          "x": 0.0,
+          "y": 0.0
+        }
+      },
+      "rules": []
+    },
+    "segments": []
+  },
+  "generationBatches": [],
+  "wallJunctions": [],
+  "editing": {
+    "moveStep": 0.009999999776482582,
+    "resizeStep": 0.009999999776482582,
+    "thicknessStepMm": 1.0,
+    "scaleStep": 0.009999999776482582,
+    "gridVisible": true,
+    "gridSnap": false,
+    "wallSnap": false,
+    "gridSpacing": 0.10000000149011612,
+    "wallSnapTolerance": 0.019999999552965164,
+    "lengthAnchor": "Center"
+  },
+  "ct": {
+    "version": 1,
+    "metersPerUnityUnit": 1.0,
+    "scenarioName": "DEMO_ONLY",
+    "selectedCase": "Nominal",
+    "shieldingMode": "Current",
+    "selectedRoiId": "abbc694a-8dd2-4a14-b3be-a34e16356887",
+    "selectedSourceId": "",
+    "sources": [
+      {
+        "id": "7812633a-d85e-49ec-b0b8-7a90deaec540",
+        "deviceId": "7a67523f-f5eb-4fce-8074-374eabe559fc",
+        "scatterPointId": "cd6385e6-2938-4377-a037-e0faf28683b4",
+        "scannerId": "DEMO_ONLY",
+        "protocolId": "Reference example",
+        "beamFamily": "CT_SECONDARY",
+        "mode": "ReferenceExams",
+        "citation": "DEMO_ONLY specification section 14.1",
+        "validityDomain": "DEMO_ONLY isotropic effective point model 1-10 m",
+        "includedComponents": "Total secondary; no extra leakage",
+        "radiationQuantity": "airKerma",
+        "kermaUnit": "mGy",
+        "interval": "week",
+        "kvp": 120,
+        "applicabilityReviewed": true,
+        "pathApproximationAccepted": true,
+        "componentsConfirmed": true,
+        "includesRoomBarriers": false,
+        "isotropicReferenceAccepted": true,
+        "hasReferenceKerma": true,
+        "hasReferenceDistance": true,
+        "hasWorkload": true,
+        "hasMinimumDistance": true,
+        "hasMaximumDistance": true,
+        "referenceMgyPerExam": 0.2,
+        "referenceDistanceMeters": 1.0,
+        "examsPerWeek": 200.0,
+        "minimumDistanceMeters": 1.0,
+        "maximumDistanceMeters": 10.0
+      }
+    ],
+    "results": []
+  },
+  "items": [
+    {
+      "id": "7a67523f-f5eb-4fce-8074-374eabe559fc",
+      "kind": "Model",
+      "name": "CT (visual only)",
+      "model": "CT",
+      "isControlled": true,
+      "groupId": "",
+      "locked": false,
+      "component": {
+        "type": "Trapezoid",
+        "width": 4.0,
+        "topWidth": 2.0,
+        "depth": 1.0,
+        "radius": 2.0,
+        "wallThickness": 0.25,
+        "sweep": 90.0,
+        "segments": 24,
+        "points": []
+      },
+      "doors": [],
+      "generated": {
+        "batchId": "",
+        "pathId": "",
+        "ruleId": "",
+        "categoryName": "",
+        "displayColor": {
+          "r": 1.0,
+          "g": 0.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "sourceAPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "sourceBPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "manuallyEdited": false,
+        "unsupportedGeometry": false
+      },
+      "ctPoint": {
+        "version": 0,
+        "role": "",
+        "ownerId": "",
+        "localX": 0.0,
+        "localY": 0.0,
+        "localZ": 0.0,
+        "hasWorldCoordinates": false,
+        "worldX": 0.0,
+        "worldY": 0.0,
+        "worldZ": 0.0,
+        "anchorConfirmed": false,
+        "roi": {
+          "hasOccupancy": false,
+          "hasGoal": false,
+          "hasBestFactor": false,
+          "hasWorstFactor": false,
+          "occupancy": 0.0,
+          "goalMgyPerWeek": 0.0,
+          "bestFactor": 0.0,
+          "worstFactor": 0.0,
+          "purpose": "",
+          "goalSource": "",
+          "occupancyConvention": "",
+          "goalConvention": "Occupied",
+          "contributions": []
+        }
+      },
+      "transparency": 0.0,
+      "x": 0.0,
+      "z": 0.0,
+      "y": 0.0,
+      "angle": 0.0,
+      "length": 4.0,
+      "height": 4.0,
+      "scale": 1.0,
+      "occupancy": 1.0,
+      "assessmentHeight": 1.2000000476837158,
+      "shielding": {
+        "material": "Concrete",
+        "thickness": 150.0,
+        "density": 2350.0,
+        "shieldingEnabled": true,
+        "ctApplicabilityReviewed": false
+      }
+    },
+    {
+      "id": "cd6385e6-2938-4377-a037-e0faf28683b4",
+      "kind": "Model",
+      "name": "Scatter point",
+      "model": "Dot",
+      "isControlled": true,
+      "groupId": "",
+      "locked": false,
+      "component": {
+        "type": "Trapezoid",
+        "width": 4.0,
+        "topWidth": 2.0,
+        "depth": 1.0,
+        "radius": 2.0,
+        "wallThickness": 0.25,
+        "sweep": 90.0,
+        "segments": 24,
+        "points": []
+      },
+      "doors": [],
+      "generated": {
+        "batchId": "",
+        "pathId": "",
+        "ruleId": "",
+        "categoryName": "",
+        "displayColor": {
+          "r": 1.0,
+          "g": 0.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "sourceAPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "sourceBPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "manuallyEdited": false,
+        "unsupportedGeometry": false
+      },
+      "ctPoint": {
+        "version": 1,
+        "role": "Scatter",
+        "ownerId": "7a67523f-f5eb-4fce-8074-374eabe559fc",
+        "localX": 0.0,
+        "localY": 1.0,
+        "localZ": 0.0,
+        "hasWorldCoordinates": false,
+        "worldX": 0.0,
+        "worldY": 1.0,
+        "worldZ": 0.0,
+        "anchorConfirmed": true,
+        "roi": {
+          "hasOccupancy": false,
+          "hasGoal": false,
+          "hasBestFactor": false,
+          "hasWorstFactor": false,
+          "occupancy": 0.0,
+          "goalMgyPerWeek": 0.0,
+          "bestFactor": 0.0,
+          "worstFactor": 0.0,
+          "purpose": "",
+          "goalSource": "",
+          "occupancyConvention": "",
+          "goalConvention": "Occupied",
+          "contributions": []
+        }
+      },
+      "transparency": 0.0,
+      "x": 0.0,
+      "z": 0.0,
+      "y": 1.0,
+      "angle": 0.0,
+      "length": 4.0,
+      "height": 4.0,
+      "scale": 0.15000000596046448,
+      "occupancy": 1.0,
+      "assessmentHeight": 1.2000000476837158,
+      "shielding": {
+        "material": "Concrete",
+        "thickness": 150.0,
+        "density": 2350.0,
+        "shieldingEnabled": true,
+        "ctApplicabilityReviewed": false
+      }
+    },
+    {
+      "id": "abbc694a-8dd2-4a14-b3be-a34e16356887",
+      "kind": "Model",
+      "name": "ROI point",
+      "model": "Dot",
+      "isControlled": true,
+      "groupId": "",
+      "locked": false,
+      "component": {
+        "type": "Trapezoid",
+        "width": 4.0,
+        "topWidth": 2.0,
+        "depth": 1.0,
+        "radius": 2.0,
+        "wallThickness": 0.25,
+        "sweep": 90.0,
+        "segments": 24,
+        "points": []
+      },
+      "doors": [],
+      "generated": {
+        "batchId": "",
+        "pathId": "",
+        "ruleId": "",
+        "categoryName": "",
+        "displayColor": {
+          "r": 1.0,
+          "g": 0.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "sourceAPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "sourceBPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "manuallyEdited": false,
+        "unsupportedGeometry": false
+      },
+      "ctPoint": {
+        "version": 1,
+        "role": "ROI",
+        "ownerId": "",
+        "localX": 0.0,
+        "localY": 0.0,
+        "localZ": 0.0,
+        "hasWorldCoordinates": true,
+        "worldX": 3.0,
+        "worldY": 1.0,
+        "worldZ": 0.0,
+        "anchorConfirmed": false,
+        "roi": {
+          "hasOccupancy": true,
+          "hasGoal": true,
+          "hasBestFactor": true,
+          "hasWorstFactor": true,
+          "occupancy": 0.25,
+          "goalMgyPerWeek": 0.002,
+          "bestFactor": 0.5,
+          "worstFactor": 2.0,
+          "purpose": "",
+          "goalSource": "DEMO_ONLY invented goal",
+          "occupancyConvention": "DEMO_ONLY exposure occupancy",
+          "goalConvention": "Occupied",
+          "contributions": [
+            {
+              "sourceId": "7812633a-d85e-49ec-b0b8-7a90deaec540",
+              "directSourceFingerprint": "",
+              "hasDirectKerma": false,
+              "hasKermaPosition": false,
+              "directMgyPerWeek": 0.0,
+              "kermaX": 0.0,
+              "kermaY": 0.0,
+              "kermaZ": 0.0
+            }
+          ]
+        }
+      },
+      "transparency": 0.0,
+      "x": 3.0,
+      "z": 0.0,
+      "y": 1.0,
+      "angle": 0.0,
+      "length": 4.0,
+      "height": 4.0,
+      "scale": 0.15000000596046448,
+      "occupancy": 1.0,
+      "assessmentHeight": 1.2000000476837158,
+      "shielding": {
+        "material": "Concrete",
+        "thickness": 150.0,
+        "density": 2350.0,
+        "shieldingEnabled": true,
+        "ctApplicabilityReviewed": false
+      }
+    },
+    {
+      "id": "b3cfdea2-2b27-468a-927a-a750e93f236f",
+      "kind": "Wall",
+      "name": "Lead",
+      "model": "CT",
+      "isControlled": true,
+      "groupId": "",
+      "locked": false,
+      "component": {
+        "type": "Trapezoid",
+        "width": 4.0,
+        "topWidth": 2.0,
+        "depth": 1.0,
+        "radius": 2.0,
+        "wallThickness": 0.25,
+        "sweep": 90.0,
+        "segments": 24,
+        "points": []
+      },
+      "doors": [],
+      "generated": {
+        "batchId": "",
+        "pathId": "",
+        "ruleId": "",
+        "categoryName": "",
+        "displayColor": {
+          "r": 1.0,
+          "g": 0.0,
+          "b": 1.0,
+          "a": 1.0
+        },
+        "sourceAPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "sourceBPixel": {
+          "x": 0.0,
+          "y": 0.0
+        },
+        "manuallyEdited": false,
+        "unsupportedGeometry": false
+      },
+      "ctPoint": {
+        "version": 0,
+        "role": "",
+        "ownerId": "",
+        "localX": 0.0,
+        "localY": 0.0,
+        "localZ": 0.0,
+        "hasWorldCoordinates": false,
+        "worldX": 0.0,
+        "worldY": 0.0,
+        "worldZ": 0.0,
+        "anchorConfirmed": false,
+        "roi": {
+          "hasOccupancy": false,
+          "hasGoal": false,
+          "hasBestFactor": false,
+          "hasWorstFactor": false,
+          "occupancy": 0.0,
+          "goalMgyPerWeek": 0.0,
+          "bestFactor": 0.0,
+          "worstFactor": 0.0,
+          "purpose": "",
+          "goalSource": "",
+          "occupancyConvention": "",
+          "goalConvention": "Occupied",
+          "contributions": []
+        }
+      },
+      "transparency": 0.0,
+      "x": 1.5,
+      "z": 0.0,
+      "y": 0.0,
+      "angle": 90.0,
+      "length": 4.0,
+      "height": 3.0,
+      "scale": 1.0,
+      "occupancy": 1.0,
+      "assessmentHeight": 1.2000000476837158,
+      "shielding": {
+        "material": "Lead",
+        "thickness": 2.0,
+        "density": 2350.0,
+        "shieldingEnabled": true,
+        "ctApplicabilityReviewed": true
+      }
+    }
+  ],
+  "regions": [],
+  "selectedTool": "Select",
+  "selectedEquipmentType": "linac",
+  "selectedWallMaterial": "Concrete",
+  "sampleDistance": 0.30000001192092896,
+  "energy": 6.0,
+  "workload": 500.0,
+  "gantry": 0.0,
+  "fieldX": 20.0,
+  "fieldY": 20.0,
+  "isocentreHeight": 1.2999999523162842,
+  "isoOffsetX": 0.0,
+  "isoOffsetZ": -1.600000023841858,
+  "sourceDistance": 1.0,
+  "machine": "Linac HD (user supplied model)"
+}

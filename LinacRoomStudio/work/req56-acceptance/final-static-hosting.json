@@ -1,0 +1,10 @@
+{
+  "Uri": "http://127.0.0.1:8097/Build/WebGL.wasm",
+  "Status": 200,
+  "ContentType": [
+    "application/wasm"
+  ],
+  "Length": [
+    "20421279"
+  ]
+}

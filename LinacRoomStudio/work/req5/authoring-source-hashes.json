@@ -1,0 +1,102 @@
+[
+  {
+    "path": "Assets\\Scripts\\BrowserBridge.cs",
+    "sha256": "C9F2F73E542A2EDF889A166D88F031727E629B36AE114BFF3A5A528B3BB34C4E"
+  },
+  {
+    "path": "Assets\\Scripts\\ComponentGeometry.cs",
+    "sha256": "2A65B4FBA9E0B21FA857ABFBF54548E5950409FE3CB9B113D561C77203FFF6E8"
+  },
+  {
+    "path": "Assets\\Scripts\\ComponentLibrary.cs",
+    "sha256": "E274B87F07EFB34CF1C12D6F64DEE85E45F750B84BF5CCB95126DEB332C0007C"
+  },
+  {
+    "path": "Assets\\Scripts\\EquipmentPalette.cs",
+    "sha256": "4C56768A985026783D4D1A4BFF220FA024B65AA180CCE52E6CF9B78896B12525"
+  },
+  {
+    "path": "Assets\\Scripts\\FloorPlanCodec.cs",
+    "sha256": "2F3DD982118A4A913D2A247A4C08CD6B145C941B967D09E3EB6D0C66A382C159"
+  },
+  {
+    "path": "Assets\\Scripts\\FloorPlanFilePicker.cs",
+    "sha256": "B915E695DB72181EC774EB1A2C19B2DA4A0941928BDB9BAB2897F66D443B04B6"
+  },
+  {
+    "path": "Assets\\Scripts\\PlanAuthoring.cs",
+    "sha256": "92B0ED177BECAC1243B69B7FE48E3C5AD4D04AC39427966081E0AB69E913BD92"
+  },
+  {
+    "path": "Assets\\Scripts\\PlanAuthoringChecks.cs",
+    "sha256": "0555DED18B8E2F3665E8F6C79DB46FACC917BAD96D37A529A64F36F9B0A49E30"
+  },
+  {
+    "path": "Assets\\Scripts\\PlanColorMask.cs",
+    "sha256": "106A3463758A7B161ED100236AAD9468490B7EFF691CBEC02306A4753CA60710"
+  },
+  {
+    "path": "Assets\\Scripts\\PrecisionChecks.cs",
+    "sha256": "BC818F8F4650CA5A4B8352D2D3B28B3156274CBD7D9B43D0CAC984A0EFFBFAC1"
+  },
+  {
+    "path": "Assets\\Scripts\\PrecisionEditing.cs",
+    "sha256": "2AD012EFA210849BC33B0FB9C3E46B04B0C4391FFCA997AB5C9317C9CA9477C3"
+  },
+  {
+    "path": "Assets\\Scripts\\ProjectData.cs",
+    "sha256": "7D4F5B690B33826A1C9D18BD9699B50E9E424F6FED0B083B7A6A3190DCD63297"
+  },
+  {
+    "path": "Assets\\Scripts\\ReferenceQa.cs",
+    "sha256": "DCC51E1EFB693283DC867B680A49187FBDD4CAF81E174F8B3413BC6AABD95D6C"
+  },
+  {
+    "path": "Assets\\Scripts\\SelectionEditing.cs",
+    "sha256": "5555CDA05EF9C15DC0D7C501E8A6F7F9B8F46AAC3E4F7AC4653A034745889F3D"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioApp.cs",
+    "sha256": "E1119157CAC219F81EE8FED5CE3F197F584FCF033B0C4F4B76358C85C0468511"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioComponentChecks.cs",
+    "sha256": "1E93463306F65475ADE2167C5786D866E71C02E1B3DDD63C00011DAD07F24695"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioComponents.cs",
+    "sha256": "A32048C205548453C5590CE8542FBEF25539B9410408A2E06C0C2416255D259D"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioFloorPlan.cs",
+    "sha256": "2BA6A031D0BC82ED10A1808474AB87DB3D4F2630EEEAC1A05CE9AD8734E9C059"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioFloorPlanChecks.cs",
+    "sha256": "1F263EF3A759522FDC766BF96870E8048A4CF007FCD9E1B728AA834B30852BB4"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioPalette.cs",
+    "sha256": "F7CC03B470BECBD2A0A54411D24169442B7309A18B1A1AB0E709C0ED22FCE195"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioPlanAuthoring.cs",
+    "sha256": "07DE858BBA35C45A081F76029665F3B01A6D2ABDA28D8672998752FE19E29A18"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioPlanAuthoringChecks.cs",
+    "sha256": "B698B5C1FCC9F4A0C1E8FE271B6CFDA8AC80B56ACCC26601D6D54C611B59D179"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioPrecision.cs",
+    "sha256": "948081367217F1A63C6E328517F6FFD873E440BB84994103530EB795BFAE82E8"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioPrecisionChecks.cs",
+    "sha256": "D07E2E6A28C5E02EF42511732B46B36F89DB09340E738B7D96D789255CAFB070"
+  },
+  {
+    "path": "Assets\\Scripts\\StudioShortcuts.cs",
+    "sha256": "83D016EA3993CCA773CB43E4FFD627339AAE090B88D1AD4867CF4B211054A392"
+  }
+]

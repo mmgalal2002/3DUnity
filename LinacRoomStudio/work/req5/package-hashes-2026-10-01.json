@@ -1,0 +1,130 @@
+﻿{
+    "fileCount":  29,
+    "utc":  "2026-10-01T02:58:41.9694612Z",
+    "revision":  "1fb75dae1b4147ad8b3ed0f2a39e197b",
+    "files":  [
+                  {
+                      "path":  "Build/WebGL.data",
+                      "sha256":  "87cacefa20196a9f83a7c451c3a29a2f083790e8806207d893ce1e9f866a342f"
+                  },
+                  {
+                      "path":  "Build/WebGL.framework.js",
+                      "sha256":  "45130b49af2e111238ecab764fbba95611a8a50dc9b3ea73dc61c48a58023acb"
+                  },
+                  {
+                      "path":  "Build/WebGL.loader.js",
+                      "sha256":  "053a47bffee73903b7784788668c19db73b42e89a25ad3dfeba4ffc1c77adead"
+                  },
+                  {
+                      "path":  "Build/WebGL.wasm",
+                      "sha256":  "4ae1934f3575ae7605ecc858e5350f8a0e9a73203d59ab0192972b71d0a8ddc9"
+                  },
+                  {
+                      "path":  "index.html",
+                      "sha256":  "a6dea526dc55c9d6456ae48cd5f4e00ed76647f560d5672a7747f1a8a1b0a77b"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/benchmark.mjs",
+                      "sha256":  "a3e418e241784c9b1f5a5ff2c7456ceed58129c759f4a7d017fdd2de7b65e313"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/browser-worker.mjs",
+                      "sha256":  "ea03ba7e3f975eef99f0238f4c3c85524c1a6e40d7e981f6ee8734ec5b678703"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/checks.mjs",
+                      "sha256":  "7c7ae463a8fb05466881100b74320f736e91ca46ae56658dce291479326a42ce"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/door-checks.mjs",
+                      "sha256":  "d159cf100350ad413fdf6f5c373ab7ce68b1b945535ae088227c4f1f3e2d8a16"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/engine.mjs",
+                      "sha256":  "cee0c24401137251b721d4ed309b377e5bc9e23db2ff4f77f8628d3817fe8213"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/example-design.json",
+                      "sha256":  "79df3ef11164cae58a826945804e365b82d3f247cfb1f03ab9589dc9c07ebbcb"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/floor-plan.mjs",
+                      "sha256":  "fa5bd7e1f1c0c16b20ed13dade684d8a95826996cbba2a08773872430192c987"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/floor-plan-checks.mjs",
+                      "sha256":  "ade5bb8655f5fee9cf5cb9eb4447cec90a7b25b096abf7f139382d46894c25c7"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/golden-report.json",
+                      "sha256":  "e8b756f4272716327a8e75a870ce8f3230274c2cb76ae2bcf2ebe0adb63bdb1a"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/imported-design-fixture.json",
+                      "sha256":  "19242250fbb4928605d205c2c6440f1191536b6d254cb823a69b26c9a9ecd22a"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/import-fixture.json",
+                      "sha256":  "2fec049ac26a937bf3410ec5ffbb4521bfb6f3e4d9fba7e687c98225507c2e6e"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/NODE-LICENSE.txt",
+                      "sha256":  "148eacf7863ef4329224a29398623077200a27194aa075569faf4a0a85566ca5"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/plan-authoring.mjs",
+                      "sha256":  "1fa46c9b96c322a64ee7b27678a3519edbdecdde75990fd217c0e64b35b3b744"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/plan-authoring-checks.mjs",
+                      "sha256":  "10f1fe95b966fee6d0b191ca5d56813a66ac31a2fee676fd09b3398c1b937a28"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/precision-checks.mjs",
+                      "sha256":  "10317fafb8960f7f8086ffc4b6ba0e5739e6872fc9d8538c592564851cba54aa"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/provenance.json",
+                      "sha256":  "6cd4b4a75e027827ef879bf32984cc1f5211996ad8a233012a5bf556cda22218"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/radiation-calculations.mjs",
+                      "sha256":  "3b8d9a7864877f33857d2fe06f016df735e417ee8b40579819e7722884cd6d3a"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/radiation-calculations.ts",
+                      "sha256":  "274d467200f3a620d74a350125cabfa463c5577590b7086cf73260e63c933864"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/radiation-types.mjs",
+                      "sha256":  "0a3e7a8f8ca42dedda5612b6962bc51eaa396c63b91472d1eaefd0770eeffddb"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/radiation-types.ts",
+                      "sha256":  "dc02be1bbc151437c50ef2821cc065da0f2d5d69182eb217e9b0662120d0f926"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/runner.mjs",
+                      "sha256":  "d96bcf596149a20b0ebc0e60e3ca37e08de238fa1a1ebeff4b94f22d042dcadd"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/wall-generation-checks.mjs",
+                      "sha256":  "5cb7a8222b585f8e76ce700a0cfb4f69d47016745286267cadadc9c0ed1133fc"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/workspace.mjs",
+                      "sha256":  "dde132b1b972d7da548e91b1c31c1e1d0e61cdb8041a1afcb102ab0f7859e03c"
+                  },
+                  {
+                      "path":  "StreamingAssets/ProShield/workspace-checks.mjs",
+                      "sha256":  "808595adba3af44b55fb8cdb0bf1a63ce1d5cadbfd8413f484abf264f32eac46"
+                  }
+              ],
+    "windowsAssemblySha256":  "555e154c8f3f7cb7090f71e7ded7237927b5f7ef04aaa697393f1366e43cfb82",
+    "buildLogs":  [
+                      "windows-build-final-2026-10-01.log",
+                      "webgl-build-final-2026-10-01.log"
+                  ],
+    "runtimeSmokeTestsRun":  false,
+    "screenshotsTaken":  false
+}

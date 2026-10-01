@@ -1,0 +1,395 @@
+{
+    "sourceJson": "",
+    "sourceProjectionJson": "",
+    "importSummary": "",
+    "version": 2,
+    "schemaVersion": 2,
+    "documentRevision": 1,
+    "calculationEngineVersion": "ProShield-Unity-0.1",
+    "name": "Bunker concept",
+    "selectedModel": "CT",
+    "width": 12.0,
+    "depth": 10.0,
+    "height": 5.0,
+    "linkWallsToRoom": true,
+    "floor": {
+        "material": "Concrete",
+        "thickness": 200.0,
+        "density": 2350.0
+    },
+    "ceiling": {
+        "material": "Concrete",
+        "thickness": 200.0,
+        "density": 2350.0
+    },
+    "floorPlan": {
+        "kind": "Image",
+        "sourceName": "Req5-color-fixture.png",
+        "sourcePath": "",
+        "imageBase64": "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",
+        "pixelWidth": 640,
+        "pixelHeight": 240,
+        "metersPerPixel": 0.009999999776482582,
+        "widthMeters": 6.399999618530273,
+        "heightMeters": 2.3999998569488525,
+        "opacity": 0.3499999940395355,
+        "x": 0.0,
+        "z": 0.0,
+        "rotation": 0.0,
+        "visible": true,
+        "authoring": {
+            "version": 1,
+            "id": "4b461980c3604b2ba9ab6429ed73b688",
+            "sourceFingerprint": "5a3423cb9b89f43968c879dc7da48b98717f6dc65d778b01685d5b88f6977d88",
+            "pixelWidth": 640,
+            "pixelHeight": 240,
+            "alphaThreshold": 0.10000000149011612,
+            "calibration": {
+                "confirmed": true,
+                "method": "TwoPoint",
+                "unit": "m/px",
+                "value": 0.009999999776482582,
+                "metresPerPixel": 0.009999999776482582,
+                "distanceMetres": 5.0,
+                "a": {
+                    "x": 20.5,
+                    "y": 100.5
+                },
+                "b": {
+                    "x": 520.5,
+                    "y": 100.5
+                }
+            },
+            "rules": [
+                {
+                    "id": "magenta",
+                    "name": "Wall category",
+                    "classification": "Wall",
+                    "colorSpace": "RGB",
+                    "material": "Concrete",
+                    "enabled": true,
+                    "priority": 0,
+                    "minAreaPixels": 4,
+                    "tolerance": 0.019999999552965164,
+                    "minLengthPixels": 5.0,
+                    "height": 5.0,
+                    "baseElevation": 0.0,
+                    "thicknessMm": 150.0,
+                    "target": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    },
+                    "display": {
+                        "r": 1.0,
+                        "g": 0.0,
+                        "b": 1.0,
+                        "a": 1.0
+                    }
+                }
+            ]
+        },
+        "segments": []
+    },
+    "editing": {
+        "moveStep": 0.009999999776482582,
+        "resizeStep": 0.009999999776482582,
+        "thicknessStepMm": 1.0,
+        "scaleStep": 0.009999999776482582,
+        "gridVisible": true,
+        "gridSnap": false,
+        "wallSnap": false,
+        "gridSpacing": 0.10000000149011612,
+        "wallSnapTolerance": 0.019999999552965164,
+        "lengthAnchor": "Center"
+    },
+    "items": [
+        {
+            "id": "d9d9a68d-a10d-41a7-a899-2c8cd99517d0",
+            "kind": "Wall",
+            "name": "West wall",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": -6.0,
+            "z": 0.0,
+            "y": 0.0,
+            "angle": 90.0,
+            "length": 10.0,
+            "height": 5.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        },
+        {
+            "id": "77910341-ac02-4fe3-8328-80cdcbb489cd",
+            "kind": "Wall",
+            "name": "East wall",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": 6.0,
+            "z": 0.0,
+            "y": 0.0,
+            "angle": 90.0,
+            "length": 10.0,
+            "height": 5.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        },
+        {
+            "id": "5317c158-2626-4a80-8b01-9ebbe4425ddf",
+            "kind": "Wall",
+            "name": "North wall",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": 0.0,
+            "z": 5.0,
+            "y": 0.0,
+            "angle": 0.0,
+            "length": 12.0,
+            "height": 5.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        },
+        {
+            "id": "4c6ed010-8cf3-416a-88b6-38b72fcf8fa7",
+            "kind": "Wall",
+            "name": "South wall",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": -1.5,
+            "z": -5.0,
+            "y": 0.0,
+            "angle": 0.0,
+            "length": 9.0,
+            "height": 5.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        },
+        {
+            "id": "0f483724-7f56-44c6-94fa-2171311bacd3",
+            "kind": "Wall",
+            "name": "Maze return",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": 2.0,
+            "z": -2.5,
+            "y": 0.0,
+            "angle": 90.0,
+            "length": 5.0,
+            "height": 5.0,
+            "scale": 1.0,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        },
+        {
+            "id": "6d8cc80a-e1c6-4b5d-acc3-c46e8b16eac6",
+            "kind": "LINAC",
+            "name": "LINAC + couch",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": -2.0,
+            "z": 1.0,
+            "y": 0.0,
+            "angle": 0.0,
+            "length": 4.0,
+            "height": 4.0,
+            "scale": 0.75,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        },
+        {
+            "id": "ba9d19c7-f162-4de7-8404-2ec6131d5ee5",
+            "kind": "Desk",
+            "name": "Workstation 01",
+            "model": "CT",
+            "isControlled": true,
+            "groupId": "",
+            "locked": false,
+            "component": {
+                "type": "Trapezoid",
+                "width": 4.0,
+                "topWidth": 2.0,
+                "depth": 1.0,
+                "radius": 2.0,
+                "wallThickness": 0.25,
+                "sweep": 90.0,
+                "segments": 24,
+                "points": []
+            },
+            "transparency": 0.0,
+            "x": 8.5,
+            "z": -3.0,
+            "y": 0.0,
+            "angle": 0.0,
+            "length": 4.0,
+            "height": 4.0,
+            "scale": 0.33000001311302185,
+            "occupancy": 1.0,
+            "assessmentHeight": 1.2000000476837158,
+            "shielding": {
+                "material": "Concrete",
+                "thickness": 150.0,
+                "density": 2350.0
+            }
+        }
+    ],
+    "regions": [
+        {
+            "id": "5bfd3b2c-d78d-4d45-b325-ae065c5ef97a",
+            "name": "Control room",
+            "scope": "Wall",
+            "occupancy": 0.25,
+            "designGoal": 0.10000000149011612,
+            "points": [
+                {
+                    "x": 6.199999809265137,
+                    "y": -4.5
+                },
+                {
+                    "x": 11.0,
+                    "y": -4.5
+                },
+                {
+                    "x": 11.0,
+                    "y": 4.5
+                },
+                {
+                    "x": 6.199999809265137,
+                    "y": 4.5
+                }
+            ]
+        }
+    ],
+    "selectedTool": "Select",
+    "selectedEquipmentType": "linac",
+    "selectedWallMaterial": "Concrete",
+    "sampleDistance": 0.30000001192092896,
+    "energy": 6.0,
+    "workload": 500.0,
+    "gantry": 0.0,
+    "fieldX": 20.0,
+    "fieldY": 20.0,
+    "isocentreHeight": 1.2999999523162842,
+    "isoOffsetX": 0.0,
+    "isoOffsetZ": -1.600000023841858,
+    "sourceDistance": 1.0,
+    "machine": "Elekta Versa HS (user supplied model)"
+}
